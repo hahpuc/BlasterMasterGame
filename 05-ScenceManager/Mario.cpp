@@ -10,9 +10,9 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	level = MARIO_LEVEL_BIG;
+	level = PLAYER_LEVEL_BIG;
 	untouchable = 0;
-	SetState(MARIO_STATE_IDLE);
+	SetState(PLAYER_STATE_IDLE);
 
 	start_x = x;
 	start_y = y;
@@ -26,7 +26,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+	vy += PLAYER_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -34,11 +34,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != MARIO_STATE_DIE)
+	if (state != PLAYER_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+	if (GetTickCount() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -88,7 +88,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
+						vy = -PLAYER_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
@@ -97,13 +97,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
-							if (level > MARIO_LEVEL_SMALL)
+							if (level > PLAYER_LEVEL_SMALL)
 							{
-								level = MARIO_LEVEL_SMALL;
+								level = PLAYER_LEVEL_SMALL;
 								StartUntouchable();
 							}
 							else
-								SetState(MARIO_STATE_DIE);
+								SetState(PLAYER_STATE_DIE);
 						}
 					}
 				}
@@ -123,30 +123,30 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CMario::Render()
 {
 	int ani = -1;
-	if (state == MARIO_STATE_DIE)
-		ani = MARIO_ANI_DIE;
+	if (state == PLAYER_STATE_DIE)
+		ani = PLAYER_ANI_DIE;
 	else
-		if (level == MARIO_LEVEL_BIG)
+		if (level == PLAYER_LEVEL_BIG)
 		{
 			if (vx == 0)
 			{
-				if (nx > 0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-				else ani = MARIO_ANI_BIG_IDLE_LEFT;
+				if (nx > 0) ani = PLAYER_ANI_BIG_IDLE_RIGHT;
+				else ani = PLAYER_ANI_BIG_IDLE_LEFT;
 			}
 			else if (vx > 0)
-				ani = MARIO_ANI_BIG_WALKING_RIGHT;
-			else ani = MARIO_ANI_BIG_WALKING_LEFT;
+				ani = PLAYER_ANI_BIG_WALKING_RIGHT;
+			else ani = PLAYER_ANI_BIG_WALKING_LEFT;
 		}
-		else if (level == MARIO_LEVEL_SMALL)
+		else if (level == PLAYER_LEVEL_SMALL)
 		{
 			if (vx == 0)
 			{
-				if (nx > 0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-				else ani = MARIO_ANI_SMALL_IDLE_LEFT;
+				if (nx > 0) ani = PLAYER_ANI_SMALL_IDLE_RIGHT;
+				else ani = PLAYER_ANI_SMALL_IDLE_LEFT;
 			}
 			else if (vx > 0)
-				ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-			else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+				ani = PLAYER_ANI_SMALL_WALKING_RIGHT;
+			else ani = PLAYER_ANI_SMALL_WALKING_LEFT;
 		}
 
 	int alpha = 255;
@@ -163,23 +163,23 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
-	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
+	case PLAYER_STATE_WALKING_RIGHT:
+		vx = PLAYER_WALKING_SPEED;
 		nx = 1;
 		break;
-	case MARIO_STATE_WALKING_LEFT:
-		vx = -MARIO_WALKING_SPEED;
+	case PLAYER_STATE_WALKING_LEFT:
+		vx = -PLAYER_WALKING_SPEED;
 		nx = -1;
 		break;
-	case MARIO_STATE_JUMP:
-		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -MARIO_JUMP_SPEED_Y;
+	case PLAYER_STATE_JUMP:
+		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
+		vy = -PLAYER_JUMP_SPEED_Y;
 		break;
-	case MARIO_STATE_IDLE:
+	case PLAYER_STATE_IDLE:
 		vx = 0;
 		break;
-	case MARIO_STATE_DIE:
-		vy = -MARIO_DIE_DEFLECT_SPEED;
+	case PLAYER_STATE_DIE:
+		vy = -PLAYER_DIE_DEFLECT_SPEED;
 		break;
 	}
 }
@@ -189,15 +189,15 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	left = x;
 	top = y;
 
-	if (level == MARIO_LEVEL_BIG)
+	if (level == PLAYER_LEVEL_BIG)
 	{
-		right = x + MARIO_BIG_BBOX_WIDTH;
-		bottom = y + MARIO_BIG_BBOX_HEIGHT;
+		right = x + PLAYER_BIG_BBOX_WIDTH;
+		bottom = y + PLAYER_BIG_BBOX_HEIGHT;
 	}
 	else
 	{
-		right = x + MARIO_SMALL_BBOX_WIDTH;
-		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
+		right = x + PLAYER_SMALL_BBOX_WIDTH;
+		bottom = y + PLAYER_SMALL_BBOX_HEIGHT;
 	}
 }
 
@@ -206,8 +206,8 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 */
 void CMario::Reset()
 {
-	SetState(MARIO_STATE_IDLE);
-	SetLevel(MARIO_LEVEL_BIG);
+	SetState(PLAYER_STATE_IDLE);
+	SetLevel(PLAYER_LEVEL_BIG);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
