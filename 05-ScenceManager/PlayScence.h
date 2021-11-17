@@ -4,9 +4,10 @@
 #include "Scence.h"
 #include "GameObject.h"
 #include "Brick.h"
-#include "Mario.h"
+#include "Player.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "Bullet.h"
 
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -20,6 +21,7 @@
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
+#define OBJECT_TYPE_BULLET	4
 
 #define OBJECT_TYPE_PORTAL	50
 

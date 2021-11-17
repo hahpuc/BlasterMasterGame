@@ -8,7 +8,7 @@
 #include "GameObject.h"
 #include "Textures.h"
 
-#include "Mario.h"
+#include "Player.h"
 #include "Brick.h"
 #include "Goomba.h"
 
@@ -23,11 +23,12 @@
 
 #define MAX_FRAME_RATE 120
 
-CGame* game;
+CGame *game;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message) {
+	switch (message)
+	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -131,7 +132,8 @@ int Run()
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			if (msg.message == WM_QUIT) done = 1;
+			if (msg.message == WM_QUIT)
+				done = 1;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);

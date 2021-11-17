@@ -18,9 +18,6 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{1147127a-0637-450e-96e4-153f72af11cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Entity">
-      <UniqueIdentifier>{4cf82a00-eab6-4b77-b8cf-6bcaba5051c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Render">
       <UniqueIdentifier>{a1bba65a-942a-49ab-a951-2883c0150bb6}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     <Filter Include="Objects\Player">
       <UniqueIdentifier>{b9a25a35-9683-4f60-8aec-b721c9143cb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Enemies">
-      <UniqueIdentifier>{58be0881-d94a-4164-8f90-c0cd9911c225}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects\Obstacles">
       <UniqueIdentifier>{9708fb2a-06f2-474e-b4c2-a81b32808458}</UniqueIdentifier>
     </Filter>
@@ -41,6 +35,15 @@
     </Filter>
     <Filter Include="Framework\Interface">
       <UniqueIdentifier>{a3755e3e-a1ae-4650-add1-fc3ee41e752f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Bullet">
+      <UniqueIdentifier>{c3d89515-041f-48ec-af1f-a42bd2504b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Entity">
+      <UniqueIdentifier>{4cf82a00-eab6-4b77-b8cf-6bcaba5051c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Enemies">
+      <UniqueIdentifier>{58be0881-d94a-4164-8f90-c0cd9911c225}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +61,6 @@
     </ClCompile>
     <ClCompile Include="Animations.cpp">
       <Filter>Framework\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Render</Filter>
@@ -86,6 +86,12 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Framework\Scence</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Objects\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -105,7 +111,7 @@
     <ClInclude Include="Animations.h">
       <Filter>Framework\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
+    <ClInclude Include="Player.h">
       <Filter>Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
@@ -134,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Framework\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Objects\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

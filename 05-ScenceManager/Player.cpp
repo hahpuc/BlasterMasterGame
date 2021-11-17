@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "Utils.h"
 
-#include "Mario.h"
+#include "Player.h"
 #include "Game.h"
 
 #include "Goomba.h"
@@ -212,3 +212,8 @@ void CMario::Reset()
 	SetSpeed(0, 0);
 }
 
+
+void CMario::FireBullet() {
+	DebugOut(L"Fire bullet");
+
+}
