@@ -1,41 +1,50 @@
 #pragma once
 #include "GameObject.h"
 
-#define PLAYER_WALKING_SPEED		0.15f 
+#define PLAYER_WALKING_SPEED				0.15f 
 //0.1f
-#define PLAYER_JUMP_SPEED_Y		0.5f
-#define PLAYER_JUMP_DEFLECT_SPEED 0.2f
-#define PLAYER_GRAVITY			0.002f
-#define PLAYER_DIE_DEFLECT_SPEED	 0.5f
+#define PLAYER_JUMP_SPEED_Y					0.5f
+#define PLAYER_JUMP_DEFLECT_SPEED			0.2f
+#define PLAYER_GRAVITY						0.002f
+#define PLAYER_DIE_DEFLECT_SPEED			0.5f
 
-#define PLAYER_STATE_IDLE			0
-#define PLAYER_STATE_WALKING_RIGHT	100
-#define PLAYER_STATE_WALKING_LEFT	200
-#define PLAYER_STATE_JUMP			300
-#define PLAYER_STATE_DIE				400
+#define PLAYER_STATE_IDLE					0
+#define PLAYER_STATE_WALKING_RIGHT			100
+#define PLAYER_STATE_WALKING_LEFT			200
+#define PLAYER_STATE_JUMP					300
+#define PLAYER_STATE_DIE					400
 
-#define PLAYER_ANI_BIG_IDLE_RIGHT		0
-#define PLAYER_ANI_BIG_IDLE_LEFT			1
-#define PLAYER_ANI_SMALL_IDLE_RIGHT		2
-#define PLAYER_ANI_SMALL_IDLE_LEFT			3
+#define PLAYER_ANI_BIG_IDLE_RIGHT				0
+#define PLAYER_ANI_BIG_IDLE_LEFT				1
 
-#define PLAYER_ANI_BIG_WALKING_RIGHT			4
-#define PLAYER_ANI_BIG_WALKING_LEFT			5
-#define PLAYER_ANI_SMALL_WALKING_RIGHT		6
-#define PLAYER_ANI_SMALL_WALKING_LEFT		7
+#define PLAYER_ANI_JUMP_UP_RIGHT				2
+#define PLAYER_ANI_JUMP_UP_LEFT					3
+#define PLAYER_ANI_JUMP_DOWN_RIGHT				4
+#define PLAYER_ANI_JUMP_DOWN_LEFT				5
 
-#define PLAYER_ANI_DIE				8
+#define PLAYER_ANI_IDLE_WALKING_RIGHT			6
+#define PLAYER_ANI_IDLE_WALKING_LEFT			7
+#define PLAYER_ANI_JUMP_UP_WALKING_RIGHT		8
+#define PLAYER_ANI_JUMP_UP_WALKING_LEFT			9
+#define PLAYER_ANI_JUMP_DOWN_WALKING_RIGHT		10
+#define PLAYER_ANI_JUMP_DOWN_WALKING_LEFT		11
 
-#define	PLAYER_LEVEL_SMALL	1
-#define	PLAYER_LEVEL_BIG		2
+#define PLAYER_ANI_DIE							69
 
-#define PLAYER_BIG_BBOX_WIDTH  26
-#define PLAYER_BIG_BBOX_HEIGHT 18
 
-#define PLAYER_SMALL_BBOX_WIDTH  13
-#define PLAYER_SMALL_BBOX_HEIGHT 15
+#define	PLAYER_LEVEL_JASON					1
+#define	PLAYER_LEVEL_SHOPHIA				2
 
-#define PLAYER_UNTOUCHABLE_TIME 5000
+#define PLAYER_BIG_BBOX_WIDTH				26
+#define PLAYER_BIG_BBOX_HEIGHT				18
+
+#define PLAYER_SMALL_BBOX_WIDTH				13
+#define PLAYER_SMALL_BBOX_HEIGHT			15
+
+#define PLAYER_UNTOUCHABLE_TIME				5000
+
+#define FALLING_VELOCITY_UPPER_LIMITATION	0.02f
+
 
 
 class CMario : public CGameObject
@@ -46,6 +55,8 @@ class CMario : public CGameObject
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
+
+	bool isJumping;
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
 
@@ -55,6 +66,7 @@ public:
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+	void SetJumping() { isJumping = !isJumping; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();

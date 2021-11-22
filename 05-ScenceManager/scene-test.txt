@@ -8,7 +8,7 @@
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
-#---------------->  Shophia Jason <------------------>#
+#---------------->  Jason <------------------>#
 # idle right
 10001	146	5	172	23	30
 10002	178	5	204	23	30
@@ -37,7 +37,35 @@
 11011	45	30	71	47	30
 11012	12	30	38	47	30
 
-#---------------->  Small Jason <------------------>#
+# idle jump up idle right
+10101	146	130	172	151	30
+# idle jump up walking right
+10102	178	130	204	151	30
+10103	211	130	237	151	30
+10104	245	130	271	151	30
+
+# idle jump up idle left
+11101	109	130	135	151	30
+# idle jump up walking left
+11102	77	130	103	151	30
+11103	44	130	70	151	30
+11104	10	130	39	151	30
+
+# idle jump down idle right
+10201	146	56	172	72	30
+# idle jump down walking right
+10202	177	56	203	72	30
+10203	211	56	237	72	30
+10204	243	56	269	72	30
+
+# idle jump down idle left
+11201	109	56	135	72	30
+# idle jump down walking left
+11202	78	56	104	72	30
+11203	44	56	70	72	30
+11204	12	56	38	72	30
+
+#****************
 # idle small right
 10021	247	0	259	15	0
 
@@ -77,26 +105,37 @@
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
-#---------------->  Shophia Jason <------------------>#
-#idle BIG right
+#----------------> Jason <------------------>#
+#idle right
 400	10001	100
-#idle BIG left
+#idle left
 401	11001	100
-#idle small right
-402	10021	100
-#idle small left
-403	10031	100
+
+#idle jump up right
+410	10101	100
+#idle jum up left
+414	11101	100
+
+#idle jump down right 
+420	10201	100
+
+#idle jump down left 
+424	11201	100
 
 #walk right big
 500	10001	30	10002	30	10003	30	10004	30	10005	30	10006	30	10007	30	10008	30	10009	30	10010	30	10011	30	10012	30
 #walk left big
 501	11001	30	11002	30	11003	30	11004	30	11005	30	11006	30	11007	30	11008	30	11009	30	11010	30	11011	30	11012	30
 
-#walk right small
-502	10021	100	10022	100	10023	100
-#walk left small
-503	10031	100	10032	100	10033	100
+#jump up walking right 
+510	10101	30	10102	30	10103	30	10104	30
+#jump up walking left 
+511	11101	30	11102	30	11103	30	11104	30
 
+# jump down walking right
+520	10201	30	10202	30	10203	30	10204	30
+# jump down walking left
+521	11201	30	11202	30	11203	30	11204	30
 # -----------------> Bullet ---------------------------#
 30003	300003	100
 30004	300004	100
@@ -111,7 +150,7 @@
 #
 [ANIMATION_SETS]
 # MARIO
-1	400	401	402	403	500	501	502	503	
+1	400	401	410	414	420	424	500	501	510	511	520	521
 
 # Bullet 
 24	30003	30004	30005	30006	

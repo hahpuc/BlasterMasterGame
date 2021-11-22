@@ -10,8 +10,9 @@
 
 CMario::CMario(float x, float y) : CGameObject()
 {
-	level = PLAYER_LEVEL_BIG;
+	level = PLAYER_LEVEL_SHOPHIA;
 	untouchable = 0;
+	isJumping = false;
 	SetState(PLAYER_STATE_IDLE);
 
 	start_x = x;
@@ -22,6 +23,11 @@ CMario::CMario(float x, float y) : CGameObject()
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (vy < FALLING_VELOCITY_UPPER_LIMITATION)
+		isJumping = false;
+	else
+		isJumping = true;
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -38,7 +44,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -97,9 +103,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
-							if (level > PLAYER_LEVEL_SMALL)
+							if (level > PLAYER_LEVEL_JASON)
 							{
-								level = PLAYER_LEVEL_SMALL;
+								level = PLAYER_LEVEL_JASON;
 								StartUntouchable();
 							}
 							else
@@ -123,31 +129,57 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CMario::Render()
 {
 	int ani = -1;
-	if (state == PLAYER_STATE_DIE)
+	
+	if (state == PLAYER_STATE_DIE) {
 		ani = PLAYER_ANI_DIE;
-	else
-		if (level == PLAYER_LEVEL_BIG)
-		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = PLAYER_ANI_BIG_IDLE_RIGHT;
-				else ani = PLAYER_ANI_BIG_IDLE_LEFT;
+	}
+	else {
+		if (level == PLAYER_LEVEL_SHOPHIA) {
+			if (isJumping == false) {
+				if (vx == 0) {
+					if (nx > 0)
+						ani = PLAYER_ANI_BIG_IDLE_RIGHT;
+					else
+						ani = PLAYER_ANI_BIG_IDLE_LEFT;
+				}
+				else 
+				if (vx > 0)
+					ani = PLAYER_ANI_IDLE_WALKING_RIGHT;
+				else
+					ani = PLAYER_ANI_IDLE_WALKING_LEFT;
 			}
-			else if (vx > 0)
-				ani = PLAYER_ANI_BIG_WALKING_RIGHT;
-			else ani = PLAYER_ANI_BIG_WALKING_LEFT;
-		}
-		else if (level == PLAYER_LEVEL_SMALL)
-		{
-			if (vx == 0)
-			{
-				if (nx > 0) ani = PLAYER_ANI_SMALL_IDLE_RIGHT;
-				else ani = PLAYER_ANI_SMALL_IDLE_LEFT;
+			else {
+				if (vx == 0 && vy > 0) {
+					if (nx > 0)
+						ani = PLAYER_ANI_JUMP_UP_RIGHT;
+					else
+						ani = PLAYER_ANI_JUMP_UP_LEFT;
+				}
+				else 
+				if (vx == 0 && vy < 0) {
+					if (nx > 0)
+						ani = PLAYER_ANI_JUMP_DOWN_RIGHT;
+					else
+						ani = PLAYER_ANI_JUMP_DOWN_LEFT;
+				}
+				else 
+				if (vy > 0) {
+					if (vx > 0)
+						ani = PLAYER_ANI_JUMP_UP_WALKING_RIGHT;
+					else
+						ani = PLAYER_ANI_JUMP_UP_WALKING_LEFT;
+				}
+				if (vy <= 0) { 
+					if (vx > 0)
+						ani = PLAYER_ANI_JUMP_DOWN_WALKING_LEFT;
+					else
+						ani = PLAYER_ANI_JUMP_DOWN_WALKING_LEFT;
+				}
 			}
-			else if (vx > 0)
-				ani = PLAYER_ANI_SMALL_WALKING_RIGHT;
-			else ani = PLAYER_ANI_SMALL_WALKING_LEFT;
+
 		}
+	}
+
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -189,7 +221,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	left = x;
 	top = y;
 
-	if (level == PLAYER_LEVEL_BIG)
+	if (level == PLAYER_LEVEL_SHOPHIA)
 	{
 		right = x + PLAYER_BIG_BBOX_WIDTH;
 		bottom = y + PLAYER_BIG_BBOX_HEIGHT;
@@ -207,7 +239,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CMario::Reset()
 {
 	SetState(PLAYER_STATE_IDLE);
-	SetLevel(PLAYER_LEVEL_BIG);
+	SetLevel(PLAYER_LEVEL_SHOPHIA);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
