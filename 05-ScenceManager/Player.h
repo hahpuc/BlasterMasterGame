@@ -47,7 +47,7 @@
 
 
 
-class CMario : public CGameObject
+class CPlayer : public CGameObject
 {
 	int level;
 	int untouchable;
@@ -58,7 +58,7 @@ class CMario : public CGameObject
 
 	bool isJumping;
 public:
-	CMario(float x = 0.0f, float y = 0.0f);
+	CPlayer(float x = 0.0f, float y = 0.0f);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);

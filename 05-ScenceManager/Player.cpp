@@ -8,7 +8,7 @@
 #include "Goomba.h"
 #include "Portal.h"
 
-CMario::CMario(float x, float y) : CGameObject()
+CPlayer::CPlayer(float x, float y) : CGameObject()
 {
 	level = PLAYER_LEVEL_SHOPHIA;
 	untouchable = 0;
@@ -21,7 +21,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (vy < FALLING_VELOCITY_UPPER_LIMITATION)
 		isJumping = false;
@@ -126,7 +126,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CMario::Render()
+void CPlayer::Render()
 {
 	int ani = -1;
 	
@@ -189,7 +189,7 @@ void CMario::Render()
 	RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
+void CPlayer::SetState(int state)
 {
 	CGameObject::SetState(state);
 
@@ -216,7 +216,7 @@ void CMario::SetState(int state)
 	}
 }
 
-void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -236,7 +236,7 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 /*
 	Reset Mario status to the beginning state of a scene
 */
-void CMario::Reset()
+void CPlayer::Reset()
 {
 	SetState(PLAYER_STATE_IDLE);
 	SetLevel(PLAYER_LEVEL_SHOPHIA);
@@ -245,7 +245,7 @@ void CMario::Reset()
 }
 
 
-void CMario::FireBullet() {
+void CPlayer::FireBullet() {
 	DebugOut(L"Fire bullet");
 
 }
