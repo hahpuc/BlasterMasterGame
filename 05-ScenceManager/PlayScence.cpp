@@ -13,6 +13,9 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
+	player = NULL;
+	camera = NULL;
+	map = NULL;
 }
 
 /*
@@ -127,7 +130,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
+	case OBJECT_TYPE_PLAYER:
 		if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
@@ -138,10 +141,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
-	case OBJECT_TYPE_BULLET: obj = new CBullet(); break;
+	case OBJECT_TYPE_BRICK:
+	{
+		int w = atoi(tokens[4].c_str());
+		int h = atoi(tokens[5].c_str());
+		obj = new CBrick(x, y, w, h);
+		break;
+	}
 	
 	case OBJECT_TYPE_PORTAL:
 	{
@@ -163,6 +169,23 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	obj->SetAnimationSet(ani_set);
 	objects.push_back(obj);
+}
+
+void CPlayScene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 7) return;
+	int idTileSet = atoi(tokens[0].c_str());
+	int totalRowsTileSet = atoi(tokens[1].c_str());
+	int totalColumnsTileSet = atoi(tokens[2].c_str());
+	int totalRowsMap = atoi(tokens[3].c_str());
+	int totalColumnsMap = atoi(tokens[4].c_str());
+	int totalTiles = atoi(tokens[5].c_str());
+	wstring file_path = ToWSTR(tokens[6]);
+
+	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
+	map->LoadMap(file_path.c_str());
+	map->ExtractTileFromTileSet();
 }
 
 void CPlayScene::Load()
@@ -195,6 +218,9 @@ void CPlayScene::Load()
 		if (line == "[OBJECTS]") {
 			section = SCENE_SECTION_OBJECTS; continue;
 		}
+		if (line == "[MAP]") {
+			section = SCENE_SECTION_MAP; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
@@ -207,13 +233,16 @@ void CPlayScene::Load()
 		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
+
 		}
 	}
 
 	f.close();
 
 	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
+	camera = new Camera();
+	camera->SetPlayer(player);
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -233,22 +262,19 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
-
-	CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
+	// Update camera to follow Jason
+	camera->Update(dt);
 }
 
 void CPlayScene::Render()
 {
+	if (map)
+	{
+		this->map->Render();
+	}
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

@@ -8,6 +8,8 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Bullet.h"
+#include "Camera.h"
+#include "TileMap.h"
 
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -16,12 +18,10 @@
 #define SCENE_SECTION_ANIMATIONS 4
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
+#define SCENE_SECTION_MAP		7
 
-#define OBJECT_TYPE_MARIO	0
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_KOOPAS	3
-#define OBJECT_TYPE_BULLET	4
+#define OBJECT_TYPE_PLAYER	0
+#define OBJECT_TYPE_BRICK	4
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -35,11 +35,16 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 
+	Map* map;
+
+	Camera* camera;
+
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_MAP(string line);
 
 
 public:
