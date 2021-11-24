@@ -166,7 +166,7 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario ,, 4 = Brick
 # MARIO
-0	1612	348	1
+0	1441	605	1
 
 # BRICK 
 4	1056	656	0	128	32

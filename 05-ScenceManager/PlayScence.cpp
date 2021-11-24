@@ -265,6 +265,11 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
+	float posx, posy; 
+	player->GetPosition(posx, posy);
+
+	//DebugOut(L"Pos x: %f, pos y: %f", posx, posy);
+
 	// Update camera to follow Jason
 	camera->Update(dt);
 }
