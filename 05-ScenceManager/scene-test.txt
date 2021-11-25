@@ -164,8 +164,8 @@
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Interrupt, 4 = Brick
-# MARIO
-0	1600	320	1
+# Player 
+0	1443	349	1
 
 # Interrupt
 1	1669	335	31
