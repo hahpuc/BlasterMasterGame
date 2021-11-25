@@ -5,8 +5,6 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "Player.h"
-#include "Goomba.h"
-#include "Koopas.h"
 #include "Bullet.h"
 #include "Camera.h"
 #include "TileMap.h"
@@ -20,8 +18,9 @@
 #define SCENE_SECTION_OBJECTS	6
 #define SCENE_SECTION_MAP		7
 
-#define OBJECT_TYPE_PLAYER	0
-#define OBJECT_TYPE_BRICK	4
+#define OBJECT_TYPE_PLAYER		0
+#define OBJECT_TYPE_INTERRUPT	1
+#define OBJECT_TYPE_BRICK		4
 
 #define OBJECT_TYPE_PORTAL	50
 

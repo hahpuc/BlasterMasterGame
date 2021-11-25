@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "Interrupt.h"
 
 using namespace std;
 
@@ -146,6 +147,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int w = atoi(tokens[4].c_str());
 		int h = atoi(tokens[5].c_str());
 		obj = new CBrick(x, y, w, h);
+		break;
+	}
+
+	case OBJECT_TYPE_INTERRUPT:
+	{
+		obj = new CInterrupt(x, y);
 		break;
 	}
 	

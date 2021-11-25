@@ -10,7 +10,6 @@
 
 #include "Player.h"
 #include "Brick.h"
-#include "Goomba.h"
 
 #include "PlayScence.h"
 

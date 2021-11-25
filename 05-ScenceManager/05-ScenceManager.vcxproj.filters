@@ -71,9 +71,6 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Objects\Obstacles</Filter>
     </ClCompile>
@@ -85,9 +82,6 @@
     </ClCompile>
     <ClCompile Include="PlayScence.cpp">
       <Filter>Framework\Scence</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopas.cpp">
-      <Filter>Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Framework\Scence</Filter>
@@ -103,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Framework\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Interrupt.cpp">
+      <Filter>Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +126,6 @@
     <ClInclude Include="Textures.h">
       <Filter>Framework\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Objects\Obstacles</Filter>
     </ClInclude>
@@ -147,9 +141,6 @@
     <ClInclude Include="PlayScence.h">
       <Filter>Framework\Scence</Filter>
     </ClInclude>
-    <ClInclude Include="Koopas.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Framework\Scence</Filter>
     </ClInclude>
@@ -161,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Framework\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Interrupt.h">
+      <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
