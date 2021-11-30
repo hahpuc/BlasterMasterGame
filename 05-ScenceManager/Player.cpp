@@ -31,7 +31,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += PLAYER_GRAVITY * dt;
+	vy -= PLAYER_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -204,7 +204,7 @@ void CPlayer::SetState(int state)
 		break;
 	case PLAYER_STATE_JUMP:
 		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
-		vy = -PLAYER_JUMP_SPEED_Y;
+		vy = +PLAYER_JUMP_SPEED_Y;
 		break;
 	case PLAYER_STATE_IDLE:
 		vx = 0;

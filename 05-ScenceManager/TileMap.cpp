@@ -3,6 +3,8 @@
 #include <iostream>
 #include "TileMap.h"
 #include "Textures.h"
+#include <iostream>
+using namespace std;
 
 #define IN_USE_WIDTH 330
 #define IN_USE_HEIGHT 300
@@ -34,7 +36,7 @@ void Map::Render()
 	{
 		for (int c = 0; c < TotalColumnsOfMap; c++)
 		{
-			Tiles[TileMap[r][c] - 1]->Draw((float)c * TILE_WIDTH, (float)r * TILE_HEIGHT, 255);
+			Tiles[TileMap[TotalRowsOfMap - r - 1][c] - 1]->Draw((float)c * TILE_WIDTH, (float)r * TILE_HEIGHT, 255);
 		}
 	}
 }
@@ -85,6 +87,8 @@ void Map::ExtractTileFromTileSet()
 		LPSPRITE newTile = new CSprite(TileNumber, left, top, right, bottom, TileSet);
 		this->Tiles.push_back(newTile);
 	}
+
+	int x = 10;
 }
 
 void Map::LoadMap(LPCWSTR path)
