@@ -123,7 +123,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
 
-	y = (2416.0 - y);
+	y = (2400.0 - y);
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
