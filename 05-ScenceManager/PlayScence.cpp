@@ -263,31 +263,48 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
+	// Delete CreateObjects
+	for (int i = 0; i < createObjects.size(); ++i) {
+		if (createObjects[i]->isFinish == 1) 
+			createObjects.erase(createObjects.begin() + i);
 	}
+
+	// Draw Fire Bullet
+	if (player->BeingFireBullet()) {
+		createObjects.push_back(player->NewBullet());
+	}
+	
+	// Push objects that can collide
+	vector<LPGAMEOBJECT> coObjects;
+	for (int i = 0; i < objects.size(); i++) 
+		coObjects.push_back(objects[i]);
+
+	for (int i = 0; i < listEnemies.size(); i++) 
+		coObjects.push_back(listEnemies[i]);
+	
+	for (int i = 0; i < createObjects.size(); i++)
+		coObjects.push_back(createObjects[i]);
+
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
+	// Update Objects
 	player->Update(dt, &coObjects);
 
-	// Draw Bullet
-	if (player->BeingFireBullet()) {
-		createObjects.push_back(player->NewBullet());
-	}
-
-	for (int i = 0; i < createObjects.size(); ++i) {
+	for (int i = 0; i < createObjects.size(); ++i) 
 		createObjects[i]->Update(dt, &coObjects);
-	}
+
+	for (int i = 0; i < listEnemies.size(); ++i)
+		listEnemies[i]->Update(dt, &coObjects);
+
+	for (int i = 0; i < objects.size(); ++i)
+		objects[i]->Update(dt, &coObjects);
+
+	coObjects.clear();
 
 
-
+	// SET UP camera;
 	float posx, posy; 
 	player->GetPosition(posx, posy);
 

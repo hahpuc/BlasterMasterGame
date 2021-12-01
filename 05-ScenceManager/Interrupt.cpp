@@ -1,8 +1,11 @@
 #include "Interrupt.h"
+#include "Game.h"
+#include "Utils.h"
 
 CInterrupt::CInterrupt()
 {
-
+	isDying = 0;
+	SetState(INTERRUPT_STATE_STANDING);
 }
 
 CInterrupt::CInterrupt(float x, float y) {
@@ -12,17 +15,57 @@ CInterrupt::CInterrupt(float x, float y) {
 
 void CInterrupt::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	if (isFinish && isDying) return;
+
+	int ani = INTERRUPT_ANI_STANDING;
+
+	animation_set->at(ani)->Render(x, y);
 	//RenderBoundingBox();
 }
 
 void CInterrupt::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
+	if (isFinish) return;
+
 	l = x;
 	t = y;
 	r = x + INTERRUPT_BBOX_WIDTH;
 	b = y + INTERRUPT_BBOX_HEIGHT;
 }
+
+void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CGame* game = CGame::GetInstance();
+	float camx;
+	float camy;
+	float screenWidth = float(game->GetScreenWidth());
+	float screenHeight = float(game->GetScreenHeight());
+	game->GetCamPos(camx, camy);
+
+
+	if (isFinish && isDying)	// if dying and die animation finish then return
+		return;
+
+	CGameObject::Update(dt);
+}
+
+void CInterrupt::SetState(int state) {
+	CGameObject::SetState(state);
+
+	switch (state)
+	{
+	case INTERRUPT_STATE_DIE:
+		vx = 0; vy = 0;
+		isFinish = 1;
+		StartDying();
+		break;
+	case INTERRUPT_STATE_STANDING:
+		break;
+	
+	default:
+		break;
+	}
+}
+
 CInterrupt::~CInterrupt()
 {
 

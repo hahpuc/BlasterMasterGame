@@ -1,6 +1,8 @@
 
 #include "Bullet.h"
 #include "Game.h"
+#include "Interrupt.h"
+#include "Brick.h"
 
 CBullet::CBullet(int nx) {
 	vx = BULLET_SPEED * nx;
@@ -27,7 +29,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	game->GetCamPos(camx, camy);
 
 
-	// DELETE bullet if out of map
+	// DELETE bullet if out of map 
 	if (x < camx || x > camx + screenWidth) 
 		isFinish = 1;
 	if (y < camy || y > camy + screenHeight)
@@ -47,7 +49,38 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	x += dx;
+	if (coEvents.size() == 0) {
+		x += dx;
+		//y += dy;
+	}
+	else {
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		x += min_tx * dx + nx * 0.4f;
+		//y += min_ty * dy + ny * 0.4f;
+
+		for (int i = 0; i < coEventsResult.size(); ++i) {
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (dynamic_cast<CInterrupt*>(e->obj)) {   // If object is Interrupt
+				isFinish = 1;
+				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
+				interrupt->SetState(INTERRUPT_STATE_DIE);
+			}
+			else if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				if (e->nx != 0 && this->y >= brick->y)
+					isFinish = 1;
+				else
+					isFinish = 0;
+			}
+		}
+	}
 }
 
 void CBullet::Render()
