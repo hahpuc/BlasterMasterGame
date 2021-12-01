@@ -6,6 +6,8 @@
 #include "Game.h"
 
 #include "Portal.h"
+#include "Bullet.h"
+#include "PlayScence.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
@@ -243,8 +245,17 @@ void CPlayer::Reset()
 	SetSpeed(0, 0);
 }
 
+CGameObject* CPlayer::NewBullet() {
+	int ani_set_id = BULLET_ANI_SETS_ID;
 
-void CPlayer::FireBullet() {
-	DebugOut(L"Fire bullet");
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
+	CGameObject* obj = new CBullet(this->nx);
+	obj->type = OBJECT_TYPE_BULLET;
+	obj->SetPosition(this->x + PLAYER_BIG_BBOX_WIDTH / 2, this->y);
+
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	obj->SetAnimationSet(ani_set);
+
+	return obj;
 }

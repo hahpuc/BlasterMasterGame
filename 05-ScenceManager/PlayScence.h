@@ -20,9 +20,10 @@
 
 #define OBJECT_TYPE_PLAYER		0
 #define OBJECT_TYPE_INTERRUPT	1
+#define OBJECT_TYPE_BULLET		2
 #define OBJECT_TYPE_BRICK		4
 
-#define OBJECT_TYPE_PORTAL	50
+#define OBJECT_TYPE_PORTAL		50
 
 #define MAX_SCENE_LINE 1024
 
@@ -33,6 +34,8 @@ protected:
 	CPlayer* player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> listEnemies;
+	vector<LPGAMEOBJECT> createObjects;
 
 	Map* map;
 
@@ -66,7 +69,7 @@ class CPlayScenceKeyHandler : public CScenceKeyHandler
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
 

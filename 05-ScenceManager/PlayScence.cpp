@@ -139,6 +139,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		}
 		obj = new CPlayer(x, y);
 		player = (CPlayer*)obj;
+		player->type = OBJECT_TYPE_PLAYER;
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
@@ -147,12 +148,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int w = atoi(tokens[4].c_str());
 		int h = atoi(tokens[5].c_str());
 		obj = new CBrick(x, y, w, h);
+		obj->type = OBJECT_TYPE_BRICK;
+
+		objects.push_back((CBrick*) obj);
 		break;
 	}
 
 	case OBJECT_TYPE_INTERRUPT:
 	{
 		obj = new CInterrupt(x, y);
+		obj->type = OBJECT_TYPE_INTERRUPT;
+		listEnemies.push_back((CInterrupt*) obj);
 		break;
 	}
 	
@@ -162,6 +168,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float b = atof(tokens[5].c_str());
 		int scene_id = atoi(tokens[6].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
+		obj->type = OBJECT_TYPE_PORTAL;
+		objects.push_back((CBrick*)obj);
+
 	}
 	break;
 	default:
@@ -175,7 +184,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
 	obj->SetAnimationSet(ani_set);
-	objects.push_back(obj);
 }
 
 void CPlayScene::_ParseSection_MAP(string line)
@@ -264,13 +272,21 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(objects[i]);
 	}
 
-	for (size_t i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
-
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
+
+	player->Update(dt, &coObjects);
+
+	// Draw Bullet
+	if (player->BeingFireBullet()) {
+		createObjects.push_back(player->NewBullet());
+	}
+
+	for (int i = 0; i < createObjects.size(); ++i) {
+		createObjects[i]->Update(dt, &coObjects);
+	}
+
+
 
 	float posx, posy; 
 	player->GetPosition(posx, posy);
@@ -287,8 +303,17 @@ void CPlayScene::Render()
 	{
 		this->map->Render();
 	}
+
+	player->Render();
+
+	for (int i = 0; i < createObjects.size(); ++i)
+		createObjects[i]->Render();
+
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+
+	for (int i = 0; i < listEnemies.size(); ++i)
+		listEnemies[i]->Render();
 }
 
 /*
@@ -298,6 +323,9 @@ void CPlayScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
+
+	for (int i = 0; i < listEnemies.size(); ++i)
+		delete listEnemies[i];
 
 	objects.clear();
 	player = NULL;
@@ -315,8 +343,21 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_SPACE:
 		player->SetState(PLAYER_STATE_JUMP);
 		break;
+	case DIK_Z: 
+		player->FireBullet();
+		break;
 	case DIK_A:
 		player->Reset();
+		break;
+	}
+}
+
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode) {
+	CPlayer* player = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_Z:
+		player->FireBullet();
 		break;
 	}
 }

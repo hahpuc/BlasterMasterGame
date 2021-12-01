@@ -31,7 +31,6 @@
 
 #define PLAYER_ANI_DIE							69
 
-
 #define	PLAYER_LEVEL_JASON					1
 #define	PLAYER_LEVEL_SHOPHIA				2
 
@@ -57,13 +56,13 @@ class CPlayer : public CGameObject
 	float start_y;
 
 	bool isJumping;
+	bool isFireBullet = false;
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
-
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void SetJumping() { isJumping = !isJumping; }
@@ -71,5 +70,9 @@ public:
 
 	void Reset();
 
-	void FireBullet();
+	// Bullet
+	CGameObject* NewBullet();
+
+	void FireBullet() { this->isFireBullet = !this->isFireBullet; }
+	bool BeingFireBullet() { return isFireBullet; }
 };
