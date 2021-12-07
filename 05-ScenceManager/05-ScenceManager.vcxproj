@@ -137,7 +137,11 @@
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Scence.cpp" />
+    <ClCompile Include="SophiaCabin.cpp" />
+    <ClCompile Include="SophiaGun.cpp" />
+    <ClCompile Include="SophiaLeftWheel.cpp" />
     <ClCompile Include="SophiaMiddle.cpp" />
+    <ClCompile Include="SophiaRightWheel.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -159,7 +163,11 @@
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Scence.h" />
+    <ClInclude Include="SophiaCabin.h" />
+    <ClInclude Include="SophiaGun.h" />
+    <ClInclude Include="SophiaLeftWheel.h" />
     <ClInclude Include="SophiaMiddle.h" />
+    <ClInclude Include="SophiaRightWheel.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />

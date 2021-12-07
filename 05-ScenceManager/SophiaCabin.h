@@ -1,18 +1,19 @@
 #pragma once
 #include "Player.h"
 
-#define PLAYER_ANI_MIDDLE			3
+#define PLAYER_ANI_CABIN_STANDING			7
+#define PLAYER_ANI_CABIN_WALKING			8
 
 #define PLAYER_PART_ANI_SETS_ID		1
 
-class CSophiaMiddle : public CGameObject {
+class CSophiaCabin : public CGameObject {
 protected:
 
 	CPlayer* parent;
 
 public:
-	CSophiaMiddle(CPlayer *sophia);
-	~CSophiaMiddle();
+	CSophiaCabin(CPlayer* sophia);
+	~CSophiaCabin();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

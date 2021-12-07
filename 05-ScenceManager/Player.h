@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "SophiaMiddle.h"
 
 #define PLAYER_WALKING_SPEED					0.15f 
 //0.1f
@@ -44,6 +43,12 @@
 #define FALLING_VELOCITY_UPPER_LIMITATION	0.02f
 
 
+class CSophiaMiddle;
+class CSophiaRightWheel;
+class CSophiaLeftWheel;
+class CSophiaCabin;
+class CSophiaGun;
+
 
 class CPlayer : public CGameObject
 {
@@ -58,6 +63,10 @@ class CPlayer : public CGameObject
 	bool isFireBullet = false;
 
 	CSophiaMiddle* middle;
+	CSophiaRightWheel* rightWheel;
+	CSophiaLeftWheel* leftWheel;
+	CSophiaCabin* cabin;
+	CSophiaGun* gun;
 
 public:
 

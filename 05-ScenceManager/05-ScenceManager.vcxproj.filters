@@ -107,6 +107,18 @@
     <ClCompile Include="SophiaMiddle.cpp">
       <Filter>Objects\Player\SophiaChild</Filter>
     </ClCompile>
+    <ClCompile Include="SophiaRightWheel.cpp">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaLeftWheel.cpp">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaCabin.cpp">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaGun.cpp">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -163,6 +175,18 @@
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="SophiaMiddle.h">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaRightWheel.h">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaLeftWheel.h">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaCabin.h">
+      <Filter>Objects\Player\SophiaChild</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaGun.h">
       <Filter>Objects\Player\SophiaChild</Filter>
     </ClInclude>
   </ItemGroup>

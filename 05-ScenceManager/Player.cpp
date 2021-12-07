@@ -9,6 +9,12 @@
 #include "Bullet.h"
 #include "PlayScence.h"
 
+#include "SophiaMiddle.h"
+#include "SophiaRightWheel.h"
+#include "SophiaLeftWheel.h"
+#include "SophiaCabin.h"
+#include "SophiaGun.h"
+
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
 	level = PLAYER_LEVEL_SHOPHIA;
@@ -21,8 +27,11 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	this->x = x;
 	this->y = y;
 
-	middle = new CSophiaMiddle();
-	middle->SetPosition(this->x, this->y);
+	middle = new CSophiaMiddle(this);
+	rightWheel = new CSophiaRightWheel(this);
+	leftWheel = new CSophiaLeftWheel(this);
+	cabin = new CSophiaCabin(this);
+	gun = new CSophiaGun(this);
 }
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -36,6 +45,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	middle->Update(dt);
+	rightWheel->Update(dt);
+	leftWheel->Update(dt);
+	cabin->Update(dt);
+	gun->Update(dt);
 
 	// Simple fall down
 	vy += PLAYER_GRAVITY * dt;
@@ -135,6 +148,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CPlayer::Render()
 {
 	middle->Render();
+	rightWheel->Render();
+	leftWheel->Render();
+	cabin->Render();
+	gun->Render();
 
 	RenderBoundingBox();
 }
