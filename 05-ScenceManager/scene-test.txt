@@ -3,6 +3,7 @@
 0	textures\mario.png	255	255	255
 10	sprites\player_jason_bullet.png	199	200 	50
 30	textures\player.png	41	255 	4
+31	textures\player-right.png	41	255 	4
 40	sprites\enemies.png	255	0 	255
 70	sprites\map1bank.png	255	255	255
 
@@ -12,7 +13,7 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
 #---------------->  Sophia <------------------>#
-# Wheel Part
+# Wheel Part 
 10001	3	21	10	28	30
 10002	12	21	19	28	30
 10003	21	21	28	28	30
@@ -21,15 +22,23 @@
 # Middle Part 
 10005	3	12	10	18	30
 
-# Gun Part: 0, 45, 90
+# Gun Part LEFT: 0, 45, 90
 10006	12	3	19	9	30
 10007	21	3	28	10	30
 10008	30	3	37	9	30
 
-# Cabin Part 
+# Gun Part RIGHT: 0, 45, 90
+11006	390	3	397	9	31
+11007	381	3	388	10	31
+
+# Cabin Part LEFT
 10009	39	3	55	10	30
 10010	56	3	71	10	30
 10011	73	3	89	18	30
+
+# Cabin Part RIGHT
+11009	355	3	371	10	31
+11010	338	3	353	10	31
 
 #****************
 # idle small right
@@ -90,18 +99,29 @@
 # Middle part 
 403	10005	100
 
-# Gun 0
+# Gun 0 LEFT
 404	10006	100
 
-# Gun 45
+# Gun 45 LEFT
 405	10007	100
 
 # Gun 90
 406	10008	100
 
-# Cabin
+# Cabin LEFT
 407	10009	100
 408	10009	100	10010	100
+
+# Gun 0 RIGHT
+409	11006	100
+
+# Gun 45 LEFT
+410	11007	100
+
+# Cabin RIGHT
+411	11009	100
+412	11009	100	11010	100
+
 
 # -----------------> Bullet ---------------------------#
 30003	300003	100
@@ -119,7 +139,7 @@
 #
 [ANIMATION_SETS]
 # Player
-1	400	401	402	403	404	405	406	407	408
+1	400	401	402	403	404	405	406	407	408	409	410	411	412
 
 # Bullet: r1 t1 r4 t4 l1 l4
 24	30003	30004	30005	30006	30007	30008	

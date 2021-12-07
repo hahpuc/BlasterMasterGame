@@ -1,9 +1,12 @@
 #pragma once
 #include "Player.h"
 
-#define PLAYER_ANI_GUN_0			4
-#define PLAYER_ANI_GUN_45			5
-#define PLAYER_ANI_GUN_90			6
+#define PLAYER_ANI_GUN_0_LEFT			4
+#define PLAYER_ANI_GUN_45_LEFT			5
+#define PLAYER_ANI_GUN_90_LEFT			6
+
+#define PLAYER_ANI_GUN_0_RIGHT			9
+#define PLAYER_ANI_GUN_45_RIGHT			10
 
 #define PLAYER_PART_ANI_SETS_ID		1
 

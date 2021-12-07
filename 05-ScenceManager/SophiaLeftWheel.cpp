@@ -17,7 +17,7 @@ void CSophiaLeftWheel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void CSophiaLeftWheel::Render() {
-	int ani = PLAYER_ANI_RIGHT_WALK;
+	int ani = PLAYER_ANI_LEFT_WALK;
 
 	float partX, partY;
 	parent->GetPosition(partX, partY);

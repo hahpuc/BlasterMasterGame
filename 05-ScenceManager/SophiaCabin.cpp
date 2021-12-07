@@ -17,7 +17,7 @@ void CSophiaCabin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void CSophiaCabin::Render() {
-	int ani = PLAYER_ANI_CABIN_STANDING;
+	int ani = PLAYER_ANI_CABIN_STANDING_LEFT;
 
 	float partX, partY;
 	parent->GetPosition(partX, partY);

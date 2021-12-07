@@ -17,7 +17,7 @@ void CSophiaGun::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void CSophiaGun::Render() {
-	int ani = PLAYER_ANI_GUN_0;
+	int ani = PLAYER_ANI_GUN_0_LEFT;
 
 	float partX, partY;
 	parent->GetPosition(partX, partY);
