@@ -308,7 +308,7 @@ void CPlayScene::Update(DWORD dt)
 	float posx, posy; 
 	player->GetPosition(posx, posy);
 
-	DebugOut(L"Pos x: %f, pos y: %f \n", posx, posy);
+	//DebugOut(L"Pos x: %f, pos y: %f \n", posx, posy);
 
 	// Update camera to follow Jason
 	camera->Update(dt);

@@ -20,6 +20,9 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+
+	middle = new CSophiaMiddle();
+	middle->SetPosition(this->x, this->y);
 }
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -31,6 +34,8 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
+
+	middle->Update(dt);
 
 	// Simple fall down
 	vy += PLAYER_GRAVITY * dt;
@@ -129,63 +134,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPlayer::Render()
 {
-	int ani = -1;
-	
-	if (state == PLAYER_STATE_DIE) {
-		ani = PLAYER_ANI_DIE;
-	}
-	else {
-		if (level == PLAYER_LEVEL_SHOPHIA) {
-			if (isJumping == false) {
-				if (vx == 0) {
-					if (nx > 0)
-						ani = PLAYER_ANI_BIG_IDLE_RIGHT;
-					else
-						ani = PLAYER_ANI_BIG_IDLE_LEFT;
-				}
-				else 
-				if (vx > 0)
-					ani = PLAYER_ANI_IDLE_WALKING_RIGHT;
-				else
-					ani = PLAYER_ANI_IDLE_WALKING_LEFT;
-			}
-			else {
-				if (vx == 0 && vy > 0) {
-					if (nx > 0)
-						ani = PLAYER_ANI_JUMP_UP_RIGHT;
-					else
-						ani = PLAYER_ANI_JUMP_UP_LEFT;
-				}
-				else 
-				if (vx == 0 && vy < 0) {
-					if (nx > 0)
-						ani = PLAYER_ANI_JUMP_DOWN_RIGHT;
-					else
-						ani = PLAYER_ANI_JUMP_DOWN_LEFT;
-				}
-				else 
-				if (vy > 0) {
-					if (vx > 0)
-						ani = PLAYER_ANI_JUMP_UP_WALKING_RIGHT;
-					else
-						ani = PLAYER_ANI_JUMP_UP_WALKING_LEFT;
-				}
-				if (vy <= 0) { 
-					if (vx > 0)
-						ani = PLAYER_ANI_JUMP_DOWN_WALKING_LEFT;
-					else
-						ani = PLAYER_ANI_JUMP_DOWN_WALKING_LEFT;
-				}
-			}
-
-		}
-	}
-
-
-	int alpha = 255;
-	if (untouchable) alpha = 128;
-
-	animation_set->at(ani)->Render(x, y, alpha);
+	middle->Render();
 
 	RenderBoundingBox();
 }

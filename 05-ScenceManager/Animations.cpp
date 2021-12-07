@@ -55,6 +55,9 @@ CAnimations* CAnimations::GetInstance()
 void CAnimations::Add(int id, LPANIMATION ani)
 {
 	animations[id] = ani;
+
+	DebugOut(L"[INFO] Animations added id: %d \n", id);
+
 }
 
 LPANIMATION CAnimations::Get(int id)
@@ -103,4 +106,6 @@ LPANIMATION_SET CAnimationSets::Get(unsigned int id)
 void CAnimationSets::Add(int id, LPANIMATION_SET ani_set)
 {
 	animation_sets[id] = ani_set;
+
+	DebugOut(L"[INFO] Animation SET added id: %d \n", id);
 }

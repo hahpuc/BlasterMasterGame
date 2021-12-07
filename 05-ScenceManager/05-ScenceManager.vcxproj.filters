@@ -51,6 +51,9 @@
     <Filter Include="Framework\Render">
       <UniqueIdentifier>{a1bba65a-942a-49ab-a951-2883c0150bb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Player\SophiaChild">
+      <UniqueIdentifier>{8766e691-78be-496a-90d5-6c2298071bea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="Interrupt.cpp">
       <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaMiddle.cpp">
+      <Filter>Objects\Player\SophiaChild</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Interrupt.h">
       <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaMiddle.h">
+      <Filter>Objects\Player\SophiaChild</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

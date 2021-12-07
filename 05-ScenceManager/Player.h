@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "SophiaMiddle.h"
 
 #define PLAYER_WALKING_SPEED					0.15f 
 //0.1f
@@ -17,17 +18,15 @@
 #define PLAYER_ANI_BIG_IDLE_RIGHT				0
 #define PLAYER_ANI_BIG_IDLE_LEFT				1
 
-#define PLAYER_ANI_JUMP_UP_RIGHT				2
-#define PLAYER_ANI_JUMP_UP_LEFT					3
-#define PLAYER_ANI_JUMP_DOWN_RIGHT				4
-#define PLAYER_ANI_JUMP_DOWN_LEFT				5
-
-#define PLAYER_ANI_IDLE_WALKING_RIGHT			6
-#define PLAYER_ANI_IDLE_WALKING_LEFT			7
-#define PLAYER_ANI_JUMP_UP_WALKING_RIGHT		8
-#define PLAYER_ANI_JUMP_UP_WALKING_LEFT			9
-#define PLAYER_ANI_JUMP_DOWN_WALKING_RIGHT		10
-#define PLAYER_ANI_JUMP_DOWN_WALKING_LEFT		11
+#define PLAYER_ANI_WHEEL_STANDING				0
+#define PLAYER_ANI_WHEEL_LEFT					1
+#define PLAYER_ANI_WHEEL_RIGHT					2
+#define PLAYER_ANI_MIDDLE						3
+#define PLAYER_ANI_GUN_0						4
+#define PLAYER_ANI_GUN_45						5
+#define PLAYER_ANI_GUN_90						6
+#define PLAYER_ANI_CABIN_STANDING				7
+#define PLAYER_ANI_CABIN_WALKING				8
 
 #define PLAYER_ANI_DIE							69
 
@@ -57,7 +56,11 @@ class CPlayer : public CGameObject
 
 	bool isJumping;
 	bool isFireBullet = false;
+
+	CSophiaMiddle* middle;
+
 public:
+
 	CPlayer(float x = 0.0f, float y = 0.0f);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -69,6 +72,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();
+
+	LPANIMATION_SET GetAnimationSet() { return this->animation_set; }
 
 	// Bullet
 	CGameObject* NewBullet();
