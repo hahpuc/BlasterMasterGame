@@ -55,12 +55,13 @@ class CPlayer : public CGameObject
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
+	DWORD lastShoot;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 
 	bool isJumping;
-	bool isFireBullet = false;
+	bool isFireBullet;
 
 	CSophiaMiddle* middle;
 	CSophiaRightWheel* rightWheel;
@@ -87,6 +88,11 @@ public:
 	// Bullet
 	CGameObject* NewBullet();
 
-	void FireBullet() { this->isFireBullet = !this->isFireBullet; }
+	void FireBullet() { this->isFireBullet = true; }
+	void CancelFireBullet() { this->isFireBullet = false; }
+
+	DWORD GetLastShoot() { return this->lastShoot; }
+	void SetLastShoot() { this->lastShoot = GetTickCount64(); }
+
 	bool BeingFireBullet() { return isFireBullet; }
 };

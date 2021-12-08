@@ -361,7 +361,14 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		player->SetState(PLAYER_STATE_JUMP);
 		break;
 	case DIK_Z: 
-		player->FireBullet();
+		if (GetTickCount64() - player->GetLastShoot() >= 500) {
+
+			player->FireBullet();
+			player->SetLastShoot();
+		}
+		else {
+			player->CancelFireBullet();
+		}
 		break;
 	case DIK_A:
 		player->Reset();
@@ -374,7 +381,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode) {
 	switch (KeyCode)
 	{
 	case DIK_Z:
-		player->FireBullet();
+		player->CancelFireBullet();
 		break;
 	}
 }

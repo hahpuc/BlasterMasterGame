@@ -20,6 +20,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	level = PLAYER_LEVEL_SHOPHIA;
 	untouchable = 0;
 	isJumping = false;
+	isFireBullet = false;
 	SetState(PLAYER_STATE_IDLE);
 
 	start_x = x;
