@@ -22,5 +22,8 @@ void CSophiaMiddle::Render() {
 	float partX, partY;
 	parent->GetPosition(partX, partY);
 
-	this->animation_set->at(ani)->Render(partX, partY + 11.0);
+	partX += PLAYER_BIG_BBOX_WIDTH / 2;
+	partY += PLAYER_BIG_BBOX_HEIGHT / 2;
+
+	this->animation_set->at(ani)->Render(partX, partY);
 }

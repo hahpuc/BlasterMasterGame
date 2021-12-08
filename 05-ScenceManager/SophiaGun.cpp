@@ -17,10 +17,18 @@ void CSophiaGun::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void CSophiaGun::Render() {
-	int ani = PLAYER_ANI_GUN_0_LEFT;
+	int ani = PLAYER_ANI_GUN_0_RIGHT;
+
+	if (nx > 0)
+		ani = PLAYER_ANI_GUN_0_RIGHT;
+	else
+		ani = PLAYER_ANI_GUN_0_LEFT;
 
 	float partX, partY;
 	parent->GetPosition(partX, partY);
 
-	this->animation_set->at(ani)->Render(partX - 7.5, partY + 2.0);
+	partX += PLAYER_BIG_BBOX_WIDTH / 2;
+	partY += PLAYER_BIG_BBOX_HEIGHT / 2;
+
+	this->animation_set->at(ani)->Render(partX + nx*12.0, partY - 8.0);
 }

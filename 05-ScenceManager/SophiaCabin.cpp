@@ -17,10 +17,18 @@ void CSophiaCabin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 void CSophiaCabin::Render() {
-	int ani = PLAYER_ANI_CABIN_STANDING_LEFT;
+	int ani = PLAYER_ANI_CABIN_STANDING_RIGHT;
+
+	if (nx > 0)
+		ani = PLAYER_ANI_CABIN_STANDING_RIGHT;
+	else
+		ani = PLAYER_ANI_CABIN_STANDING_LEFT;
 
 	float partX, partY;
 	parent->GetPosition(partX, partY);
 
-	this->animation_set->at(ani)->Render(partX, partY + 2.0);
+	partX += PLAYER_BIG_BBOX_WIDTH / 2;
+	partY += PLAYER_BIG_BBOX_HEIGHT / 2;
+
+	this->animation_set->at(ani)->Render(partX - 4.0, partY - 8.0);
 }
