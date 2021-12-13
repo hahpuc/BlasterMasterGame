@@ -7,6 +7,8 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Interrupt.h"
+#include "BallBot.h"
+#include "Stuka.h"
 
 using namespace std;
 
@@ -159,6 +161,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CInterrupt(x, y);
 		obj->type = OBJECT_TYPE_INTERRUPT;
 		listEnemies.push_back((CInterrupt*) obj);
+		break;
+	}
+
+	case OBJECT_TYPE_BALLBOT: 
+	{
+		obj = new CBallBot(x, y);
+		obj->type = OBJECT_TYPE_BALLBOT;
+		listEnemies.push_back((CBallBot*) obj);
+		break;
+	}
+
+	case OBJECT_TYPE_STUKA:
+	{
+		obj = new CStuka(x, y);
+		obj->type = OBJECT_TYPE_STUKA;
+		listEnemies.push_back((CStuka*)obj);
 		break;
 	}
 	

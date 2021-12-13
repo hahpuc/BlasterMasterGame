@@ -119,6 +119,12 @@
     <ClCompile Include="SophiaGun.cpp">
       <Filter>Objects\Player\SophiaChild</Filter>
     </ClCompile>
+    <ClCompile Include="BallBot.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Stuka.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -188,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="SophiaGun.h">
       <Filter>Objects\Player\SophiaChild</Filter>
+    </ClInclude>
+    <ClInclude Include="BallBot.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Stuka.h">
+      <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

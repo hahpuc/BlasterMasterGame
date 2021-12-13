@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="BallBot.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="SophiaMiddle.cpp" />
     <ClCompile Include="SophiaRightWheel.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Stuka.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Ultils.cpp" />
@@ -152,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="BallBot.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
@@ -169,6 +172,7 @@
     <ClInclude Include="SophiaMiddle.h" />
     <ClInclude Include="SophiaRightWheel.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="Stuka.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
