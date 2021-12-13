@@ -10,6 +10,8 @@ class Camera
 private:
 	float cam_x;
 	float cam_y;
+
+
 	DWORD dt;
 	CPlayer* player;
 public:

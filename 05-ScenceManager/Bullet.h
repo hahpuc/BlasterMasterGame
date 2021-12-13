@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
 
 #define BULLET_BBOX_WIDTH		24
 #define BULLET_BBOX_HEIGHT		7
@@ -17,6 +18,7 @@
 #define BULLET_GRAVITY			0.001f
 
 #define BULLET_STATE_NORMAL		100
+#define BULLET_STATE_HEAD_UP	200
 
 
 
@@ -25,7 +27,10 @@ class CBullet : public CGameObject
 
 
 public:
-	CBullet(int nx);
+
+	CPlayer* parent;
+
+	CBullet(int nx, CPlayer* parent);
 	void SetState(int state);
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

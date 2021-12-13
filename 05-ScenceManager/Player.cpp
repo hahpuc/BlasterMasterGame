@@ -7,7 +7,9 @@
 
 #include "Portal.h"
 #include "Bullet.h"
+#include "Interrupt.h"
 #include "PlayScence.h"
+#include "Brick.h"
 
 #include "SophiaMiddle.h"
 #include "SophiaRightWheel.h"
@@ -21,6 +23,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	untouchable = 0;
 	isJumping = false;
 	isFireBullet = false;
+	heal = 100;
 	SetState(PLAYER_STATE_IDLE);
 
 	start_x = x;
@@ -96,50 +99,26 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
-
 		//
 		// Collision logic with other objects
 		//
-		//for (UINT i = 0; i < coEventsResult.size(); i++)
-		//{
-		//	LPCOLLISIONEVENT e = coEventsResult[i];
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
-		//	if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
-		//	{
-		//		CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-		//		// jump on top >> kill Goomba and deflect a bit 
-		//		if (e->ny < 0)
-		//		{
-		//			if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//			{
-		//				goomba->SetState(GOOMBA_STATE_DIE);
-		//				vy = -PLAYER_JUMP_DEFLECT_SPEED;
-		//			}
-		//		}
-		//		else if (e->nx != 0)
-		//		{
-		//			if (untouchable == 0)
-		//			{
-		//				if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//				{
-		//					if (level > PLAYER_LEVEL_JASON)
-		//					{
-		//						level = PLAYER_LEVEL_JASON;
-		//						StartUntouchable();
-		//					}
-		//					else
-		//						SetState(PLAYER_STATE_DIE);
-		//				}
-		//			}
-		//		}
-		//	} // if Goomba
-		//	else if (dynamic_cast<CPortal*>(e->obj))
-		//	{
-		//		CPortal* p = dynamic_cast<CPortal*>(e->obj);
-		//		CGame::GetInstance()->SwitchScene(p->GetSceneId());
-		//	}
-		//}
+			if (dynamic_cast<CInterrupt*>(e->obj)) 
+			{
+				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
+				this->GetHeal();
+				this->DecreaseHeal();
+				
+			} // if Goomba
+			else if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
+		}
 	}
 
 	// clean up collision events
@@ -213,11 +192,16 @@ void CPlayer::Reset()
 }
 
 CGameObject* CPlayer::NewBullet() {
+
 	int ani_set_id = BULLET_ANI_SETS_ID;
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
-	CGameObject* obj = new CBullet(this->nx);
+	CGameObject* obj = new CBullet(this->nx, this);
+
+	if (this->GetState() == PLAYER_STATE_HEAD_UP)
+		obj->SetState(BULLET_STATE_HEAD_UP);
+
 	obj->type = OBJECT_TYPE_BULLET;
 	obj->SetPosition(this->x + PLAYER_BIG_BBOX_WIDTH / 2, this->y);
 

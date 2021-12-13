@@ -16,7 +16,13 @@ void Camera::Update(DWORD time)
 	cx -= (float)CGame::GetInstance()->GetScreenWidth() / 2;
 	cy -= (float)CGame::GetInstance()->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(round(cx), round(cy));
+	cam_x = cx;
+	cam_y = cy;
+
+	if (cam_x >= BOUNDRRY_X_MAX - (float)CGame::GetInstance()->GetScreenWidth())
+		cam_x = BOUNDRRY_X_MAX - (float)CGame::GetInstance()->GetScreenWidth();
+
+	CGame::GetInstance()->SetCamPos(round(cam_x), round(cam_y));
 }
 Camera::~Camera()
 {

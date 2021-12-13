@@ -3,10 +3,13 @@
 #include "Game.h"
 #include "Interrupt.h"
 #include "Brick.h"
+#include "Utils.h"
 
-CBullet::CBullet(int nx) {
+CBullet::CBullet(int nx, CPlayer* parent) {
 	vx = BULLET_SPEED * nx;
 	this->nx = nx;
+
+	this->parent = parent;
 }
 
 void CBullet::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -40,7 +43,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt);
 
-	vy += BULLET_GRAVITY * dt;
+	//vy += BULLET_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -50,8 +53,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CalcPotentialCollisions(coObjects, coEvents);
 
 	if (coEvents.size() == 0) {
-		x += dx;
-		//y += dy;
+		
+		if (parent->GetState() == PLAYER_STATE_HEAD_UP)
+			y -= dy;
+		else
+			x += dx;
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -69,7 +75,14 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CInterrupt*>(e->obj)) {   // If object is Interrupt
 				isFinish = 1;
 				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
-				interrupt->SetState(INTERRUPT_STATE_DIE);
+				
+				//DebugOut(L"Heal of interrupt: %d \n", interrupt->GetHeal());
+				interrupt->DecreaseHeal(50);
+
+				if (interrupt->GetHeal() <= 0) 
+					interrupt->SetState(INTERRUPT_STATE_DIE);
+
+
 			}
 			else if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
@@ -90,20 +103,28 @@ void CBullet::Render()
 
 	int ani = BULLET_ANI_RIGHT_LV3;
 
-	if (vx > 0) ani = BULLET_ANI_RIGHT_LV3;
-	else if (vx <= 0) ani = BULLET_ANI_LEFT_LV3;
+	if (parent->GetState() == PLAYER_STATE_HEAD_UP)
+		ani = BULLET_ANI_TOP_LV3;
+	else {
+		if (vx > 0) ani = BULLET_ANI_RIGHT_LV3;
+		else if (vx <= 0) ani = BULLET_ANI_LEFT_LV3;
+	}	
 
 	animation_set->at(ani)->Render(round(x), round(y));
-	//RenderBoundingBox();
+	//RenderBoundingBox(); 
 }
 
 void CBullet::SetState(int state) {
-	CGameObject::SetState(state);
+	CGameObject::SetState(state); 
 
 	switch (state)
 	{
 	case BULLET_STATE_NORMAL: 
 		vx = BULLET_SPEED;
+		break;
+
+	case BULLET_STATE_HEAD_UP:
+		vy = -BULLET_SPEED;
 		break;
 
 	default:

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Utils.h"
 
 #define PLAYER_WALKING_SPEED					0.15f 
 //0.1f
@@ -10,9 +11,10 @@
 
 #define PLAYER_STATE_IDLE						0
 #define PLAYER_STATE_WALKING_RIGHT				100
-#define PLAYER_STATE_WALKING_LEFT				200
+#define PLAYER_STATE_WALKING_LEFT				200					
 #define PLAYER_STATE_JUMP						300
 #define PLAYER_STATE_DIE						400
+#define PLAYER_STATE_HEAD_UP					500
 
 #define PLAYER_ANI_BIG_IDLE_RIGHT				0
 #define PLAYER_ANI_BIG_IDLE_LEFT				1
@@ -26,6 +28,8 @@
 #define PLAYER_ANI_GUN_90						6
 #define PLAYER_ANI_CABIN_STANDING				7
 #define PLAYER_ANI_CABIN_WALKING				8
+#define PLAYER_ANI_CABIN_HEAD_LEFT				13
+#define PLAYER_ANI_CABIN_HEAD_RIGHT				14
 
 #define PLAYER_ANI_DIE							69
 
@@ -63,6 +67,8 @@ class CPlayer : public CGameObject
 	bool isJumping;
 	bool isFireBullet;
 
+	int heal;
+
 	CSophiaMiddle* middle;
 	CSophiaRightWheel* rightWheel;
 	CSophiaLeftWheel* leftWheel;
@@ -93,6 +99,24 @@ public:
 
 	DWORD GetLastShoot() { return this->lastShoot; }
 	void SetLastShoot() { this->lastShoot = GetTickCount64(); }
+
+	int GetHeal() {
+		DebugOut(L"Current heal: %d", this->heal);
+		return this->heal; 
+	}
+	void DecreaseHeal() { 
+
+		// if (this->heal == 0) die
+
+		this->heal -= 10; 
+		DebugOut(L"Current heal: %d", this->heal);
+
+	}
+	void IncreaseHeal() {
+		this->heal = 100;
+		DebugOut(L"Current heal: %d", this->heal);
+	}
+
 
 	bool BeingFireBullet() { return isFireBullet; }
 };

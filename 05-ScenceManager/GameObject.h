@@ -65,6 +65,7 @@ public:
 
 	int isFinish = 0; 
 	int type = -1;
+	int heal = 100;
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -96,6 +97,11 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
+
+	// HEAL 
+	void DecreaseHeal(int value) { this->heal -= value; }
+	void IncreaseHeal(int value) { this->heal += value; }
+	int GetHeal() { return this->heal; }
 
 
 	int GetDirection() { return this->nx; }

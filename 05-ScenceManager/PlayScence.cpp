@@ -363,6 +363,8 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_Z: 
 		if (GetTickCount64() - player->GetLastShoot() >= 500) {
 
+			int start = 0;
+
 			player->FireBullet();
 			player->SetLastShoot();
 		}
@@ -393,10 +395,15 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 
 	// disable control key when Mario die 
 	if (player->GetState() == PLAYER_STATE_DIE) return;
+
 	if (game->IsKeyDown(DIK_RIGHT))
 		player->SetState(PLAYER_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
+	else
+	if (game->IsKeyDown(DIK_LEFT))
 		player->SetState(PLAYER_STATE_WALKING_LEFT);
+	else
+	if (game->IsKeyDown(DIK_UPARROW))
+		player->SetState(PLAYER_STATE_HEAD_UP);
 	else
 		player->SetState(PLAYER_STATE_IDLE);
 }
