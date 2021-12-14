@@ -9,6 +9,7 @@
 #include "Interrupt.h"
 #include "BallBot.h"
 #include "Stuka.h"
+#include "Eyelet.h"
 
 using namespace std;
 
@@ -177,6 +178,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CStuka(x, y);
 		obj->type = OBJECT_TYPE_STUKA;
 		listEnemies.push_back((CStuka*)obj);
+		break;
+	}
+
+	case OBJECT_TYPE_EYELET: 
+	{
+		obj = new CEyelet(x, y);
+		obj->type = OBJECT_TYPE_EYELET;
+		listEnemies.push_back((CEyelet*)obj);
 		break;
 	}
 	

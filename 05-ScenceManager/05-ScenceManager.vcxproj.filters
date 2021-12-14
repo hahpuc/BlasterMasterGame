@@ -125,6 +125,9 @@
     <ClCompile Include="Stuka.cpp">
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Eyelet.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -199,6 +202,9 @@
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Stuka.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Eyelet.h">
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
