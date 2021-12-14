@@ -14,6 +14,9 @@
 #define STUKA_STATE_STANDING	100
 #define STUKA_STATE_DIE			200
 
+#define STUKA_DYING_TIME		200
+#define STUKA_SPEED				0.035f
+
 class CStuka : public CGameObject {
 
 
