@@ -10,6 +10,7 @@
 #include "BallBot.h"
 #include "Stuka.h"
 #include "Eyelet.h"
+#include "BallCarry.h"
 
 using namespace std;
 
@@ -186,6 +187,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CEyelet(x, y);
 		obj->type = OBJECT_TYPE_EYELET;
 		listEnemies.push_back((CEyelet*)obj);
+		break;
+	}
+
+	case OBJECT_TYPE_BALLCARRY:
+	{
+		obj = new CBallCarry(x, y);
+		obj->type = OBJECT_TYPE_BALLCARRY;
+		listEnemies.push_back((CBallCarry*)obj);
 		break;
 	}
 	

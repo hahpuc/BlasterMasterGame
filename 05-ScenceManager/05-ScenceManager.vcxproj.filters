@@ -128,6 +128,9 @@
     <ClCompile Include="Eyelet.cpp">
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="BallCarry.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -205,6 +208,9 @@
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Eyelet.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BallCarry.h">
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
