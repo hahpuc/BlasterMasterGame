@@ -21,12 +21,16 @@ void CSophiaCabin::Render() {
 	float transX = 0, transY = 0;
 
 	if (parent->GetState() == PLAYER_STATE_HEAD_UP) {
-		if (nx > 0)
+		if (nx > 0) {
 			ani = PLAYER_ANI_CABIN_HEAD_RIGHT;
-		else
+			transX = -8.0;
+		}
+			
+		else {
 			ani = PLAYER_ANI_CABIN_HEAD_LEFT;
-
-		transX = 0.0;
+			transX = 0.0;
+		}
+		
 		transY = -14.0;
 	}
 	else {
