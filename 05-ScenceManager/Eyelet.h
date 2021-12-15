@@ -10,15 +10,22 @@
 #define EYELET_ANI_RIGHT		0
 #define EYELET_ANI_LEFT			1
 
-#define EYELET_ANI_SETS_ID		34
+#define EYELET_ANI_SETS_ID			34
 
-#define EYELET_STATE_STANDING		100
+#define EYELET_STATE_WALKING		100
 #define EYELET_STATE_DIE			200
+
+
+#define EYELET_DYING_TIME			200
+#define EYELET_SPEED				0.08f
+
+#define PI							3.14
 
 class CEyelet : public CGameObject {
 
 
 	DWORD die_start = NULL;				//time die animation
+	int count;
 
 public:
 	int isDying;

@@ -87,10 +87,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				if (e->nx != 0 && this->y >= brick->y)
-					isFinish = 1;
-				else
-					isFinish = 0;
+				isFinish = 1;
 			}
 		}
 	}
