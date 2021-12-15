@@ -298,6 +298,7 @@ void CPlayScene::Load()
 
 	hub = new HUB();
 	hub->SetCamera(camera);
+	hub->SetPlayer(player);
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 

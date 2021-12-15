@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "Player.h"
 
 #define BOUNDRRY_X_MAX 1792.0f
 
@@ -25,10 +26,14 @@ private:
 
 	DWORD dt;
 	Camera* camera;
+	CPlayer* player;
 public:
 	HUB();
 	~HUB();
+
 	void SetCamera(Camera* camera) { this->camera = camera; }
+	void SetPlayer(CPlayer* player) { this->player = player; }
+
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void Update(DWORD dt);

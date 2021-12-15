@@ -185,6 +185,7 @@ void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& botto
 */
 void CPlayer::Reset()
 {
+	this->IncreaseHeal();
 	SetState(PLAYER_STATE_IDLE);
 	SetLevel(PLAYER_LEVEL_SHOPHIA);
 	SetPosition(start_x, start_y);
