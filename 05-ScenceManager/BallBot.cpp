@@ -1,72 +1,94 @@
-#include "BallBot.h"
-#include "Game.h"
-#include "Utils.h"
-
-CBallBot::CBallBot()
+#include "Ballbot.h"
+CBallbot::CBallbot():CGameObject()
 {
-	isDying = 0;
-	SetState(BALLBOT_STATE_STANDING);
+	SetState(BALLBOT_STATE_IDLE);
+	Jason = NULL;
+	dem = 0;
 }
 
-CBallBot::CBallBot(float x, float y) {
-	this->x = x;
-	this->y = y;
+void CBallbot::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+	right = x + BALLBOT_BBOX_WIDTH;
+	bottom = y + BALLBOT_BBOX_HEIGHT;
 }
 
-void CBallBot::Render()
+void CBallbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isFinish && isDying) return;
+	
 
-	int ani = BALLBOT_ANI_STANDING;
+	//
+	// TO-DO: make sure BALLBOT can interact with the world and to each of them too!
+	// 
+	if (Jason == NULL)
+		return;
+	if (dem >= 360)
+		dem = 0;
+	if (state == BALLBOT_STATE_ACTION)
+	{
+		vx = BALLBOT_SPEED_X * sin(M_PI + dem * M_PI / 180);
+		vy = BALLBOT_SPEED_X * cos(M_PI + dem * M_PI / 180);
+		dem++;
+	}
+	float jason_x, jason_y;
+	float l1, t1, r1, b1;
+	Jason->GetPosition(jason_x, jason_y);
+	Jason->GetBoundingBox(l1, t1, r1, b1);
+	bool choose_state = CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x-DX_FOR_CHANGE_STATE, y - DY_FOR_CHANGE_STATE, x + BALLBOT_BBOX_WIDTH+DX_FOR_CHANGE_STATE, y);
+	if (choose_state == false)
+	{
+		SetState(BALLBOT_STATE_IDLE);
+	}		
+	else
+	{
+		SetState(BALLBOT_STATE_ACTION);
+	}
+	CGameObject::Update(dt, coObjects);
+	x += dx;
+	y += dy;
 
-	animation_set->at(ani)->Render(x, y);
+}
+void CBallbot::WorldToRender()
+{
+	render_x = x;
+	render_y = -y;
+}
+void CBallbot::Render()
+{
+	WorldToRender();
+	int ani = -1;
+	if (vy > 0)
+		ani = BALLBOT_ANI_MOVE_UP;
+	else
+		ani = BALLBOT_ANI_MOVE_DOWN;
+
+	animation_set->at(ani)->Render(round(render_x), round(render_y));
+
 	//RenderBoundingBox();
 }
 
-void CBallBot::GetBoundingBox(float& l, float& t, float& r, float& b)
+void CBallbot::SetState(int state)
 {
-	if (isFinish) return;
-
-	l = x;
-	t = y;
-	r = x + BALLBOT_BBOX_WIDTH;
-	b = y + BALLBOT_BBOX_HEIGHT;
-}
-
-void CBallBot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	CGame* game = CGame::GetInstance();
-	float camx;
-	float camy;
-	float screenWidth = float(game->GetScreenWidth());
-	float screenHeight = float(game->GetScreenHeight());
-	game->GetCamPos(camx, camy);
-
-
-	if (isFinish && isDying)	// if dying and die animation finish then return
-		return;
-
-	CGameObject::Update(dt);
-}
-
-void CBallBot::SetState(int state) {
 	CGameObject::SetState(state);
-
 	switch (state)
 	{
 	case BALLBOT_STATE_DIE:
-		vx = 0; vy = 0;
-		isFinish = 1;
-		StartDying();
+		//y += BALLBOT_BBOX_HEIGHT - BALLBOT_BBOX_HEIGHT_DIE + 1;
+		vx = 0;
+		vy = 0;
 		break;
-	case BALLBOT_STATE_STANDING:
+	case BALLBOT_STATE_IDLE:
+		vx = 0;
+		vy = 0;
 		break;
-
-	default:
+	case BALLBOT_STATE_ACTION:
+		vx = BALLBOT_SPEED_X * sin(M_PI + dem * M_PI / 180);
+		vy = BALLBOT_SPEED_X * cos(M_PI + dem * M_PI / 180);
 		break;
 	}
 }
-
-CBallBot::~CBallBot()
+CBallbot::~CBallbot()
 {
 
 }

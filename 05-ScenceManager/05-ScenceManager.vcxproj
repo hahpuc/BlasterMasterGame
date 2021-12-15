@@ -23,7 +23,6 @@
     <ProjectGuid>{C83A385D-5992-4E1B-B783-AB1D446414D5}</ProjectGuid>
     <RootNamespace>My05ScenceManager</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>MyProjectGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -126,60 +125,60 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
-    <ClCompile Include="BallBot.cpp" />
-    <ClCompile Include="BallCarry.cpp" />
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Ballbot.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Eyelet.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Interrupt.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScence.cpp" />
+    <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Portal.cpp" />
-    <ClCompile Include="Scence.cpp" />
-    <ClCompile Include="SophiaCabin.cpp" />
-    <ClCompile Include="SophiaGun.cpp" />
-    <ClCompile Include="SophiaLeftWheel.cpp" />
-    <ClCompile Include="SophiaMiddle.cpp" />
-    <ClCompile Include="SophiaRightWheel.cpp" />
-    <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Stuka.cpp" />
-    <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="Ultils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="brick.ico" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Jason.cpp" />
+    <ClCompile Include="PlayScence.cpp" />
+    <ClCompile Include="Scence.cpp" />
+    <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Wheel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
-    <ClInclude Include="BallBot.h" />
-    <ClInclude Include="BallCarry.h" />
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="Ballbot.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="Define.h" />
     <ClInclude Include="Eyelet.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Game.h" />
     <ClInclude Include="Interrupt.h" />
-    <ClInclude Include="KeyEventHandler.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScence.h" />
+    <ClInclude Include="Koopas.h" />
     <ClInclude Include="Portal.h" />
-    <ClInclude Include="Scence.h" />
-    <ClInclude Include="SophiaCabin.h" />
-    <ClInclude Include="SophiaGun.h" />
-    <ClInclude Include="SophiaLeftWheel.h" />
-    <ClInclude Include="SophiaMiddle.h" />
-    <ClInclude Include="SophiaRightWheel.h" />
-    <ClInclude Include="Sprites.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Stuka.h" />
-    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Tank.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Goomba.h" />
+    <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Jason.h" />
+    <ClInclude Include="PlayScence.h" />
+    <ClInclude Include="Scence.h" />
+    <ClInclude Include="Sprites.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Wheel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

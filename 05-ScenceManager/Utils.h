@@ -3,17 +3,17 @@
 #include <Windows.h>
 
 #include <signal.h>
-#include <string>
+#include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
-
+#include <string>
 
 using namespace std;
 
-void DebugOut(wchar_t* fmt, ...);
+void DebugOut(wchar_t *fmt, ...);
 
 vector<string> split(string line, string delimeter = "\t");
 wstring ToWSTR(string st);

@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 
@@ -6,21 +7,17 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "Interrupt.h"
-#include "BallBot.h"
-#include "Stuka.h"
-#include "Eyelet.h"
-#include "BallCarry.h"
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
-	CScene(id, filePath)
+CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 {
 	key_handler = new CPlayScenceKeyHandler(this);
-	player = NULL;
 	camera = NULL;
+	player = NULL;
 	map = NULL;
+	quadtree = NULL;
+	background = NULL;
 }
 
 /*
@@ -28,6 +25,18 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	See scene1.txt, scene2.txt for detail format specification
 */
 
+#define SCENE_SECTION_UNKNOWN -1
+#define SCENE_SECTION_TEXTURES 2
+#define SCENE_SECTION_SPRITES 3
+#define SCENE_SECTION_ANIMATIONS 4
+#define SCENE_SECTION_ANIMATION_SETS	5
+#define SCENE_SECTION_OBJECTS	6
+#define SCENE_SECTION_MAP		7
+#define SCENE_SECTION_BACKGROUND	8
+
+
+
+#define MAX_SCENE_LINE 1024
 
 
 void CPlayScene::_ParseSection_TEXTURES(string line)
@@ -62,7 +71,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	if (tex == NULL)
 	{
 		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
-		return;
+		return; 
 	}
 
 	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
@@ -82,7 +91,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
-		int frame_time = atoi(tokens[i + 1].c_str());
+		int frame_time = atoi(tokens[i+1].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
 
@@ -99,12 +108,12 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 
 	LPANIMATION_SET s = new CAnimationSet();
 
-	CAnimations* animations = CAnimations::GetInstance();
+	CAnimations *animations = CAnimations::GetInstance();
 
 	for (int i = 1; i < tokens.size(); i++)
 	{
 		int ani_id = atoi(tokens[i].c_str());
-
+		
 		LPANIMATION ani = animations->Get(ani_id);
 		s->push_back(ani);
 	}
@@ -113,7 +122,7 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 }
 
 /*
-	Parse a line in section [OBJECTS]
+	Parse a line in section [OBJECTS] 
 */
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
@@ -129,86 +138,64 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
-	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	CAnimationSets * animation_sets = CAnimationSets::GetInstance();
 
-	CGameObject* obj = NULL;
+	CGameObject *obj = NULL;
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_PLAYER:
-		if (player != NULL)
+	case OBJECT_TYPE_JASON:
+		if (player!=NULL) 
 		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
+			DebugOut(L"[ERROR] Jason object was created before!\n");
 			return;
 		}
-		obj = new CPlayer(x, y);
-		player = (CPlayer*)obj;
-		player->type = OBJECT_TYPE_PLAYER;
-
+		obj = new CJason(x,y); 
+		player = (CJason*)obj;  
+		player->SetType(OBJECT_TYPE_JASON);
 		DebugOut(L"[INFO] Player object created!\n");
+		permanentObjects.push_back(obj);
 		break;
-	case OBJECT_TYPE_BRICK:
-	{
-		int w = atoi(tokens[4].c_str());
-		int h = atoi(tokens[5].c_str());
-		obj = new CBrick(x, y, w, h);
-		obj->type = OBJECT_TYPE_BRICK;
-
-		objects.push_back((CBrick*) obj);
+	case OBJECT_TYPE_TANK:
+		obj = new CTank(x,y);
+		obj->SetType(OBJECT_TYPE_TANK);
+		player->SetTank((CTank*)obj);
+		permanentObjects.push_back(obj);
 		break;
-	}
-
-	case OBJECT_TYPE_INTERRUPT:
-	{
-		obj = new CInterrupt(x, y);
-		obj->type = OBJECT_TYPE_INTERRUPT;
-		listEnemies.push_back((CInterrupt*) obj);
+	case OBJECT_TYPE_CANNON:
+		obj = new CCannon(x, y);
+		obj->SetType(OBJECT_TYPE_CANNON);
+		player->GetTank()->SetCannon((CCannon*)obj);
+		permanentObjects.push_back(obj);
 		break;
-	}
-
-	case OBJECT_TYPE_BALLBOT: 
-	{
-		obj = new CBallBot(x, y);
-		obj->type = OBJECT_TYPE_BALLBOT;
-		listEnemies.push_back((CBallBot*) obj);
+	case OBJECT_TYPE_WHEEL:
+		obj = new CWheel(x, y);
+		obj->SetType(OBJECT_TYPE_WHEEL);
+		player->GetTank()->PushWheels((CWheel*)obj);
+		permanentObjects.push_back(obj);
 		break;
-	}
-
-	case OBJECT_TYPE_STUKA:
-	{
-		obj = new CStuka(x, y);
-		obj->type = OBJECT_TYPE_STUKA;
-		listEnemies.push_back((CStuka*)obj);
+	case OBJECT_TYPE_BULLET:
+		obj = new CBullet();
+		obj->SetType(OBJECT_TYPE_BULLET);
+		player->PushBullets((CBullet*)obj);
+		permanentObjects.push_back(obj);
 		break;
-	}
-
-	case OBJECT_TYPE_EYELET: 
-	{
-		obj = new CEyelet(x, y);
-		obj->type = OBJECT_TYPE_EYELET;
-		listEnemies.push_back((CEyelet*)obj);
+	case OBJECT_TYPE_BRICK: 
+		{
+			int w = atoi(tokens[4].c_str());
+			int h = atoi(tokens[5].c_str());
+			obj = new CBrick(x,y,w,h);
+			obj->SetType(OBJECT_TYPE_BRICK);
+		}
 		break;
-	}
-
-	case OBJECT_TYPE_BALLCARRY:
-	{
-		obj = new CBallCarry(x, y);
-		obj->type = OBJECT_TYPE_BALLCARRY;
-		listEnemies.push_back((CBallCarry*)obj);
-		break;
-	}
-	
 	case OBJECT_TYPE_PORTAL:
-	{
-		float r = atof(tokens[4].c_str());
-		float b = atof(tokens[5].c_str());
-		int scene_id = atoi(tokens[6].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
-		obj->type = OBJECT_TYPE_PORTAL;
-		objects.push_back((CBrick*)obj);
-
-	}
-	break;
+		{	
+			float r = atof(tokens[4].c_str());
+			float b = atof(tokens[5].c_str());
+			int scene_id = atoi(tokens[6].c_str());
+			obj = new CPortal(x, y, r, b, scene_id);
+		}
+		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -220,6 +207,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
 	obj->SetAnimationSet(ani_set);
+	objects.push_back(obj);
+	//float l, t, r, b;
+	//obj->GetBoundingBox(l, t, r, b);
+	quadtree->Insert(obj);
 }
 
 void CPlayScene::_ParseSection_MAP(string line)
@@ -237,8 +228,22 @@ void CPlayScene::_ParseSection_MAP(string line)
 	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
 	map->LoadMap(file_path.c_str());
 	map->ExtractTileFromTileSet();
+	
 }
-
+void CPlayScene::_ParseSection_BACKGROUND(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 3) return;
+	float x = (float)atof(tokens[0].c_str());
+	float y = (float)atof(tokens[1].c_str());
+	int sprite_id = atoi(tokens[2].c_str());
+	
+	background->SetPosition(x, y);
+	LPSPRITE sprites = CSprites::GetInstance()->Get(sprite_id);
+	background->SetSprite(sprites);
+	background->CalculateWidthHeight();
+	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, background->GetWidth(), background->GetHeight());
+}
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -247,9 +252,12 @@ void CPlayScene::Load()
 	f.open(sceneFilePath);
 
 	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;
+	int section = SCENE_SECTION_UNKNOWN;					
 
 	char str[MAX_SCENE_LINE];
+	
+	camera = new Camera();
+	background = new CBackground();
 	while (f.getline(str, MAX_SCENE_LINE))
 	{
 		string line(str);
@@ -257,116 +265,125 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 
 		if (line == "[TEXTURES]") { section = SCENE_SECTION_TEXTURES; continue; }
-		if (line == "[SPRITES]") {
-			section = SCENE_SECTION_SPRITES; continue;
-		}
-		if (line == "[ANIMATIONS]") {
-			section = SCENE_SECTION_ANIMATIONS; continue;
-		}
-		if (line == "[ANIMATION_SETS]") {
-			section = SCENE_SECTION_ANIMATION_SETS; continue;
-		}
-		if (line == "[OBJECTS]") {
-			section = SCENE_SECTION_OBJECTS; continue;
-		}
+		if (line == "[SPRITES]") { 
+			section = SCENE_SECTION_SPRITES; continue; }
+		if (line == "[ANIMATIONS]") { 
+			section = SCENE_SECTION_ANIMATIONS; continue; }
+		if (line == "[ANIMATION_SETS]") { 
+			section = SCENE_SECTION_ANIMATION_SETS; continue; }
+		if (line == "[OBJECTS]") { 
+			section = SCENE_SECTION_OBJECTS; continue; }
 		if (line == "[MAP]") {
 			section = SCENE_SECTION_MAP; continue;
 		}
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
+		if (line == "[BACKGROUND]") {
+			section = SCENE_SECTION_BACKGROUND; continue;
+		}
+		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
 		// data section
 		//
 		switch (section)
-		{
-		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
-		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
-		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
-		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
-		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
-
+		{ 
+			case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
+			case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
+			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
+			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
+			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
+			case SCENE_SECTION_BACKGROUND: _ParseSection_BACKGROUND(line); break;
 		}
 	}
 
 	f.close();
 
-	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	camera = new Camera();
-	camera->SetPlayer(player);
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+
+	camera->SetJason(player);
+	quadtree->NumberOfObjectsInNodes();
+	DebugOut(L"[INFO] Number of Objects %i\n", objects.size());
+	//DebugOut(L"[INFO] Screen Height %i\n",CGame::GetInstance()->GetScreenHeight());
+	//DebugOut(L"[INFO] Screen Width %i\n", CGame::GetInstance()->GetScreenWidth());
 }
 
 void CPlayScene::Update(DWORD dt)
 {
-	// Delete CreateObjects
-	for (int i = 0; i < createObjects.size(); ++i) {
-		if (createObjects[i]->isFinish == 1) 
-			createObjects.erase(createObjects.begin() + i);
-	}
-
-	// Draw Fire Bullet
-	if (player->BeingFireBullet()) {
-		createObjects.push_back(player->NewBullet());
-	}
-	
-	// Push objects that can collide
+	// We know that Jason is the first object in the list hence we won't add him into the colliable object list
+	// TO-DO: This is a "dirty" way, need a more organized way 
+	//camera->Update(dt);
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 0; i < objects.size(); i++) 
-		coObjects.push_back(objects[i]);
-
-	for (int i = 0; i < listEnemies.size(); i++) 
-		coObjects.push_back(listEnemies[i]);
-	
-	for (int i = 0; i < createObjects.size(); i++)
-		coObjects.push_back(createObjects[i]);
-
+	vector<LPGAMEOBJECT> coObjectsOfJason;			//Objects for collidding of Jason
+	vector<LPGAMEOBJECT> coObejctOfBullets;
+	vector<LPGAMEOBJECT> coObjectOfEnemies1;		//not include bircks
+	vector<LPGAMEOBJECT> coObjectOfEnemies2;		//include bricks
+	if(quadtree!=NULL)
+		quadtree->GetListObject(coObjects, camera);
+	for (unsigned int i = 0; i < permanentObjects.size(); i++)
+	{
+		coObjects.push_back(permanentObjects[i]);
+	}
+	for (unsigned int i = 0; i < coObjects.size(); i++)
+	{
+		switch (coObjects[i]->GetType())
+		{
+		case OBJECT_TYPE_BRICK:
+			coObjectsOfJason.push_back(coObjects[i]);
+			coObjectOfEnemies2.push_back(coObjects[i]);
+			break;
+		case OBJECT_TYPE_JASON:
+			coObjectOfEnemies1.push_back(coObjects[i]);
+			break;
+		}
+	}
+	DebugOut(L"coObjects size:%i\n", coObjects.size());
+	player->Update(dt, &coObjectsOfJason);
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		switch (coObjects[i]->GetType())
+		{
+		case OBJECT_TYPE_JASON:
+			coObjects[i]->Update(dt, &coObjectsOfJason);
+			break;
+		case OBJECT_TYPE_BULLET:
+			coObjects[i]->Update(dt, &coObejctOfBullets);
+			break;
+		case OBJECT_TYPE_EYELET:
+			coObjects[i]->Update(dt, &coObjectOfEnemies1);
+			break;
+		case OBJECT_TYPE_STUKA:
+			coObjects[i]->Update(dt, &coObjectOfEnemies2);
+			break;
+		default:
+			coObjects[i]->Update(dt, &coObjects);
+			break;
+		}
+		
+	}
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
-
-	// Update Objects
-	player->Update(dt, &coObjects);
-
-	for (int i = 0; i < createObjects.size(); ++i) 
-		createObjects[i]->Update(dt, &coObjects);
-
-	for (int i = 0; i < listEnemies.size(); ++i)
-		listEnemies[i]->Update(dt, &coObjects);
-
-	for (int i = 0; i < objects.size(); ++i)
-		objects[i]->Update(dt, &coObjects);
-
-	coObjects.clear();
-
-
-	// SET UP camera;
-	float posx, posy; 
-	player->GetPosition(posx, posy);
-
-	//DebugOut(L"Pos x: %f, pos y: %f \n", posx, posy);
+	if (player == NULL) return; 
 
 	// Update camera to follow Jason
+	//CGame::GetInstance()->SetCamPos(0.0f, -64.0f);
 	camera->Update(dt);
+	
 }
 
 void CPlayScene::Render()
 {
-	if (map)
+	/*if (map)
 	{
-		this->map->Render();
+		this->map->Render((int)camera->GetCamX(), (int)camera->GetCamY());
+	}*/
+	if (background)
+	{
+		background->Draw();
 	}
-
-	player->Render();
-
-	for (int i = 0; i < createObjects.size(); ++i)
-		createObjects[i]->Render();
-
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-
-	for (int i = 0; i < listEnemies.size(); ++i)
-		listEnemies[i]->Render();
 }
 
 /*
@@ -376,9 +393,6 @@ void CPlayScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-
-	for (int i = 0; i < listEnemies.size(); ++i)
-		delete listEnemies[i];
 
 	objects.clear();
 	player = NULL;
@@ -390,56 +404,92 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CPlayer* player = ((CPlayScene*)scence)->GetPlayer();
+	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		player->SetState(PLAYER_STATE_JUMP);
+		Jason->SetState(JASON_STATE_JUMP);
 		break;
-	case DIK_Z: 
-		if (GetTickCount64() - player->GetLastShoot() >= 500) {
-
-			int start = 0;
-
-			player->FireBullet();
-			player->SetLastShoot();
-		}
-		else {
-			player->CancelFireBullet();
-		}
+	case DIK_A: 
+		Jason->Reset();
 		break;
-	case DIK_A:
-		player->Reset();
+	case DIK_X:
+		float l1, t1, r1, b1, l2, t2, r2, b2;
+		Jason->GetBoundingBox(l1, t1, r1, b1);
+		Jason->GetTank()->GetBoundingBox(l2, t2, r2, b2);
+		if (CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, l2, t2, r2, b2) == true)
+		{
+			switch (Jason->GetLevel())
+			{
+			case JASON_LEVEL_TANK:
+				Jason->SetLevel(JASON_LEVEL_SMALL);
+				break;
+			case JASON_LEVEL_SMALL:
+				Jason->SetLevel(JASON_LEVEL_TANK);
+				Jason->SetPosition(l1, t1 + 10.0f);
+				break;
+			}
+		}		
+		break;
+	case DIK_Z:		
+		Jason->StartAttack();
+		Jason->SetIsFiring(true);
 		break;
 	}
 }
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
+{
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-void CPlayScenceKeyHandler::OnKeyUp(int KeyCode) {
-	CPlayer* player = ((CPlayScene*)scence)->GetPlayer();
+	CJason* Jason = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
+	case DIK_UP:
+		Jason->GetTank()->SetCannonUP(false);
+		break;
 	case DIK_Z:
-		player->CancelFireBullet();
+		Jason->SetIsFiring(false);
 		break;
 	}
 }
 
-void CPlayScenceKeyHandler::KeyState(BYTE* states)
+
+void CPlayScenceKeyHandler::KeyState(BYTE *states)
 {
-	CGame* game = CGame::GetInstance();
-	CPlayer* player = ((CPlayScene*)scence)->GetPlayer();
+	CGame *game = CGame::GetInstance();
+	CJason *Jason = ((CPlayScene*)scence)->GetPlayer();
 
-	// disable control key when Mario die 
-	if (player->GetState() == PLAYER_STATE_DIE) return;
-
-	if (game->IsKeyDown(DIK_RIGHT))
-		player->SetState(PLAYER_STATE_WALKING_RIGHT);
-	else
-	if (game->IsKeyDown(DIK_LEFT))
-		player->SetState(PLAYER_STATE_WALKING_LEFT);
-	else
-	if (game->IsKeyDown(DIK_UPARROW))
-		player->SetState(PLAYER_STATE_HEAD_UP);
-	else
-		player->SetState(PLAYER_STATE_IDLE);
+	// disable control key when Jason die 
+	if (Jason->GetState() == JASON_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_RIGHT)&&!game->IsKeyDown(DIK_LEFT))
+	{
+		if (game->IsKeyDown(DIK_UP))
+			Jason->GetTank()->SetCannonUP(true);
+		else
+		{
+			Jason->GetTank()->SetCannonUP(false);
+		}
+		Jason->SetState(JASON_STATE_WALKING_RIGHT);
+	}		
+	else if (game->IsKeyDown(DIK_LEFT)&&!game->IsKeyDown(DIK_RIGHT))
+	{
+		Jason->SetState(JASON_STATE_WALKING_LEFT);
+		if (game->IsKeyDown(DIK_UP))
+			Jason->GetTank()->SetCannonUP(true);
+		else
+		{
+			Jason->GetTank()->SetCannonUP(false);
+		}		
+	}	
+	else 
+	{
+		if (game->IsKeyDown(DIK_UP) && !game->IsKeyDown(DIK_RIGHT) && !game->IsKeyDown(DIK_LEFT))
+		{
+			Jason->GetTank()->SetCannonUP(true);
+			Jason->SetState(JASON_STATE_IDLE);
+		}		
+		else 			
+			Jason->SetState(JASON_STATE_IDLE);
+	}
+		
 }

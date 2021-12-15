@@ -1,71 +1,74 @@
 #include "Interrupt.h"
-#include "Game.h"
-#include "Utils.h"
-
-CInterrupt::CInterrupt()
+CInterrupt::CInterrupt():CGameObject()
 {
-	isDying = 0;
-	SetState(INTERRUPT_STATE_STANDING);
+	SetState(INTERRUPT_STATE_IDLE);
 }
 
-CInterrupt::CInterrupt(float x, float y) {
-	this->x = x;
-	this->y = y;
+void CInterrupt::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+	left = x;
+	top = y;
+	right = x + INTERRUPT_BBOX_WIDTH;
+
+	if (state == INTERRUPT_STATE_ACTION)
+		bottom = y + INTERRUPT_BBOX_HEIGHT_ACTION;
+	else
+		bottom = y + INTERRUPT_BBOX_HEIGHT;
 }
 
+void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	CGameObject::Update(dt, coObjects);
+
+	//
+	// TO-DO: make sure INTERRUPT can interact with the world and to each of them too!
+	// 
+	if (Jason == NULL)
+		return;
+	float jason_x, jason_y;
+	float l1, t1, r1, b1;
+	Jason->GetPosition(jason_x, jason_y);
+	Jason->GetBoundingBox(l1, t1, r1, b1);
+	bool choose_state=CGame::GetInstance()->AABBCheck(l1, t1, r1, b1, x, y- DY_FOR_CHANGE_STATE, x + INTERRUPT_BBOX_WIDTH, y);
+	if (choose_state)
+		SetState(INTERRUPT_STATE_ACTION);
+	else
+		SetState(INTERRUPT_STATE_IDLE);
+
+}
+void CInterrupt::WorldToRender()
+{
+	render_x = x;
+	render_y = -(y+INTERRUPT_BBOX_HEIGHT);
+}
 void CInterrupt::Render()
 {
-	if (isFinish && isDying) return;
+	WorldToRender();
+	int ani = INTERRUPT_ANI_IDLE;
+	if (state == INTERRUPT_STATE_ACTION) {
+		ani = INTERRUPT_ANI_ACTION;
+	}
 
-	int ani = INTERRUPT_ANI_STANDING;
+	animation_set->at(ani)->Render(round(render_x), round(render_y));
 
-	animation_set->at(ani)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
-void CInterrupt::GetBoundingBox(float& l, float& t, float& r, float& b)
+void CInterrupt::SetState(int state)
 {
-	if (isFinish) return;
-
-	l = x;
-	t = y;
-	r = x + INTERRUPT_BBOX_WIDTH;
-	b = y + INTERRUPT_BBOX_HEIGHT;
-}
-
-void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	CGame* game = CGame::GetInstance();
-	float camx;
-	float camy;
-	float screenWidth = float(game->GetScreenWidth());
-	float screenHeight = float(game->GetScreenHeight());
-	game->GetCamPos(camx, camy);
-
-
-	if (isFinish && isDying)	// if dying and die animation finish then return
-		return;
-
-	CGameObject::Update(dt);
-}
-
-void CInterrupt::SetState(int state) {
 	CGameObject::SetState(state);
-
-	switch (state)
+	/*switch (state)
 	{
 	case INTERRUPT_STATE_DIE:
-		vx = 0; vy = 0;
-		isFinish = 1;
-		StartDying();
+		y += INTERRUPT_BBOX_HEIGHT - INTERRUPT_BBOX_HEIGHT_DIE + 1;
+		vx = 0;
+		vy = 0;
 		break;
-	case INTERRUPT_STATE_STANDING:
+	case INTERRUPT_STATE_WALKING:
+		vx = -INTERRUPT_WALKING_SPEED;
 		break;
-	
-	default:
-		break;
-	}
+	}*/
 }
-
 CInterrupt::~CInterrupt()
 {
 

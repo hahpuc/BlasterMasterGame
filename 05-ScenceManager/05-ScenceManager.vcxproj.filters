@@ -1,217 +1,245 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
+    <Filter Include="Framework">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Framework\TileMap">
+      <UniqueIdentifier>{e98e3c4f-4e29-4e50-a9bf-b976054224c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{b3abb5a3-6eb1-4641-8b20-145b1f0d0f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Object\Enviroment">
+      <UniqueIdentifier>{03fdd891-599d-4ac3-b489-f1ebd35cefa5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ultis">
-      <UniqueIdentifier>{ec4372c3-05dd-49fa-ac4e-3302913dd513}</UniqueIdentifier>
+    <Filter Include="Object\Enviroment\Brick">
+      <UniqueIdentifier>{0e2ce43c-39a9-4a52-ba45-a64e4fd0f9bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework">
-      <UniqueIdentifier>{bc60e9da-081b-4f87-81d7-ada6ff701cd6}</UniqueIdentifier>
+    <Filter Include="Object\Enviroment\Portal">
+      <UniqueIdentifier>{ac1220ed-df30-45a4-8115-7d68c5e7db84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{1147127a-0637-450e-96e4-153f72af11cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game">
-      <UniqueIdentifier>{38e9d799-d194-425a-a793-509b7e718f48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Player">
-      <UniqueIdentifier>{b9a25a35-9683-4f60-8aec-b721c9143cb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Obstacles">
-      <UniqueIdentifier>{9708fb2a-06f2-474e-b4c2-a81b32808458}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Scence">
-      <UniqueIdentifier>{60056400-49f8-44fa-ae6b-04387a6dd91c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Interface">
-      <UniqueIdentifier>{a3755e3e-a1ae-4650-add1-fc3ee41e752f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Bullet">
-      <UniqueIdentifier>{c3d89515-041f-48ec-af1f-a42bd2504b1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Entity">
-      <UniqueIdentifier>{4cf82a00-eab6-4b77-b8cf-6bcaba5051c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Enemies">
-      <UniqueIdentifier>{58be0881-d94a-4164-8f90-c0cd9911c225}</UniqueIdentifier>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{3cb64992-f8b7-464c-85d9-b414ad2e2d98}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Camera">
-      <UniqueIdentifier>{402a83c5-9d43-40dc-bf87-15cde0567064}</UniqueIdentifier>
+      <UniqueIdentifier>{237b93dd-b7d5-4ac5-97b6-c287d24d2cc4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\TileMap">
-      <UniqueIdentifier>{a5bef719-6d76-432a-b8e6-0036b85833cd}</UniqueIdentifier>
+    <Filter Include="Framework\Quadtree">
+      <UniqueIdentifier>{f7642ef3-d95c-4e0f-bfe4-0bb33ab90130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Interrrupt">
+      <UniqueIdentifier>{b559370c-1766-4f72-a10b-4573b508d8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Ballbot">
+      <UniqueIdentifier>{008dae66-eb19-4922-9a99-c79aa86653bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Eyelet">
+      <UniqueIdentifier>{4fe78f0b-8003-45a9-b310-20a28555e08d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\Stuka">
+      <UniqueIdentifier>{761e83cc-0741-4a8d-a39f-996435b4e9a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy\BallCarry">
+      <UniqueIdentifier>{5b148280-4413-4041-a9c7-c46c924aba39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Background">
+      <UniqueIdentifier>{910e602a-7f5f-420b-804f-c631a8c991b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{1b848e59-bc26-4eed-8e74-1c8113138cb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Render">
-      <UniqueIdentifier>{a1bba65a-942a-49ab-a951-2883c0150bb6}</UniqueIdentifier>
+      <UniqueIdentifier>{72b2e484-9808-496f-b2e1-171fc2883531}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Player\SophiaChild">
-      <UniqueIdentifier>{8766e691-78be-496a-90d5-6c2298071bea}</UniqueIdentifier>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{fec1f593-0024-45ac-af43-83b9996877d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Interface">
+      <UniqueIdentifier>{736d7dd8-275f-4451-8ec5-532d45da20a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Jason">
+      <UniqueIdentifier>{c9162d04-e9b5-4518-9ff5-a101d8553795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Jason\Tank">
+      <UniqueIdentifier>{9c64defd-0b7f-4413-b49c-295ac5bf9c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Jason\Tank\Cannon">
+      <UniqueIdentifier>{083077db-f1a5-41a3-9ee8-33dd53bfae10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Jason\Tank\Wheel">
+      <UniqueIdentifier>{56fe918b-8a2a-4235-ab9a-d733c10058e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Jason\Bullet">
+      <UniqueIdentifier>{936061cb-afd4-40c9-a077-eb070d681ee3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Framework\Game</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Objects\Entity</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Framework\Render</Filter>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Framework\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
+      <Filter>Framework\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
       <Filter>Framework\Render</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Framework\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Objects\Obstacles</Filter>
-    </ClCompile>
-    <ClCompile Include="Ultils.cpp">
-      <Filter>Ultis</Filter>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scence.cpp">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScence.cpp">
-      <Filter>Framework\Scence</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Object\Enviroment\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="Jason.cpp">
+      <Filter>Object\Jason</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Object\Enviroment\Portal</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Objects\Player</Filter>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Objects\Bullet</Filter>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Framework\TileMap</Filter>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Object\Jason\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>Object\Jason\Tank\Cannon</Filter>
+    </ClCompile>
+    <ClCompile Include="Wheel.cpp">
+      <Filter>Object\Jason\Tank\Wheel</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\Quadtree</Filter>
     </ClCompile>
     <ClCompile Include="Interrupt.cpp">
-      <Filter>Objects\Enemies</Filter>
+      <Filter>Object\Enemy\Interrrupt</Filter>
     </ClCompile>
-    <ClCompile Include="SophiaMiddle.cpp">
-      <Filter>Objects\Player\SophiaChild</Filter>
+    <ClCompile Include="Ballbot.cpp">
+      <Filter>Object\Enemy\Ballbot</Filter>
     </ClCompile>
-    <ClCompile Include="SophiaRightWheel.cpp">
-      <Filter>Objects\Player\SophiaChild</Filter>
+    <ClCompile Include="Background.cpp">
+      <Filter>Framework\Background</Filter>
     </ClCompile>
-    <ClCompile Include="SophiaLeftWheel.cpp">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClCompile>
-    <ClCompile Include="SophiaCabin.cpp">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClCompile>
-    <ClCompile Include="SophiaGun.cpp">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClCompile>
-    <ClCompile Include="BallBot.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Stuka.cpp">
-      <Filter>Objects\Enemies</Filter>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object\Jason\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Eyelet.cpp">
-      <Filter>Objects\Enemies</Filter>
+      <Filter>Object\Enemy\Eyelet</Filter>
     </ClCompile>
-    <ClCompile Include="BallCarry.cpp">
-      <Filter>Objects\Enemies</Filter>
+    <ClCompile Include="Stuka.cpp">
+      <Filter>Object\Enemy\Stuka</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="brick.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.h">
+    <ClCompile Include="Utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
       <Filter>Framework\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Objects\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprites.h">
-      <Filter>Framework\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TileMap.h">
+      <Filter>Framework\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Framework\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Objects\Player</Filter>
+    <ClInclude Include="Sprites.h">
+      <Filter>Framework\Render</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Objects\Obstacles</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Ultis</Filter>
-    </ClInclude>
     <ClInclude Include="Scence.h">
-      <Filter>Framework\Scence</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Framework\Interface</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="PlayScence.h">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Object\Enviroment\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="Jason.h">
+      <Filter>Object\Jason</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Framework\Scence</Filter>
+      <Filter>Object\Enviroment\Portal</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Objects\Bullet</Filter>
+    <ClInclude Include="Koopas.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Framework\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Framework\TileMap</Filter>
+    <ClInclude Include="Tank.h">
+      <Filter>Object\Jason\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>Object\Jason\Tank\Cannon</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheel.h">
+      <Filter>Object\Jason\Tank\Wheel</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Framework\Quadtree</Filter>
     </ClInclude>
     <ClInclude Include="Interrupt.h">
-      <Filter>Objects\Enemies</Filter>
+      <Filter>Object\Enemy\Interrrupt</Filter>
     </ClInclude>
-    <ClInclude Include="SophiaMiddle.h">
-      <Filter>Objects\Player\SophiaChild</Filter>
+    <ClInclude Include="Ballbot.h">
+      <Filter>Object\Enemy\Ballbot</Filter>
     </ClInclude>
-    <ClInclude Include="SophiaRightWheel.h">
-      <Filter>Objects\Player\SophiaChild</Filter>
+    <ClInclude Include="Background.h">
+      <Filter>Framework\Background</Filter>
     </ClInclude>
-    <ClInclude Include="SophiaLeftWheel.h">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClInclude>
-    <ClInclude Include="SophiaCabin.h">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClInclude>
-    <ClInclude Include="SophiaGun.h">
-      <Filter>Objects\Player\SophiaChild</Filter>
-    </ClInclude>
-    <ClInclude Include="BallBot.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Stuka.h">
-      <Filter>Objects\Enemies</Filter>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object\Jason\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Eyelet.h">
-      <Filter>Objects\Enemies</Filter>
+      <Filter>Object\Enemy\Eyelet</Filter>
     </ClInclude>
-    <ClInclude Include="BallCarry.h">
-      <Filter>Objects\Enemies</Filter>
+    <ClInclude Include="Stuka.h">
+      <Filter>Object\Enemy\Stuka</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Framework\Interface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

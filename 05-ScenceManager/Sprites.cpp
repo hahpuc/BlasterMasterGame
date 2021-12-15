@@ -2,8 +2,6 @@
 #include "Game.h"
 #include "Utils.h"
 
-
-//----------------------------------------------
 CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
@@ -14,24 +12,19 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 	this->texture = tex;
 }
 
-void CSprite::Draw(float x, float y, int alpha)
-{
-	CGame* game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, alpha);
-}
+CSprites * CSprites::__instance = NULL;
 
-//-------------------------------------------------------
-
-
-CSprites* CSprites::__instance = NULL;
-
-CSprites* CSprites::GetInstance()
+CSprites *CSprites::GetInstance()
 {
 	if (__instance == NULL) __instance = new CSprites();
 	return __instance;
 }
 
-
+void CSprite::Draw(float x, float y, int alpha)
+{
+	CGame * game = CGame::GetInstance();
+	game->Draw(x, y, texture, left, top, right, bottom, alpha);
+}
 
 void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {

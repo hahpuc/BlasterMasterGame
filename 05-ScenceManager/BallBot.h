@@ -1,37 +1,40 @@
-
 #pragma once
-
+#pragma once
 #include "GameObject.h"
+#include "Jason.h"
 
+#define  BALLBOT_SPEED_X		0.05f
+#define	 BALLBOT_SPEED_Y		0.05f
 
-#define BALLBOT_BBOX_WIDTH			18
-#define BALLBOT_BBOX_HEIGHT			17
+#define BALLBOT_BBOX_WIDTH 18
+#define BALLBOT_BBOX_HEIGHT 18
 
-#define BALLBOT_ANI_STANDING		0
+#define BALLBOT_STATE_IDLE		100
+#define BALLBOT_STATE_ACTION	200
+#define BALLBOT_STATE_DIE		400
 
-#define BALLBOT_ANI_SETS_ID			32
+#define BALLBOT_ANI_MOVE_DOWN	0
+#define BALLBOT_ANI_MOVE_UP		1
 
-#define BALLBOT_STATE_STANDING		100
-#define BALLBOT_STATE_DIE			200
-
-class CBallBot : public CGameObject {
-
-
-	DWORD die_start = NULL;				//time die animation
-
+#define DY_FOR_CHANGE_STATE		320.0f
+#define DX_FOR_CHANGE_STATE		128.0f
+class CBallbot : public CGameObject
+{
+private:
+	CJason* Jason;
+	bool isActived;
+	int dem;
 public:
-	int isDying;
-
-	CBallBot();
-	CBallBot(float x, float y);
-	~CBallBot();
-
-	virtual void SetState(int state);
-	virtual void Render();
+	CBallbot();
+	void SetJason(CJason* jason) { Jason = jason; }
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
+	virtual void WorldToRender();
+	virtual void Render();
+	virtual void SetState(int state);
 
-	void StartDying() { isDying = 1; die_start = DWORD(GetTickCount64()); }
+	void SetIsActived(bool b) { isActived = b; }
+	bool GetIsActived() { return isActived; }
+	~CBallbot();
 };
-
 

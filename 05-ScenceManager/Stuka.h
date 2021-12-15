@@ -1,40 +1,37 @@
-
 #pragma once
-
+#pragma once
 #include "GameObject.h"
+#include "Jason.h"
+#include "Brick.h"
 
 
-#define STUKA_BBOX_WIDTH		18
-#define STUKA_BBOX_HEIGHT		17
+#define STUKA_BBOX_WIDTH 18
+#define STUKA_BBOX_HEIGHT 18
 
-#define STUKA_ANI_STANDING		0
+#define STUKA_STATE_IDLE 100
+#define STUKA_STATE_ACTION	200
+#define STUKA_STATE_DIE 300
 
-#define STUKA_ANI_SETS_ID		33
+#define STUKA_ANI_RIGHT 0
+#define STUKA_ANI_LEFT 1
 
-#define STUKA_STATE_STANDING	100
-#define STUKA_STATE_DIE			200
+#define STUKA_SPEED_X		0.05f
 
-#define STUKA_DYING_TIME		200
-#define STUKA_SPEED				0.035f
+#define DY_FOR_CHANGE_STATE		320
+class CStuka : public CGameObject
+{
 
-class CStuka : public CGameObject {
-
-
-	DWORD die_start = NULL;				//time die animation
-
+private:
+	CJason* Jason;
 public:
-	int isDying;
-
 	CStuka();
-	CStuka(float x, float y);
-	~CStuka();
-
-	virtual void SetState(int state);
-	virtual void Render();
+	void SetJason(CJason* jason) { Jason = jason; }
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-
-	void StartDying() { isDying = 1; die_start = DWORD(GetTickCount64()); }
+	virtual void WorldToRender();
+	virtual void Render();
+	virtual void SetState(int state);
+	~CStuka();
 };
 
 
