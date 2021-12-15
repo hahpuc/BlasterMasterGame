@@ -306,9 +306,12 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	// Draw Fire Bullet
+
 	if (player->BeingFireBullet()) {
 		createObjects.push_back(player->NewBullet());
+		player->CancelFireBullet();
 	}
+
 	
 	// Push objects that can collide
 	vector<LPGAMEOBJECT> coObjects;
