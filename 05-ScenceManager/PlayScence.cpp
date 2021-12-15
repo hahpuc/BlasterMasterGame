@@ -294,6 +294,10 @@ void CPlayScene::Load()
 	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	camera = new Camera();
 	camera->SetPlayer(player);
+
+
+	hub = new HUB();
+	hub->SetCamera(camera);
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -351,6 +355,9 @@ void CPlayScene::Update(DWORD dt)
 
 	// Update camera to follow Jason
 	camera->Update(dt);
+
+	// Update Hub to follow camera
+	hub->Update(dt);
 }
 
 void CPlayScene::Render()
@@ -361,6 +368,7 @@ void CPlayScene::Render()
 	}
 
 	player->Render();
+	hub->Render();
 
 	for (int i = 0; i < createObjects.size(); ++i)
 		createObjects[i]->Render();

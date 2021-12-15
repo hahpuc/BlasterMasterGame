@@ -54,6 +54,9 @@
     <Filter Include="Objects\Player\SophiaChild">
       <UniqueIdentifier>{8766e691-78be-496a-90d5-6c2298071bea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\HUB">
+      <UniqueIdentifier>{b9b589ff-3bff-4373-ab28-c3b1a6a153dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="BallCarry.cpp">
       <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HUB.cpp">
+      <Filter>Framework\HUB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="BallCarry.h">
       <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HUB.h">
+      <Filter>Framework\HUB</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

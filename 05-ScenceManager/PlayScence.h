@@ -8,6 +8,7 @@
 #include "Bullet.h"
 #include "Camera.h"
 #include "TileMap.h"
+#include "HUB.h"
 
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -44,6 +45,8 @@ protected:
 	Map* map;
 
 	Camera* camera;
+	HUB* hub;
+
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
