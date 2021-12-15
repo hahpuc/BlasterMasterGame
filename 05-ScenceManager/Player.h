@@ -103,7 +103,7 @@ public:
 	void SetLastShoot() { this->lastShoot = GetTickCount64(); }
 
 	int GetHeal() {
-		DebugOut(L"Current heal: %d", this->heal);
+		//DebugOut(L"Current heal: %d", this->heal);
 		return this->heal; 
 	}
 	void DecreaseHeal() { 
@@ -111,12 +111,12 @@ public:
 		// if (this->heal == 0) die
 
 		this->heal -= 10; 
-		DebugOut(L"Current heal: %d", this->heal);
+		//DebugOut(L"Current heal: %d", this->heal);
 
 	}
 	void IncreaseHeal() {
 		this->heal = 100;
-		DebugOut(L"Current heal: %d", this->heal);
+		//DebugOut(L"Current heal: %d", this->heal);
 	}
 
 
