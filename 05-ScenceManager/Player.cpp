@@ -203,7 +203,7 @@ CGameObject* CPlayer::NewBullet() {
 		obj->SetState(BULLET_STATE_HEAD_UP);
 
 	obj->type = OBJECT_TYPE_BULLET;
-	obj->SetPosition(this->x + PLAYER_BIG_BBOX_WIDTH / 2, this->y);
+	obj->SetPosition(this->x + nx * PLAYER_BIG_BBOX_WIDTH / 2, this->y);
 
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 	obj->SetAnimationSet(ani_set);

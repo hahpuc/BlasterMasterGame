@@ -7,6 +7,7 @@
 
 CBullet::CBullet(int nx, CPlayer* parent) {
 	vx = BULLET_SPEED * nx;
+
 	this->nx = nx;
 
 	this->parent = parent;
@@ -43,8 +44,6 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt);
 
-	//vy += BULLET_GRAVITY * dt;
-
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -54,10 +53,8 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coEvents.size() == 0) {
 		
-		if (parent->GetState() == PLAYER_STATE_HEAD_UP)
-			y -= dy;
-		else
-			x += dx;
+		x += dx;
+		y += dy;
 	}
 	else {
 		float min_tx, min_ty, nx = 0, ny;
@@ -67,7 +64,10 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		x += min_tx * dx + nx * 0.4f;
-		//y += min_ty * dy + ny * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
 
 		for (int i = 0; i < coEventsResult.size(); ++i) {
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -120,11 +120,13 @@ void CBullet::SetState(int state) {
 	switch (state)
 	{
 	case BULLET_STATE_NORMAL: 
-		vx = BULLET_SPEED;
+		vx = BULLET_SPEED * nx;
+		vy = 0;
 		break;
 
 	case BULLET_STATE_HEAD_UP:
 		vy = -BULLET_SPEED;
+		vx = 0;
 		break;
 
 	default:
