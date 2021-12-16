@@ -57,6 +57,9 @@
     <Filter Include="Framework\HUB">
       <UniqueIdentifier>{b9b589ff-3bff-4373-ab28-c3b1a6a153dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Quadtree">
+      <UniqueIdentifier>{c66ff961-fbef-440e-8c6a-1e4274d6ec97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="HUB.cpp">
       <Filter>Framework\HUB</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Framework\Quadtree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="HUB.h">
       <Filter>Framework\HUB</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Framework\Quadtree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
