@@ -248,11 +248,11 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Player , 1 = Interrupt, 2 = Bullet, 3 = BallBot, 4 = Brick, 5 = Stuka, 6 = eyelet, 7 = BallCarry
 # Player 
-0	1443	349	1
+0	1600	349	1
 
 # Interrupt
 1	1675	340	31
-1	1710	402	31
+1	1642	461	31
 
 # BallBot
 3	1295	499	32
@@ -399,5 +399,5 @@
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
-50	115	98	0	148	150	1
+50	1443	349	0	1463	369	1
 

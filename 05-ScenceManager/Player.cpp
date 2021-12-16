@@ -40,6 +40,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (vy < FALLING_VELOCITY_UPPER_LIMITATION)
 		isJumping = false;
 	else

@@ -4,6 +4,10 @@
 #include "Interrupt.h"
 #include "Brick.h"
 #include "Utils.h"
+#include "BallBot.h"
+#include "Eyelet.h"
+#include "Stuka.h"
+#include "BallCarry.h"
 
 CBullet::CBullet(int nx, CPlayer* parent) {
 	vx = BULLET_SPEED * nx;
@@ -76,14 +80,58 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				isFinish = 1;
 				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
 				
-				//DebugOut(L"Heal of interrupt: %d \n", interrupt->GetHeal());
 				interrupt->DecreaseHeal(50);
+				DebugOut(L"Heal of interrupt: %d \n", interrupt->GetHeal());
 
 				if (interrupt->GetHeal() <= 0) 
 					interrupt->SetState(INTERRUPT_STATE_DIE);
 
-
 			}
+
+			if (dynamic_cast<CBallBot*>(e->obj)) {   // If object is BallBot
+				isFinish = 1;
+				CBallBot* ballBot = dynamic_cast<CBallBot*>(e->obj);
+
+				/*ballBot->DecreaseHeal(50);
+				DebugOut(L"Heal of ballBot: %d \n", ballBot->GetHeal());
+
+				if (ballBot->GetHeal() <= 0)*/
+					ballBot->SetState(BALLBOT_STATE_DIE);
+			}
+
+			if (dynamic_cast<CEyelet* > (e->obj)) {   // If object is Eyelet
+				isFinish = 1;
+				CEyelet* eyelet = dynamic_cast<CEyelet*>(e->obj);
+
+				/*eyelet->DecreaseHeal(50);
+				DebugOut(L"Heal of ballBot: %d \n", eyelet->GetHeal());
+
+				if (eyelet->GetHeal() <= 0)*/
+					eyelet->SetState(EYELET_STATE_DIE);
+			}
+
+			if (dynamic_cast<CBallCarry*> (e->obj)) {   // If object is Carry
+				isFinish = 1;
+				CBallCarry* ballCarray = dynamic_cast<CBallCarry*>(e->obj);
+
+				ballCarray->DecreaseHeal(50);
+				DebugOut(L"Heal of ballBot: %d \n", ballCarray->GetHeal());
+
+				if (ballCarray->GetHeal() <= 0)
+					ballCarray->SetState(BALLCARRY_STATE_DIE);
+			}
+
+			if (dynamic_cast<CStuka*> (e->obj)) {   // If object is Stuke
+				isFinish = 1;
+				CStuka* stuka = dynamic_cast<CStuka*>(e->obj);
+
+				stuka->DecreaseHeal(50);
+				DebugOut(L"Heal of ballBot: %d \n", stuka->GetHeal());
+
+				if (stuka->GetHeal() <= 0)
+					stuka->SetState(STUKA_STATE_DIE);
+			}
+
 			else if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
