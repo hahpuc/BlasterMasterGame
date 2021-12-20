@@ -143,6 +143,9 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>Framework\Quadtree</Filter>
     </ClCompile>
+    <ClCompile Include="DungeonPlayScene.cpp">
+      <Filter>Framework\Scence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="Quadtree.h">
       <Filter>Framework\Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonPlayScene.h">
+      <Filter>Framework\Scence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
