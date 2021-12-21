@@ -158,46 +158,6 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	}
 
-	case OBJECT_TYPE_INTERRUPT:
-	{
-		obj = new CInterrupt(x, y);
-		obj->type = OBJECT_TYPE_INTERRUPT;
-		listEnemies.push_back((CInterrupt*)obj);
-		break;
-	}
-
-	case OBJECT_TYPE_BALLBOT:
-	{
-		obj = new CBallBot(x, y);
-		obj->type = OBJECT_TYPE_BALLBOT;
-		listEnemies.push_back((CBallBot*)obj);
-		break;
-	}
-
-	case OBJECT_TYPE_STUKA:
-	{
-		obj = new CStuka(x, y);
-		obj->type = OBJECT_TYPE_STUKA;
-		listEnemies.push_back((CStuka*)obj);
-		break;
-	}
-
-	case OBJECT_TYPE_EYELET:
-	{
-		obj = new CEyelet(x, y);
-		obj->type = OBJECT_TYPE_EYELET;
-		listEnemies.push_back((CEyelet*)obj);
-		break;
-	}
-
-	case OBJECT_TYPE_BALLCARRY:
-	{
-		obj = new CBallCarry(x, y);
-		obj->type = OBJECT_TYPE_BALLCARRY;
-		listEnemies.push_back((CBallCarry*)obj);
-		break;
-	}
-
 	case OBJECT_TYPE_PORTAL:
 	{
 		float r = atof(tokens[4].c_str());

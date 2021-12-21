@@ -146,6 +146,9 @@
     <ClCompile Include="DungeonPlayScene.cpp">
       <Filter>Framework\Scence</Filter>
     </ClCompile>
+    <ClCompile Include="Jason.cpp">
+      <Filter>Objects\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="DungeonPlayScene.h">
       <Filter>Framework\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="Jason.h">
+      <Filter>Objects\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

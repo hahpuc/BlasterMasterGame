@@ -137,6 +137,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HUB.cpp" />
     <ClCompile Include="Interrupt.cpp" />
+    <ClCompile Include="Jason.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScence.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="HUB.h" />
     <ClInclude Include="Interrupt.h" />
+    <ClInclude Include="Jason.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScence.h" />
