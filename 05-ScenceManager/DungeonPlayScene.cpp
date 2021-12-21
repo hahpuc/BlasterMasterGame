@@ -155,6 +155,9 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 		obj->type = OBJECT_TYPE_BRICK;
 
 		objects.push_back((CBrick*)obj);
+
+		DebugOut(L"[INFO] BRICK at %f, %f object created!\n", x, y);
+
 		break;
 	}
 
