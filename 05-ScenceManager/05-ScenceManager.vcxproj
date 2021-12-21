@@ -143,6 +143,7 @@
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="RainbowBullet.cpp" />
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="SophiaCabin.cpp" />
     <ClCompile Include="SophiaGun.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Define.h" />
     <ClInclude Include="DungeonPlayScene.h" />
     <ClInclude Include="Eyelet.h" />
     <ClInclude Include="GameObject.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="RainbowBullet.h" />
     <ClInclude Include="Scence.h" />
     <ClInclude Include="SophiaCabin.h" />
     <ClInclude Include="SophiaGun.h" />

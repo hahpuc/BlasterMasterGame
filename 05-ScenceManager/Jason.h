@@ -61,7 +61,7 @@ public:
 	LPANIMATION_SET GetAnimationSet() { return this->animation_set; }
 
 	// Bullet
-	//CGameObject* NewBullet();
+	CGameObject* NewBullet();
 
 	void FireBullet() { this->isFireBullet = true; }
 	void CancelFireBullet() { this->isFireBullet = false; }

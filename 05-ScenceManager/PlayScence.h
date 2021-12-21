@@ -11,7 +11,6 @@
 #include "HUB.h"
 #include "Quadtree.h"
 
-
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_TEXTURES 2
 #define SCENE_SECTION_SPRITES 3

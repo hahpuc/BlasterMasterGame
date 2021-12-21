@@ -4,6 +4,8 @@
 
 #include "Jason.h"
 #include "Game.h"
+#include "DungeonPlayScene.h"
+#include "RainbowBullet.h"
 
 #include "Portal.h"
 #include "Brick.h"
@@ -178,33 +180,37 @@ void CJason::Reset()
 	SetSpeed(0, 0);
 }
 
-//CGameObject* CJason::NewBullet() {
-//
-//	int ani_set_id = BULLET_ANI_SETS_ID;
-//	float transX = 0, transY = 0;
-//
-//	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
-//
-//	CGameObject* obj = new CBullet(this->nx, this);
-//
-//	if (this->GetState() == PLAYER_STATE_HEAD_UP) {
-//		obj->SetState(BULLET_STATE_HEAD_UP);
-//
-//		transX = 16.0;
-//		transY = -32.0;
-//	}
-//	else {
-//		obj->SetState(BULLET_STATE_NORMAL);
-//
-//		transX = nx * PLAYER_BIG_BBOX_WIDTH / 2;
-//		transY = 0;
-//	}
-//
-//	obj->type = OBJECT_TYPE_BULLET;
-//	obj->SetPosition(this->x + transX, this->y + transY);
-//
-//	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-//	obj->SetAnimationSet(ani_set);
-//
-//	return obj;
-//}
+CGameObject* CJason::NewBullet() {
+
+	int ani_set_id = RAINBOW_BULLET_ANI_SETS_ID;
+	float transX = 0, transY = 0;
+
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+
+	CGameObject* obj = new CRainbowBullet(this->nx, this);
+
+	if (this->GetState() == JASON_STATE_WALKING_LEFT) {
+		obj->SetState(RAINBOW_BULLET_STATE_LEFT);
+	}
+	else 
+	if (this->GetState() == JASON_STATE_WALKING_RIGHT) {
+		obj->SetState(RAINBOW_BULLET_STATE_RIGHT);
+	}
+	else 
+	if (this->GetState() == JASON_STATE_WALKING_TOPDOWN) {
+		obj->SetState(RAINBOW_BULLET_STATE_TOP_DOWN);
+	}
+	else 
+	if (this->GetState() == JASON_STATE_WALKING_TOPUP) {
+		obj->SetState(RAINBOW_BULLET_STATE_TOP_UP);
+	}
+
+	
+	obj->type = OBJECT_TYPE_BULLET;
+	obj->SetPosition(this->x + transX, this->y + transY);
+
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	obj->SetAnimationSet(ani_set);
+
+	return obj;
+}

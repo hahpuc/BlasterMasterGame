@@ -149,6 +149,9 @@
     <ClCompile Include="Jason.cpp">
       <Filter>Objects\Player</Filter>
     </ClCompile>
+    <ClCompile Include="RainbowBullet.cpp">
+      <Filter>Objects\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -242,6 +245,12 @@
     </ClInclude>
     <ClInclude Include="Jason.h">
       <Filter>Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RainbowBullet.h">
+      <Filter>Objects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Ultis</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,6 +22,7 @@
 
 #define OBJECT_TYPE_PLAYER		0
 #define OBJECT_TYPE_BRICK		1
+#define OBJECT_TYPE_BULLET		3
 
 #define OBJECT_TYPE_PORTAL		50
 

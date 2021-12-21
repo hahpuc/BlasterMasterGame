@@ -282,10 +282,10 @@ void CDungeonPlayScene::Update(DWORD dt)
 
 	// Draw Fire Bullet
 
-	/*if (player->BeingFireBullet()) {
+	if (player->BeingFireBullet()) {
 		createObjects.push_back(player->NewBullet());
-		player->CancelFireBullet();
-	}*/
+		//player->CancelFireBullet();
+	}
 
 
 	// Push objects that can collide
@@ -360,6 +360,10 @@ void CDungeonPlayScene::Render()
 */
 void CDungeonPlayScene::Unload()
 {
+
+	for (int i = 0; i < createObjects.size(); ++i)
+		delete objects[i];
+
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
@@ -380,16 +384,7 @@ void CDungeonPlaySceneKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_Z:
-		if (GetTickCount64() - player->GetLastShoot() >= 500) {
-
-			int start = 0;
-
-			player->FireBullet();
-			player->SetLastShoot();
-		}
-		else {
-			player->CancelFireBullet();
-		}
+		player->FireBullet();
 		break;
 	case DIK_A:
 		player->Reset();
