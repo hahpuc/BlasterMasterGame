@@ -1,50 +1,33 @@
 #pragma once
 #include "GameObject.h"
 #include "Utils.h"
-
-#define PLAYER_WALKING_SPEED					0.15f 
+	
+#define JASON_WALKING_SPEED						0.15f 
 //0.1f
-#define PLAYER_JUMP_SPEED_Y						0.5f
-#define PLAYER_JUMP_DEFLECT_SPEED				0.2f
-#define PLAYER_GRAVITY							0.002f
-#define PLAYER_DIE_DEFLECT_SPEED				0.5f
+#define JASON_GRAVITY							0.002f
+#define JASON_DIE_DEFLECT_SPEED					0.5f
 
-#define PLAYER_STATE_IDLE						0
-#define PLAYER_STATE_WALKING_RIGHT				100
-#define PLAYER_STATE_WALKING_LEFT				200					
-#define PLAYER_STATE_JUMP						300
-#define PLAYER_STATE_DIE						400
-#define PLAYER_STATE_HEAD_UP					500
-#define PLAYER_STATE_FIRE						600
-#define PLAYER_STATE_FIRE_UP					700
+#define JASON_STATE_IDLE						0
+#define JASON_STATE_WALKING_RIGHT				100
+#define JASON_STATE_WALKING_LEFT				200					
+#define JASON_STATE_WALKING_TOPDOWN				300
+#define JASON_STATE_WALKING_TOPUP				400
+#define JASON_STATE_DIE							500
 
-#define PLAYER_ANI_BIG_IDLE_RIGHT				0
-#define PLAYER_ANI_BIG_IDLE_LEFT				1
+#define JASON_ANI_WALKING_TOP_DOWN				0
+#define JASON_ANI_WALKING_TOP_UP				1
+#define JASON_ANI_WALKING_LEFT					2
+#define JASON_ANI_WALKING_RIGHT					3
+#define JASON_ANI_IDLE_TOP_DOWN					4
+#define JASON_ANI_IDLE_TOP_UP					5
+#define JASON_ANI_IDLE_LEFT						6
+#define JASON_ANI_IDLE_RIGHT					7
 
-#define PLAYER_ANI_WHEEL_STANDING				0
-#define PLAYER_ANI_WHEEL_LEFT					1
-#define PLAYER_ANI_WHEEL_RIGHT					2
-#define PLAYER_ANI_MIDDLE						3
-#define PLAYER_ANI_GUN_0						4
-#define PLAYER_ANI_GUN_45						5
-#define PLAYER_ANI_GUN_90						6
-#define PLAYER_ANI_CABIN_STANDING				7
-#define PLAYER_ANI_CABIN_WALKING				8
-#define PLAYER_ANI_CABIN_HEAD_LEFT				13
-#define PLAYER_ANI_CABIN_HEAD_RIGHT				14
 
-#define PLAYER_ANI_DIE							69
+#define JASON_BBOX_WIDTH					24
+#define JASON_BBOX_HEIGHT					32
 
-#define	PLAYER_LEVEL_JASON					1
-#define	PLAYER_LEVEL_SHOPHIA				2
-
-#define PLAYER_BIG_BBOX_WIDTH				28
-#define PLAYER_BIG_BBOX_HEIGHT				14
-
-#define PLAYER_SMALL_BBOX_WIDTH				13
-#define PLAYER_SMALL_BBOX_HEIGHT			15
-
-#define PLAYER_UNTOUCHABLE_TIME				5000
+#define JASON_UNTOUCHABLE_TIME				5000
 
 #define FALLING_VELOCITY_UPPER_LIMITATION	0.02f
 
@@ -52,7 +35,6 @@
 
 class CJason : public CGameObject
 {
-	int level;
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD lastShoot;
@@ -60,7 +42,6 @@ class CJason : public CGameObject
 	float start_x;			// initial position of Mario at scene
 	float start_y;
 
-	bool isJumping;
 	bool isFireBullet;
 
 	int heal;
@@ -73,8 +54,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);
-	void SetLevel(int l) { level = l; }
-	void SetJumping() { isJumping = !isJumping; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();

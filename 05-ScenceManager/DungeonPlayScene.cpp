@@ -141,8 +141,8 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CPlayer(x, y);
-		player = (CPlayer*)obj;
+		obj = new CJason(x, y);
+		player = (CJason*)obj;
 		player->type = OBJECT_TYPE_PLAYER;
 
 		DebugOut(L"[INFO] Player object created!\n");
@@ -256,9 +256,9 @@ void CDungeonPlayScene::Load()
 	camera->SetPlayer(player);
 
 
-	hub = new HUB();
+	/*hub = new HUB();
 	hub->SetCamera(camera);
-	hub->SetPlayer(player);
+	hub->SetPlayer(player);*/
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -272,10 +272,10 @@ void CDungeonPlayScene::Update(DWORD dt)
 
 	// Draw Fire Bullet
 
-	if (player->BeingFireBullet()) {
+	/*if (player->BeingFireBullet()) {
 		createObjects.push_back(player->NewBullet());
 		player->CancelFireBullet();
-	}
+	}*/
 
 
 	// Push objects that can collide
@@ -318,7 +318,7 @@ void CDungeonPlayScene::Update(DWORD dt)
 	camera->Update(dt);
 
 	// Update Hub to follow camera
-	hub->Update(dt);
+	//hub->Update(dt);
 }
 
 void CDungeonPlayScene::Render()
@@ -329,7 +329,7 @@ void CDungeonPlayScene::Render()
 	}
 
 	player->Render();
-	hub->Render();
+	//hub->Render();
 
 	for (int i = 0; i < createObjects.size(); ++i)
 		createObjects[i]->Render();
@@ -362,12 +362,9 @@ void CDungeonPlaySceneKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CPlayer* player = ((CDungeonPlayScene*)scence)->GetPlayer();
+	CJason* player = ((CDungeonPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_SPACE:
-		player->SetState(PLAYER_STATE_JUMP);
-		break;
 	case DIK_Z:
 		if (GetTickCount64() - player->GetLastShoot() >= 500) {
 
@@ -387,7 +384,7 @@ void CDungeonPlaySceneKeyHandler::OnKeyDown(int KeyCode)
 }
 
 void CDungeonPlaySceneKeyHandler::OnKeyUp(int KeyCode) {
-	CPlayer* player = ((CDungeonPlayScene*)scence)->GetPlayer();
+	CJason* player = ((CDungeonPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_Z:
@@ -399,19 +396,22 @@ void CDungeonPlaySceneKeyHandler::OnKeyUp(int KeyCode) {
 void CDungeonPlaySceneKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CPlayer* player = ((CDungeonPlayScene*)scence)->GetPlayer();
+	CJason* player = ((CDungeonPlayScene*)scence)->GetPlayer();
 
-	// disable control key when Mario die 
-	if (player->GetState() == PLAYER_STATE_DIE) return;
+	// disable control key when player die 
+	if (player->GetState() == JASON_STATE_DIE) return;
 
 	if (game->IsKeyDown(DIK_RIGHT))
-		player->SetState(PLAYER_STATE_WALKING_RIGHT);
+		player->SetState(JASON_STATE_WALKING_RIGHT);
 	else
-		if (game->IsKeyDown(DIK_LEFT))
-			player->SetState(PLAYER_STATE_WALKING_LEFT);
-		else
-			if (game->IsKeyDown(DIK_UPARROW))
-				player->SetState(PLAYER_STATE_HEAD_UP);
-			else
-				player->SetState(PLAYER_STATE_IDLE);
+	if (game->IsKeyDown(DIK_LEFT))
+		player->SetState(JASON_STATE_WALKING_LEFT);
+	else
+	if (game->IsKeyDown(DIK_UPARROW))
+		player->SetState(JASON_STATE_WALKING_TOPUP);
+	else
+	if (game->IsKeyDown(DIK_DOWNARROW))
+		player->SetState(JASON_STATE_WALKING_TOPDOWN);
+	else
+		player->SetState(JASON_STATE_IDLE);
 }

@@ -6,25 +6,16 @@
 #include "Game.h"
 
 #include "Portal.h"
-#include "Bullet.h"
-#include "Interrupt.h"
-#include "PlayScence.h"
 #include "Brick.h"
 
-#include "SophiaMiddle.h"
-#include "SophiaRightWheel.h"
-#include "SophiaLeftWheel.h"
-#include "SophiaCabin.h"
-#include "SophiaGun.h"
 
 CJason::CJason(float x, float y) : CGameObject()
 {
-	level = PLAYER_LEVEL_SHOPHIA;
 	untouchable = 0;
-	isJumping = false;
+
 	isFireBullet = false;
 	heal = 100;
-	SetState(PLAYER_STATE_IDLE);
+	SetState(JASON_STATE_IDLE);
 
 	start_x = x;
 	start_y = y;
@@ -35,18 +26,8 @@ CJason::CJason(float x, float y) : CGameObject()
 
 void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	if (vy < FALLING_VELOCITY_UPPER_LIMITATION)
-		isJumping = false;
-	else
-		isJumping = true;
-
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
-
-
-	// Simple fall down
-	vy += PLAYER_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -54,11 +35,11 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != PLAYER_STATE_DIE)
+	if (state != JASON_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount64() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > JASON_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -97,14 +78,8 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CInterrupt*>(e->obj)) 
-			{
-				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
-				this->GetHeal();
-				this->DecreaseHeal();
-				
-			} // if Goomba
-			else if (dynamic_cast<CPortal*>(e->obj))
+			// if Goomba
+			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
@@ -119,7 +94,28 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CJason::Render()
 {
 	//this->animation_set->at(ani)->Render(partX + transX, partY + transY);
+	int ani = JASON_ANI_IDLE_TOP_DOWN;
 
+	if (this->GetState() == JASON_STATE_IDLE) {
+		if (nx > 0)
+			ani = JASON_ANI_IDLE_RIGHT;
+		else
+			ani = JASON_ANI_IDLE_LEFT;
+	}
+	else
+	if (this->GetState() == JASON_STATE_WALKING_RIGHT)
+		ani = JASON_ANI_WALKING_RIGHT;
+	else
+	if (this->GetState() == JASON_STATE_WALKING_LEFT)
+		ani = JASON_ANI_WALKING_LEFT;
+	else
+	if (this->GetState() == JASON_STATE_WALKING_TOPDOWN)
+		ani = JASON_ANI_WALKING_TOP_DOWN;
+	else
+	if (this->GetState() == JASON_STATE_WALKING_TOPUP)
+		ani = JASON_ANI_WALKING_TOP_UP;
+
+	animation_set->at(ani)->Render(x, y);
 
 	RenderBoundingBox();
 }
@@ -130,23 +126,35 @@ void CJason::SetState(int state)
 
 	switch (state)
 	{
-	case PLAYER_STATE_WALKING_RIGHT:
-		vx = PLAYER_WALKING_SPEED;
+	case JASON_STATE_WALKING_RIGHT:
+		vx = JASON_WALKING_SPEED;
+		vy = 0;
 		nx = 1;
 		break;
-	case PLAYER_STATE_WALKING_LEFT:
-		vx = -PLAYER_WALKING_SPEED;
+	case JASON_STATE_WALKING_LEFT:
+		vx = -JASON_WALKING_SPEED;
+		vy = 0;
 		nx = -1;
 		break;
-	case PLAYER_STATE_JUMP:
+	case JASON_STATE_WALKING_TOPDOWN:
 		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
-		vy = -PLAYER_JUMP_SPEED_Y;
-		break;
-	case PLAYER_STATE_IDLE:
+		vy = JASON_WALKING_SPEED;
+		nx = 1;
 		vx = 0;
 		break;
-	case PLAYER_STATE_DIE:
-		vy = -PLAYER_DIE_DEFLECT_SPEED;
+	case JASON_STATE_WALKING_TOPUP:
+		vy = -JASON_WALKING_SPEED;
+		nx = -1;
+		vx = 0;
+		break;
+
+	case JASON_STATE_IDLE: 
+		vy = 0;
+		vx = 0;
+		break;
+
+	case JASON_STATE_DIE:
+		//vy = -0;
 		break;
 	}
 }
@@ -154,18 +162,9 @@ void CJason::SetState(int state)
 void CJason::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
-	top = y;
-
-	if (level == PLAYER_LEVEL_SHOPHIA)
-	{
-		right = x + PLAYER_BIG_BBOX_WIDTH;
-		bottom = y + PLAYER_BIG_BBOX_HEIGHT;
-	}
-	else
-	{
-		right = x + PLAYER_SMALL_BBOX_WIDTH;
-		bottom = y + PLAYER_SMALL_BBOX_HEIGHT;
-	}
+	top = y;	
+	right = x + JASON_BBOX_WIDTH;
+	bottom = y + JASON_BBOX_HEIGHT;
 }
 
 /*
@@ -174,8 +173,7 @@ void CJason::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CJason::Reset()
 {
 	this->IncreaseHeal();
-	SetState(PLAYER_STATE_IDLE);
-	SetLevel(PLAYER_LEVEL_SHOPHIA);
+	SetState(JASON_ANI_IDLE_TOP_DOWN);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
 }
