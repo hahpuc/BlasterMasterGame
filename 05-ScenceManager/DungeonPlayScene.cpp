@@ -21,6 +21,7 @@ CDungeonPlayScene::CDungeonPlayScene(int id, LPCWSTR filePath) :
 	player = NULL;
 	camera = NULL;
 	map = NULL;
+	quadtree = NULL;
 }
 
 /*
@@ -183,6 +184,8 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
 	obj->SetAnimationSet(ani_set);
+
+	quadtree->Insert(obj);
 }
 
 void CDungeonPlayScene::_ParseSection_MAP(string line)
@@ -200,6 +203,8 @@ void CDungeonPlayScene::_ParseSection_MAP(string line)
 	map = new Map(idTileSet, totalRowsTileSet, totalColumnsTileSet, totalRowsMap, totalColumnsMap, totalTiles);
 	map->LoadMap(file_path.c_str());
 	map->ExtractTileFromTileSet();
+
+	quadtree = new Quadtree(0.0f, 0.0f, 0.0f, 512, 2023);
 }
 
 void CDungeonPlayScene::Load()
@@ -258,6 +263,8 @@ void CDungeonPlayScene::Load()
 	camera = new Camera();
 	camera->SetPlayer(player);
 
+	quadtree->NumberOfObjectsInNodes();
+
 
 	/*hub = new HUB();
 	hub->SetCamera(camera);
@@ -283,6 +290,10 @@ void CDungeonPlayScene::Update(DWORD dt)
 
 	// Push objects that can collide
 	vector<LPGAMEOBJECT> coObjects;
+
+	if (quadtree != NULL)
+		quadtree->GetListObject(coObjects, camera);
+
 	for (int i = 0; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);
 

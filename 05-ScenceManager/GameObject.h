@@ -66,6 +66,7 @@ public:
 	int isFinish = 0; 
 	int type = -1;
 	int heal = 100;
+	bool isInserted = false;
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -105,6 +106,11 @@ public:
 
 
 	int GetDirection() { return this->nx; }
+	int GetType() { return this->type; }
+
+	// SET/ GET inserted in Quadtree
+	void SetInsertToQuadtree(bool value) { this->isInserted = value; }
+	bool GetIsInserted() { return this->isInserted; }
 
 	~CGameObject();
 };

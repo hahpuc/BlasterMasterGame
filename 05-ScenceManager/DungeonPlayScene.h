@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "TileMap.h"
 #include "HUB.h"
+#include "Quadtree.h"
 
 
 #define SCENE_SECTION_UNKNOWN			-1
@@ -40,6 +41,7 @@ protected:
 
 	Camera* camera;
 	HUB* hub;
+	Quadtree* quadtree;
 
 
 	void _ParseSection_TEXTURES(string line);
