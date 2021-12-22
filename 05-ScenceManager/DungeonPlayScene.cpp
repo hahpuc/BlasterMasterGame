@@ -7,6 +7,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "GX680.h"
+#include "GX680S.h"
 
 using namespace std;
 
@@ -162,6 +163,14 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CGX680(x, y);
 		obj->type = OBJECT_TYPE_GX680;
 		listEnemies.push_back((CGX680*)obj);
+		break;
+	}
+
+	case OBJECT_TYPE_GX680S:
+	{
+		obj = new CGX680S(x, y);
+		obj->type = OBJECT_TYPE_GX680S;
+		listEnemies.push_back((CGX680S*)obj);
 		break;
 	}
 

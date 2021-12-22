@@ -136,6 +136,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GX680.cpp" />
+    <ClCompile Include="GX680S.cpp" />
     <ClCompile Include="HUB.cpp" />
     <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="Jason.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GX680.h" />
+    <ClInclude Include="GX680S.h" />
     <ClInclude Include="HUB.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Jason.h" />
