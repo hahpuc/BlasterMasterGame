@@ -6,11 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "Interrupt.h"
-#include "BallBot.h"
-#include "Stuka.h"
-#include "Eyelet.h"
-#include "BallCarry.h"
+#include "GX680.h"
 
 using namespace std;
 
@@ -159,6 +155,13 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] BRICK at %f, %f object created!\n", x, y);
 
+		break;
+	}
+	case OBJECT_TYPE_GX680:
+	{
+		obj = new CGX680(x, y);
+		obj->type = OBJECT_TYPE_GX680;
+		listEnemies.push_back((CGX680*)obj);
 		break;
 	}
 

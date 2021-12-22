@@ -152,6 +152,9 @@
     <ClCompile Include="RainbowBullet.cpp">
       <Filter>Objects\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="GX680.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>Ultis</Filter>
+    </ClInclude>
+    <ClInclude Include="GX680.h">
+      <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
