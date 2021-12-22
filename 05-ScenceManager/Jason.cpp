@@ -24,6 +24,7 @@ CJason::CJason(float x, float y) : CGameObject()
 	this->x = x;
 	this->y = y;
 
+	ny = 0;
 }
 
 void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -99,10 +100,19 @@ void CJason::Render()
 	int ani = JASON_ANI_IDLE_TOP_DOWN;
 
 	if (this->GetState() == JASON_STATE_IDLE) {
-		if (nx > 0)
-			ani = JASON_ANI_IDLE_RIGHT;
+		if (ny == 0) {
+			if (nx > 0)
+				ani = JASON_ANI_IDLE_RIGHT;
+			else
+				ani = JASON_ANI_IDLE_LEFT;
+		}
 		else
-			ani = JASON_ANI_IDLE_LEFT;
+		if (ny > 0)
+			ani = JASON_ANI_IDLE_TOP_DOWN;
+		else
+		if (ny < 0)
+			ani = JASON_ANI_IDLE_TOP_UP;
+		
 	}
 	else
 	if (this->GetState() == JASON_STATE_WALKING_RIGHT)
@@ -132,21 +142,25 @@ void CJason::SetState(int state)
 		vx = JASON_WALKING_SPEED;
 		vy = 0;
 		nx = 1;
+		ny = 0;
 		break;
 	case JASON_STATE_WALKING_LEFT:
 		vx = -JASON_WALKING_SPEED;
 		vy = 0;
 		nx = -1;
+		ny = 0;
 		break;
 	case JASON_STATE_WALKING_TOPDOWN:
 		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
 		vy = JASON_WALKING_SPEED;
 		nx = 1;
+		ny = 1;
 		vx = 0;
 		break;
 	case JASON_STATE_WALKING_TOPUP:
 		vy = -JASON_WALKING_SPEED;
 		nx = -1;
+		ny = -1;
 		vx = 0;
 		break;
 
@@ -183,7 +197,7 @@ void CJason::Reset()
 CGameObject* CJason::NewBullet() {
 
 	int ani_set_id = RAINBOW_BULLET_ANI_SETS_ID;
-	float transX = 0, transY = 0;
+	float transX = JASON_BBOX_WIDTH / 2, transY = JASON_BBOX_HEIGHT / 2;
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
@@ -203,6 +217,21 @@ CGameObject* CJason::NewBullet() {
 	else 
 	if (this->GetState() == JASON_STATE_WALKING_TOPUP) {
 		obj->SetState(RAINBOW_BULLET_STATE_TOP_UP);
+	}
+	else
+	if (this->GetState() == JASON_STATE_IDLE) {
+		if (ny == 0) {
+			if (nx > 0)
+				obj->SetState(RAINBOW_BULLET_STATE_RIGHT);
+			else
+				obj->SetState(RAINBOW_BULLET_STATE_LEFT);
+		}
+		else
+		if (ny > 0)
+			obj->SetState(RAINBOW_BULLET_STATE_TOP_DOWN);
+		else
+		if (ny < 0)
+			obj->SetState(RAINBOW_BULLET_STATE_TOP_UP);
 	}
 
 	

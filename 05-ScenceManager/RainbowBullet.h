@@ -17,10 +17,12 @@
 #define RAINBOW_BULLET_STATE_TOP_UP		300
 #define RAINBOW_BULLET_STATE_TOP_DOWN	400
 
+#define PI							3.14
+
 
 class CRainbowBullet : public CGameObject
 {
-
+	int count;
 
 public:
 
