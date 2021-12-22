@@ -158,6 +158,9 @@
     <ClCompile Include="GX680S.cpp">
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="LaserGuard.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -262,6 +265,9 @@
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="GX680S.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserGuard.h">
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

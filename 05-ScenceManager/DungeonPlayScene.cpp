@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "GX680.h"
 #include "GX680S.h"
+#include "LaserGuard.h"
 
 using namespace std;
 
@@ -173,6 +174,16 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 		listEnemies.push_back((CGX680S*)obj);
 		break;
 	}
+
+
+	case OBJECT_TYPE_LASER_GUARD:
+	{
+		obj = new CLaserGuard(x, y);
+		obj->type = OBJECT_TYPE_LASER_GUARD;
+		listEnemies.push_back((CLaserGuard*)obj);
+		break;
+	}
+	
 
 	case OBJECT_TYPE_PORTAL:
 	{
