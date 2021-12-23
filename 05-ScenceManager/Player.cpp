@@ -110,8 +110,8 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CInterrupt*>(e->obj)) 
 			{
 				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
-				this->GetHeal();
-				this->DecreaseHeal();
+				//this->GetHeal();
+				this->DecreaseHeal(10);
 				
 			} // if Goomba
 			
@@ -187,7 +187,7 @@ void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& botto
 */
 void CPlayer::Reset()
 {
-	this->IncreaseHeal();
+	this->ResetHeal();
 	SetState(PLAYER_STATE_IDLE);
 	SetLevel(PLAYER_LEVEL_SHOPHIA);
 	SetPosition(start_x, start_y);

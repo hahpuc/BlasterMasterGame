@@ -6,6 +6,7 @@
 
 #include "Sprites.h"
 #include "Animations.h"
+#include "Utils.h"
 
 
 using namespace std;
@@ -101,9 +102,16 @@ public:
 	virtual void SetState(int state) { this->state = state; }
 
 	// HEAL 
-	void DecreaseHeal(int value) { this->heal -= value; }
+	void DecreaseHeal(int value) { 
+		if (heal <= 0) return;
+		this->heal -= value; 
+	}
 	void IncreaseHeal(int value) { this->heal += value; }
-	int GetHeal() { return this->heal; }
+	void ResetHeal() { this->heal = 100; }
+	int GetHeal() {
+		//DebugOut(L"Heal of obj %d is %d \n", type, heal);
+		return this->heal; 
+	}
 
 
 	int GetDirection() { return this->nx; }

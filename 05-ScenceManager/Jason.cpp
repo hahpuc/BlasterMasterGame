@@ -9,6 +9,9 @@
 
 #include "Portal.h"
 #include "Brick.h"
+#include "GX680.h"
+#include "GX680S.h"
+#include "LaserGuard.h"
 
 
 CJason::CJason(float x, float y) : CGameObject()
@@ -81,7 +84,27 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			// if Goomba
+			if (dynamic_cast<CGX680*>(e->obj))
+			{
+				CGX680* gx680 = dynamic_cast<CGX680*>(e->obj);
+				this->DecreaseHeal(10);
+				//this->GetHeal();
+			} 
+
+			if (dynamic_cast<CGX680S*>(e->obj))
+			{
+				CGX680S* gx680s = dynamic_cast<CGX680S*>(e->obj);
+				this->DecreaseHeal(10);
+				//this->GetHeal();
+			}
+
+			if (dynamic_cast<CLaserGuard*>(e->obj))
+			{
+				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);
+				this->DecreaseHeal(10);
+				//this->GetHeal();
+			}
+
 			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
@@ -188,7 +211,7 @@ void CJason::GetBoundingBox(float& left, float& top, float& right, float& bottom
 */
 void CJason::Reset()
 {
-	this->IncreaseHeal();
+	this->ResetHeal();
 	SetState(JASON_ANI_IDLE_TOP_DOWN);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);

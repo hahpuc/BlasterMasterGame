@@ -2,6 +2,9 @@
 #include "RainbowBullet.h"
 #include "Game.h"
 #include "Brick.h"
+#include "GX680.h"
+#include "GX680S.h"
+#include "LaserGuard.h"
 
 
 CRainbowBullet::CRainbowBullet(int nx, CJason* parent) {
@@ -75,6 +78,40 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 				isFinish = 1;
+			}
+
+			if (dynamic_cast<CGX680*>(e->obj)) {   // If object is GX680
+				isFinish = 1;
+				CGX680* gx680 = dynamic_cast<CGX680*>(e->obj);
+
+				gx680->DecreaseHeal(50);
+				DebugOut(L"Heal of GX680: %d \n", gx680->GetHeal());
+
+				if (gx680->GetHeal() <= 0)
+					gx680->SetState(GX680_STATE_DIE);
+
+			}
+
+			if (dynamic_cast<CGX680S*>(e->obj)) {   // If object is GX680S
+				isFinish = 1;
+				CGX680S* gx680s = dynamic_cast<CGX680S*>(e->obj);
+
+				gx680s->DecreaseHeal(50);
+				DebugOut(L"Heal of gx680s: %d \n", gx680s->GetHeal());
+
+				if (gx680s->GetHeal() <= 0)
+					gx680s->SetState(GX680S_STATE_DIE);
+			}
+
+			if (dynamic_cast<CLaserGuard*>(e->obj)) {   // If object is Laser
+				isFinish = 1;
+				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);
+
+				laser->DecreaseHeal(50);
+				DebugOut(L"Heal of laser: %d \n", laser->GetHeal());
+
+				if (laser->GetHeal() <= 0)
+					laser->SetState(LaserGuard_STATE_DIE);
 			}
 		}
 	}

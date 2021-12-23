@@ -19,7 +19,7 @@ void HUB::Update(DWORD time)
 	camera->GetPosition(cx, cy);
 
 	cx += 20.0;
-	cy += (float)CGame::GetInstance()->GetScreenHeight() / 2 ;
+	cy += (float)CGame::GetInstance()->GetScreenHeight() / 2;
 	
 	this->SetPosition(cx, cy);
 }

@@ -289,9 +289,9 @@ void CDungeonPlayScene::Load()
 	quadtree->NumberOfObjectsInNodes();
 
 
-	/*hub = new HUB();
+	hub = new HUB();
 	hub->SetCamera(camera);
-	hub->SetPlayer(player);*/
+	hub->SetJason(player);
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -307,7 +307,7 @@ void CDungeonPlayScene::Update(DWORD dt)
 
 	if (player->BeingFireBullet()) {
 		createObjects.push_back(player->NewBullet());
-		//player->CancelFireBullet();
+		player->CancelFireBullet();
 	}
 
 
@@ -330,9 +330,6 @@ void CDungeonPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update Objects
-	player->Update(dt, &coObjects);
-
 	for (int i = 0; i < createObjects.size(); ++i)
 		createObjects[i]->Update(dt, &coObjects);
 
@@ -341,9 +338,6 @@ void CDungeonPlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); ++i)
 		objects[i]->Update(dt, &coObjects);
-
-	coObjects.clear();
-
 
 	// SET UP camera;
 	float posx, posy;
@@ -355,7 +349,12 @@ void CDungeonPlayScene::Update(DWORD dt)
 	camera->Update(dt);
 
 	// Update Hub to follow camera
-	//hub->Update(dt);
+	hub->Update(dt);
+
+	// Update Objects
+	player->Update(dt, &coObjects);
+
+	coObjects.clear();
 }
 
 void CDungeonPlayScene::Render()
@@ -366,7 +365,7 @@ void CDungeonPlayScene::Render()
 	}
 
 	player->Render();
-	//hub->Render();
+	hub->Render();
 
 	for (int i = 0; i < createObjects.size(); ++i)
 		createObjects[i]->Render();

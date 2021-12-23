@@ -44,8 +44,6 @@ class CJason : public CGameObject
 
 	bool isFireBullet;
 
-	int heal;
-
 public:
 
 	CJason(float x = 0.0f, float y = 0.0f);
@@ -68,23 +66,6 @@ public:
 
 	DWORD GetLastShoot() { return this->lastShoot; }
 	void SetLastShoot() { this->lastShoot = GetTickCount64(); }
-
-	int GetHeal() {
-		//DebugOut(L"Current heal: %d", this->heal);
-		return this->heal;
-	}
-	void DecreaseHeal() {
-
-		// if (this->heal == 0) die
-
-		this->heal -= 10;
-		//DebugOut(L"Current heal: %d", this->heal);
-
-	}
-	void IncreaseHeal() {
-		this->heal = 100;
-		//DebugOut(L"Current heal: %d", this->heal);
-	}
 
 
 	bool BeingFireBullet() { return isFireBullet; }

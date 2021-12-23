@@ -142,7 +142,7 @@ void Quadtree::GetListObjectInCamera(vector<CGameObject*>& Obj, Camera* camera)
 		}
 	}
 	
-	DebugOut(L"Number Object in camera %d: \n", Obj.size());
+	//DebugOut(L"Number Object in camera %d: \n", Obj.size());
 	/*for (auto object : Obj) {
 		DebugOut(L" TYPE: %d ", object->GetType());
 	}
