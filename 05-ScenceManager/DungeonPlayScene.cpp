@@ -315,7 +315,7 @@ void CDungeonPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 
 	if (quadtree != NULL)
-		quadtree->GetListObject(coObjects, camera);
+		quadtree->GetListObjectInCamera(coObjects, camera);
 
 	for (int i = 0; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);

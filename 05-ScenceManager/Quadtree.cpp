@@ -25,10 +25,10 @@ void Quadtree::Clear()
 {
 	if (Nodes.size() != 0)
 	{
-		for (unsigned int i = 0; i < Nodes.size(); i++)
+		for (auto value : Nodes)
 		{
-			Nodes[i]->Clear();
-			delete Nodes[i];
+			value->Clear();
+			delete value;
 		}
 	}
 	ObjectList.clear();
@@ -118,43 +118,47 @@ bool Quadtree::CheckNodeInsideCamera(Camera* camera)
 	bottom = cam_y + CGame::GetInstance()->GetScreenHeight();
 	return CGame::GetInstance()->AABBCheck(this->x, this->y, this->x + this->width, this->y + this->height, left, top, right, bottom);
 }
-void Quadtree::GetListObject(vector<CGameObject*>& Obj, Camera* camera)
+void Quadtree::GetListObjectInCamera(vector<CGameObject*>& Obj, Camera* camera)
 {
 
 	if (Nodes.size() != 0)
 	{
 		if (Nodes[0]->CheckNodeInsideCamera(camera))
-			Nodes[0]->GetListObject(Obj, camera);
+			Nodes[0]->GetListObjectInCamera(Obj, camera);
 		if (Nodes[1]->CheckNodeInsideCamera(camera))
-			Nodes[1]->GetListObject(Obj, camera);
+			Nodes[1]->GetListObjectInCamera(Obj, camera);
 		if (Nodes[2]->CheckNodeInsideCamera(camera))
-			Nodes[2]->GetListObject(Obj, camera);
+			Nodes[2]->GetListObjectInCamera(Obj, camera);
 		if (Nodes[3]->CheckNodeInsideCamera(camera))
-			Nodes[3]->GetListObject(Obj, camera);
+			Nodes[3]->GetListObjectInCamera(Obj, camera);
 		return;
 	}
-	//DebugOut(L"List object wrong 1:%i\n", Obj.size());
+
 	if (this->CheckNodeInsideCamera(camera))
 	{
-		for (unsigned int i = 0; i < ObjectList.size(); i++)
+		for (auto value : ObjectList)
 		{
-			Obj.push_back(ObjectList[i]);
+			Obj.push_back(value);
 		}
-		//DebugOut(L"List object wrong 2:%i\n", Obj.size());
 	}
-
+	
+	DebugOut(L"Number Object in camera %d: \n", Obj.size());
+	/*for (auto object : Obj) {
+		DebugOut(L" TYPE: %d ", object->GetType());
+	}
+	DebugOut(L"-------------->\n");*/
 }
 
 void Quadtree::NumberOfObjectsInNodes()
 {
 	if (Nodes.size() != 0)
 	{
-		for (unsigned int i = 0; i < Nodes.size(); i++)
+		for (auto value : Nodes)
 		{
-			Nodes[i]->NumberOfObjectsInNodes();
+			value->NumberOfObjectsInNodes();
 		}
 	}
-	DebugOut(L"Nodes level %i has %i objects with X = %f, Y = %f\n", level, ObjectList.size(), this->x, this->y);
+	DebugOut(L"Nodes level %i has %i objects at X = %f, Y = %f\n", level, ObjectList.size(), this->x, this->y);
 
 	for (auto obj : ObjectList) {
 		float x, y;

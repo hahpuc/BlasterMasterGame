@@ -296,7 +296,7 @@ void CPlayScene::Load()
 
 	f.close();
 
-	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	camera = new Camera();
 	camera->SetPlayer(player);
 
@@ -329,7 +329,7 @@ void CPlayScene::Update(DWORD dt)
 	vector<LPGAMEOBJECT> coObjects;
 
 	if (quadtree != NULL)
-		quadtree->GetListObject(coObjects, camera);
+		quadtree->GetListObjectInCamera(coObjects, camera);
 
 	for (int i = 0; i < objects.size(); i++) 
 		coObjects.push_back(objects[i]);

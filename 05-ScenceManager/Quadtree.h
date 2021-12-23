@@ -31,7 +31,7 @@ public:
 	void Clear();
 	void Insert(CGameObject* object);
 	bool CheckNodeInsideCamera(Camera* camera);
-	void GetListObject(vector<CGameObject*>& Obj, Camera* camera);
+	void GetListObjectInCamera(vector<CGameObject*>& Obj, Camera* camera);
 
 	void NumberOfObjectsInNodes();
 };
