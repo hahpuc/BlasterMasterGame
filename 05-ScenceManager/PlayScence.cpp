@@ -344,9 +344,6 @@ void CPlayScene::Update(DWORD dt)
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
 	if (player == NULL) return;
 
-	// Update Objects
-	player->Update(dt, &coObjects);
-
 	for (int i = 0; i < createObjects.size(); ++i) 
 		createObjects[i]->Update(dt, &coObjects);
 
@@ -356,11 +353,8 @@ void CPlayScene::Update(DWORD dt)
 	for (int i = 0; i < objects.size(); ++i)
 		objects[i]->Update(dt, &coObjects);
 
-	coObjects.clear();
-
-
 	// SET UP camera;
-	float posx, posy; 
+	float posx, posy;
 	player->GetPosition(posx, posy);
 
 	//DebugOut(L"Pos x: %f, pos y: %f \n", posx, posy);
@@ -370,6 +364,12 @@ void CPlayScene::Update(DWORD dt)
 
 	// Update Hub to follow camera
 	hub->Update(dt);
+
+	// Update Objects
+	player->Update(dt, &coObjects);
+
+	coObjects.clear();
+
 }
 
 void CPlayScene::Render()
