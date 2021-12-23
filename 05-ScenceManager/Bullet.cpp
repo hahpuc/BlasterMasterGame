@@ -43,7 +43,7 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (y < camy || y > camy + screenHeight)
 		isFinish = 1;
 
-	if (isFinish)
+	if (isFinish || this->state == BULLET_STATE_FINISH)
 		return;
 
 	CGameObject::Update(dt);
@@ -77,7 +77,6 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
 			if (dynamic_cast<CInterrupt*>(e->obj)) {   // If object is Interrupt
-				isFinish = 1;
 				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
 				
 				interrupt->DecreaseHeal(50);
@@ -86,10 +85,10 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (interrupt->GetHeal() <= 0) 
 					interrupt->SetState(INTERRUPT_STATE_DIE);
 
+				this->SetState(BULLET_STATE_FINISH);
 			}
 
 			if (dynamic_cast<CBallBot*>(e->obj)) {   // If object is BallBot
-				isFinish = 1;
 				CBallBot* ballBot = dynamic_cast<CBallBot*>(e->obj);
 
 				/*ballBot->DecreaseHeal(50);
@@ -97,10 +96,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (ballBot->GetHeal() <= 0)*/
 					ballBot->SetState(BALLBOT_STATE_DIE);
+
+				this->SetState(BULLET_STATE_FINISH);
 			}
 
 			if (dynamic_cast<CEyelet* > (e->obj)) {   // If object is Eyelet
-				isFinish = 1;
 				CEyelet* eyelet = dynamic_cast<CEyelet*>(e->obj);
 
 				/*eyelet->DecreaseHeal(50);
@@ -108,10 +108,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (eyelet->GetHeal() <= 0)*/
 					eyelet->SetState(EYELET_STATE_DIE);
+
+				this->SetState(BULLET_STATE_FINISH);
 			}
 
 			if (dynamic_cast<CBallCarry*> (e->obj)) {   // If object is Carry
-				isFinish = 1;
 				CBallCarry* ballCarray = dynamic_cast<CBallCarry*>(e->obj);
 
 				ballCarray->DecreaseHeal(50);
@@ -119,10 +120,11 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (ballCarray->GetHeal() <= 0)
 					ballCarray->SetState(BALLCARRY_STATE_DIE);
+
+				this->SetState(BULLET_STATE_FINISH);
 			}
 
 			if (dynamic_cast<CStuka*> (e->obj)) {   // If object is Stuke
-				isFinish = 1;
 				CStuka* stuka = dynamic_cast<CStuka*>(e->obj);
 
 				stuka->DecreaseHeal(50);
@@ -130,12 +132,14 @@ void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (stuka->GetHeal() <= 0)
 					stuka->SetState(STUKA_STATE_DIE);
+
+				this->SetState(BULLET_STATE_FINISH);
 			}
 
 			else if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				isFinish = 1;
+				this->SetState(BULLET_STATE_FINISH);
 			}
 		}
 	}
@@ -155,6 +159,11 @@ void CBullet::Render()
 		else if (vx <= 0) ani = BULLET_ANI_LEFT_LV3;
 	}	
 
+	if (this->state == BULLET_STATE_FINISH) {
+		ani = BULLET_ANI_FINISH;
+		this->isFinish = 1;
+	}
+
 	animation_set->at(ani)->Render(round(x), round(y));
 	//RenderBoundingBox(); 
 }
@@ -172,6 +181,11 @@ void CBullet::SetState(int state) {
 	case BULLET_STATE_HEAD_UP:
 		vy = -BULLET_SPEED;
 		vx = 0;
+		break;
+
+	case BULLET_STATE_FINISH:
+		vx = 0; 
+		vy = 0;
 		break;
 
 	default:

@@ -41,7 +41,7 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (y < camy || y > camy + screenHeight)
 		isFinish = 1;
 
-	if (isFinish)
+	if (isFinish || this->state == RAINBOW_BULLET_STATE_FINISH)
 		return;
 
 	CGameObject::Update(dt);
@@ -77,11 +77,10 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				isFinish = 1;
+				this->SetState(RAINBOW_BULLET_STATE_FINISH);
 			}
 
 			if (dynamic_cast<CGX680*>(e->obj)) {   // If object is GX680
-				isFinish = 1;
 				CGX680* gx680 = dynamic_cast<CGX680*>(e->obj);
 
 				gx680->DecreaseHeal(50);
@@ -90,10 +89,11 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (gx680->GetHeal() <= 0)
 					gx680->SetState(GX680_STATE_DIE);
 
+				this->SetState(RAINBOW_BULLET_STATE_FINISH);
+
 			}
 
 			if (dynamic_cast<CGX680S*>(e->obj)) {   // If object is GX680S
-				isFinish = 1;
 				CGX680S* gx680s = dynamic_cast<CGX680S*>(e->obj);
 
 				gx680s->DecreaseHeal(50);
@@ -101,10 +101,11 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (gx680s->GetHeal() <= 0)
 					gx680s->SetState(GX680S_STATE_DIE);
+
+				this->SetState(RAINBOW_BULLET_STATE_FINISH);
 			}
 
-			if (dynamic_cast<CLaserGuard*>(e->obj)) {   // If object is Laser
-				isFinish = 1;
+			if (dynamic_cast<CLaserGuard*>(e->obj)) {   // If object is 
 				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);
 
 				laser->DecreaseHeal(50);
@@ -112,6 +113,8 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (laser->GetHeal() <= 0)
 					laser->SetState(LaserGuard_STATE_DIE);
+
+				this->SetState(RAINBOW_BULLET_STATE_FINISH);
 			}
 		}
 	}
@@ -123,6 +126,11 @@ void CRainbowBullet::Render()
 		return;
 
 	int ani = RAINBOW_BULLET_ANI_FIRE;
+
+	if (this->state == RAINBOW_BULLET_STATE_FINISH) {
+		ani = RAINBOW_BULLET_ANI_FINISH;
+		this->isFinish = 1;
+	}
 
 	animation_set->at(ani)->Render(round(x), round(y));
 	//RenderBoundingBox(); 
@@ -151,6 +159,11 @@ void CRainbowBullet::SetState(int state) {
 	case RAINBOW_BULLET_STATE_TOP_DOWN:
 		vx = 0;
 		vy = RAINBOW_BULLET_SPEED * nx;
+		break;
+
+	case RAINBOW_BULLET_STATE_FINISH:
+		vx = 0;
+		vy = 0;
 		break;
 
 	default:
