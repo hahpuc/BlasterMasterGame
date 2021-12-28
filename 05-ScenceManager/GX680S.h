@@ -2,6 +2,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Jason.h"
 
 
 #define GX680S_BBOX_WIDTH		18
@@ -18,17 +19,24 @@
 
 #define GX680S_DYING_TIME			200
 #define GX680S_SPEED				0.035f
+#define GX680S_RANGE				100
+
 
 class CGX680S : public CGameObject {
 
 
 	DWORD die_start = NULL;				//time die animation
 
+
+	float pX, pY;
 public:
 	int isDying;
 
+	CJason* player;
+
+
 	CGX680S();
-	CGX680S(float x, float y);
+	CGX680S(float x, float y, CJason* player);
 	~CGX680S();
 
 	virtual void SetState(int state);

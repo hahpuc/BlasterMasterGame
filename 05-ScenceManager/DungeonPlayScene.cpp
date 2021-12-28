@@ -169,7 +169,7 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_GX680S:
 	{
-		obj = new CGX680S(x, y);
+		obj = new CGX680S(x, y, player);
 		obj->type = OBJECT_TYPE_GX680S;
 		listEnemies.push_back((CGX680S*)obj);
 		break;

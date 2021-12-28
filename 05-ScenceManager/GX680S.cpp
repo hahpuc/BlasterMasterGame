@@ -8,9 +8,10 @@ CGX680S::CGX680S()
 
 }
 
-CGX680S::CGX680S(float x, float y) {
+CGX680S::CGX680S(float x, float y, CJason* player) {
 	this->x = x;
 	this->y = y;
+	this->player = player;
 
 	vx = GX680S_SPEED;
 	isDying = 0;
@@ -52,7 +53,29 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (isFinish && isDying)	// if dying and die animation finish then return
 		return;
 
+	this->player->GetPosition(pX, pY);
+
 	CGameObject::Update(dt);
+
+	if ((abs(x - pX) < GX680S_RANGE || abs(y - pY) < GX680S_RANGE) && state == GX680S_STATE_STANDING)
+	{
+		SetState(GX680S_STATE_WALKING);
+	}
+
+	if (state == GX680S_DYING_TIME) {
+		if (GetTickCount64() - die_start > GX680S_DYING_TIME) {
+			die_start = 0;
+			isDying = 1;
+		}
+	}
+
+	if (state == GX680S_STATE_WALKING)
+	{
+		if (abs(x - pX) > GX680S_RANGE || abs(y - pY) > GX680S_RANGE)
+		{
+			SetState(GX680S_STATE_STANDING);
+		}
+	}
 
 	if (state == GX680S_DYING_TIME) {
 		if (GetTickCount64() - die_start > GX680S_DYING_TIME) {
@@ -86,10 +109,10 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		for (int i = 0; i < coEventsResult.size(); ++i) {
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
+			CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+			if (e->nx != 0 && e->ny == 0)
 			{
-				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				vx = -vx;
+				vx = GX680S_SPEED * e->nx;
 			}
 		}
 	}
@@ -111,7 +134,13 @@ void CGX680S::SetState(int state) {
 		break;
 
 	case GX680S_STATE_WALKING:
-		vx = GX680S_SPEED;
+		if ((pX - x) > 0) vx = GX680S_SPEED;
+		else
+		if ((pX - x) < 0) vx = -GX680S_SPEED;
+
+		if ((pY - y) > 0) vy = GX680S_SPEED;
+		else
+		if ((pY - y) < 0) vy = -GX680S_SPEED;
 		break;
 
 	default:
