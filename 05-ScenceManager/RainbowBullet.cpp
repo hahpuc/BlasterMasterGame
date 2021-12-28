@@ -7,10 +7,11 @@
 #include "LaserGuard.h"
 
 
-CRainbowBullet::CRainbowBullet(int nx, CJason* parent) {
+CRainbowBullet::CRainbowBullet(int nx, int ny, CJason* parent) {
 	vx = RAINBOW_BULLET_SPEED * nx;
 
 	this->nx = nx;
+	this->ny = ny;
 
 	this->parent = parent;
 }
@@ -43,6 +44,23 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (isFinish || this->state == RAINBOW_BULLET_STATE_FINISH)
 		return;
+
+	if (count >= 180) count = 0;
+
+	if (state == RAINBOW_BULLET_STATE_FIRE)
+	{
+		switch (nxORny)
+		{
+		case false:
+			vy = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 30);
+			count = count++;
+			break;
+		case true:
+			vx = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 30);
+			count = count++;
+			break;
+		}
+	}
 
 	CGameObject::Update(dt);
 
@@ -141,24 +159,20 @@ void CRainbowBullet::SetState(int state) {
 
 	switch (state)
 	{
-	case RAINBOW_BULLET_STATE_RIGHT:
-		vx = RAINBOW_BULLET_SPEED * nx;
-		vy = 0;
-		break;
-	
-	case RAINBOW_BULLET_STATE_LEFT:
-		vx = RAINBOW_BULLET_SPEED * nx;
-		vy = 0;
-		break;
+	case RAINBOW_BULLET_STATE_FIRE:
+		vx = nx * RAINBOW_BULLET_SPEED;
+		vy = ny * RAINBOW_BULLET_SPEED;
+		if (vx == 0)
+		{
+			vx = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 10);
+			nxORny = true;
+		}
 
-	case RAINBOW_BULLET_STATE_TOP_UP:
-		vx = 0;
-		vy = RAINBOW_BULLET_SPEED * nx;
-		break;
-
-	case RAINBOW_BULLET_STATE_TOP_DOWN:
-		vx = 0;
-		vy = RAINBOW_BULLET_SPEED * nx;
+		if (vy == 0)
+		{
+			nxORny = false;
+			vy = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 10);
+		}
 		break;
 
 	case RAINBOW_BULLET_STATE_FINISH:

@@ -176,13 +176,13 @@ void CJason::SetState(int state)
 	case JASON_STATE_WALKING_TOPDOWN:
 		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
 		vy = JASON_WALKING_SPEED;
-		nx = 1;
+		nx = 0;
 		ny = 1;
 		vx = 0;
 		break;
 	case JASON_STATE_WALKING_TOPUP:
 		vy = -JASON_WALKING_SPEED;
-		nx = -1;
+		nx = 0;
 		ny = -1;
 		vx = 0;
 		break;
@@ -224,39 +224,9 @@ CGameObject* CJason::NewBullet() {
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
-	CGameObject* obj = new CRainbowBullet(this->nx, this);
+	CGameObject* obj = new CRainbowBullet(this->nx, this->ny, this);
 
-	if (this->GetState() == JASON_STATE_WALKING_LEFT) {
-		obj->SetState(RAINBOW_BULLET_STATE_LEFT);
-	}
-	else 
-	if (this->GetState() == JASON_STATE_WALKING_RIGHT) {
-		obj->SetState(RAINBOW_BULLET_STATE_RIGHT);
-	}
-	else 
-	if (this->GetState() == JASON_STATE_WALKING_TOPDOWN) {
-		obj->SetState(RAINBOW_BULLET_STATE_TOP_DOWN);
-	}
-	else 
-	if (this->GetState() == JASON_STATE_WALKING_TOPUP) {
-		obj->SetState(RAINBOW_BULLET_STATE_TOP_UP);
-	}
-	else
-	if (this->GetState() == JASON_STATE_IDLE) {
-		if (ny == 0) {
-			if (nx > 0)
-				obj->SetState(RAINBOW_BULLET_STATE_RIGHT);
-			else
-				obj->SetState(RAINBOW_BULLET_STATE_LEFT);
-		}
-		else
-		if (ny > 0)
-			obj->SetState(RAINBOW_BULLET_STATE_TOP_DOWN);
-		else
-		if (ny < 0)
-			obj->SetState(RAINBOW_BULLET_STATE_TOP_UP);
-	}
-
+	obj->SetState(RAINBOW_BULLET_STATE_FIRE);
 	
 	obj->type = OBJECT_TYPE_BULLET;
 	obj->SetPosition(this->x + transX, this->y + transY);

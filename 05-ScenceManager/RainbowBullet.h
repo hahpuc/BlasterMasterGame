@@ -11,12 +11,10 @@
 #define RAINBOW_BULLET_ANI_SETS_ID		3
 
 #define RAINBOW_BULLET_SPEED			0.25f
+#define RAINBOW_BULLET_SPEED_WAVE		0.4f
 #define RAINBOW_BULLET_GRAVITY			0.001f
 
-#define RAINBOW_BULLET_STATE_RIGHT		100
-#define RAINBOW_BULLET_STATE_LEFT		200
-#define RAINBOW_BULLET_STATE_TOP_UP		300
-#define RAINBOW_BULLET_STATE_TOP_DOWN	400
+#define RAINBOW_BULLET_STATE_FIRE		100
 #define RAINBOW_BULLET_STATE_FINISH		500
 
 #define PI							3.14
@@ -25,12 +23,13 @@
 class CRainbowBullet : public CGameObject
 {
 	int count;
+	bool nxORny;
 
 public:
 
 	CJason* parent;
 
-	CRainbowBullet(int nx, CJason* parent);
+	CRainbowBullet(int nx, int ny, CJason* parent);
 	void SetState(int state);
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
