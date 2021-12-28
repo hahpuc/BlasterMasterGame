@@ -161,6 +161,9 @@
     <ClCompile Include="LaserGuard.cpp">
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="wallMap.cpp">
+      <Filter>Objects\Obstacles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -269,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="LaserGuard.h">
       <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="wallMap.h">
+      <Filter>Objects\Obstacles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@
 #include "GX680.h"
 #include "GX680S.h"
 #include "LaserGuard.h"
+#include "wallMap.h"
 
 using namespace std;
 
@@ -128,6 +129,10 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 
 	int ani_set_id = atoi(tokens[3].c_str());
 
+	int ani_image = 0;
+	if (tokens.size() == 5) 
+		ani_image = atoi(tokens[4].c_str());
+
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject* obj = NULL;
@@ -172,6 +177,14 @@ void CDungeonPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CGX680S(x, y, player);
 		obj->type = OBJECT_TYPE_GX680S;
 		listEnemies.push_back((CGX680S*)obj);
+		break;
+	}
+
+	case OBJECT_TYPE_WALL_OF_MAP: 
+	{
+		obj = new CWallMap(x, y, ani_image);
+		obj->type = OBJECT_TYPE_WALL_OF_MAP;
+		wallMap.push_back((CWallMap*)obj);
 		break;
 	}
 
@@ -367,6 +380,9 @@ void CDungeonPlayScene::Render()
 	player->Render();
 	hub->Render();
 
+	for (int i = 0; i < wallMap.size(); ++i)
+		wallMap[i]->Render();
+
 	for (int i = 0; i < createObjects.size(); ++i)
 		createObjects[i]->Render();
 
@@ -391,6 +407,9 @@ void CDungeonPlayScene::Unload()
 
 	for (int i = 0; i < listEnemies.size(); ++i)
 		delete listEnemies[i];
+
+	for (int i = 0; i < wallMap.size(); ++i)
+		delete wallMap[i];
 
 	objects.clear();
 	player = NULL;

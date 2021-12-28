@@ -26,6 +26,7 @@
 #define OBJECT_TYPE_GX680		4
 #define OBJECT_TYPE_GX680S		5
 #define OBJECT_TYPE_LASER_GUARD	6
+#define OBJECT_TYPE_WALL_OF_MAP	7
 
 #define OBJECT_TYPE_PORTAL		50
 
@@ -40,6 +41,7 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> listEnemies;
 	vector<LPGAMEOBJECT> createObjects;
+	vector<LPGAMEOBJECT> wallMap;
 
 	Map* map;
 
