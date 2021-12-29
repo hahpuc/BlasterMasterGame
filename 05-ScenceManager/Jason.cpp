@@ -85,20 +85,6 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGX680*>(e->obj))
-			{
-				CGX680* gx680 = dynamic_cast<CGX680*>(e->obj);
-				this->DecreaseHeal(10);
-				//this->GetHeal();
-			} 
-			else 
-			if (dynamic_cast<CGX680S*>(e->obj))
-			{
-				CGX680S* gx680s = dynamic_cast<CGX680S*>(e->obj);
-				this->DecreaseHeal(10);
-				//this->GetHeal();
-			}
-			else 
 			if (dynamic_cast<CLaserGuard*>(e->obj))
 			{
 				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);

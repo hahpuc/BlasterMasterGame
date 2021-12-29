@@ -114,6 +114,12 @@ void CGX680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 					vx = GX680_SPEED * e->nx;
 				}
 			}
+			else
+			if (dynamic_cast<CJason*>(e->obj))
+			{
+				CJason* jason = dynamic_cast<CJason*>(e->obj);
+				jason->DecreaseHeal(10);
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "GameObject.h"
-
+#include "Jason.h"
 
 #define LaserGuard_BBOX_WIDTH		18
 #define LaserGuard_BBOX_HEIGHT		17

@@ -88,6 +88,12 @@ void CLaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
 				vx = -vx;
 			}
+			else
+			if (dynamic_cast<CJason*>(e->obj))
+			{
+				CJason* jason = dynamic_cast<CJason*>(e->obj);
+				jason->DecreaseHeal(10);
+			}
 		}
 	}
 }

@@ -109,10 +109,19 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		for (int i = 0; i < coEventsResult.size(); ++i) {
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-			if (e->nx != 0 && e->ny == 0)
+			if (dynamic_cast<CBrick*>(e->obj))				// object is Brick
 			{
-				vx = GX680S_SPEED * e->nx;
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				if (e->nx != 0 && e->ny == 0)
+				{
+					vx = GX680S_SPEED * e->nx;
+				}
+			}
+			else
+			if (dynamic_cast<CJason*>(e->obj))
+			{
+				CJason* jason = dynamic_cast<CJason*>(e->obj);
+				jason->DecreaseHeal(10);
 			}
 		}
 	}
