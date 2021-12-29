@@ -351,14 +351,17 @@ void CDungeonPlayScene::Update(DWORD dt)
 	if (quadtree != NULL)
 		quadtree->GetListObjectInCamera(coObjects, camera);
 
-	/*for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);
 
 	for (int i = 0; i < listEnemies.size(); i++)
 		coObjects.push_back(listEnemies[i]);
 
 	for (int i = 0; i < createObjects.size(); i++)
-		coObjects.push_back(createObjects[i]);*/
+		coObjects.push_back(createObjects[i]);
+
+	for (int i = 0; i < items.size(); i++)
+		coObjects.push_back(items[i]);
 
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)

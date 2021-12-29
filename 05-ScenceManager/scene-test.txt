@@ -417,4 +417,4 @@
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
 50	1734	891	0	1754	911	1
-
+50	1500	349	0	1520	369	1

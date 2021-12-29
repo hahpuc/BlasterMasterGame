@@ -303,7 +303,7 @@ void CPlayScene::Load()
 	camera = new Camera();
 	camera->SetPlayer(player);
 
-	quadtree->NumberOfObjectsInNodes();
+	//quadtree->NumberOfObjectsInNodes();
 
 
 	hub = new HUB();
@@ -374,9 +374,6 @@ void CPlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); ++i)
 		objects[i]->Update(dt, &coObjects);
-
-	for (int i = 0; i < items.size(); ++i)
-		items[i]->Update(dt, &coObjects);
 
 	// SET UP camera;
 	float posx, posy;

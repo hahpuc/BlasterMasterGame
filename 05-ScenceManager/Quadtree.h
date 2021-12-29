@@ -10,7 +10,7 @@
 
 
 #define MAX_LEVEL 20
-#define MAX_OBJECT_IN_REGION 10
+#define MAX_OBJECT_IN_REGION 20
 
 using namespace std;
 

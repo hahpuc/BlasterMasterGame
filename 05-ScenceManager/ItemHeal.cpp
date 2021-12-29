@@ -45,42 +45,6 @@ void CItemHeal::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (isFinish && isDying)	// if dying and die animation finish then return
 		return;
-
-	CGameObject::Update(dt);
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	if (state != ITEMHEAL_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
-
-	if (coEvents.size() == 0) {
-		x += dx;
-	}
-	else {
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-
-		for (int i = 0; i < coEventsResult.size(); ++i) {
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CJason*>(e->obj))				// object is Brick
-			{
-				CJason* player = dynamic_cast<CJason*>(e->obj);
-				player->ResetHeal();
-
-				this->isFinish = 1;
-			}
-		}
-	}
 }
 
 void CItemHeal::SetState(int state) {

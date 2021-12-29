@@ -12,6 +12,7 @@
 #include "GX680.h"
 #include "GX680S.h"
 #include "LaserGuard.h"
+#include "ItemHeal.h"
 
 
 CJason::CJason(float x, float y) : CGameObject()
@@ -90,25 +91,32 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->DecreaseHeal(10);
 				//this->GetHeal();
 			} 
-
+			else 
 			if (dynamic_cast<CGX680S*>(e->obj))
 			{
 				CGX680S* gx680s = dynamic_cast<CGX680S*>(e->obj);
 				this->DecreaseHeal(10);
 				//this->GetHeal();
 			}
-
+			else 
 			if (dynamic_cast<CLaserGuard*>(e->obj))
 			{
 				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);
 				this->DecreaseHeal(10);
 				//this->GetHeal();
 			}
-
+			else
 			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
+			else 
+			if (dynamic_cast<CItemHeal*>(e->obj))
+			{
+				CItemHeal* itemHeal = dynamic_cast<CItemHeal*>(e->obj);
+				itemHeal->SetState(ITEMHEAL_STATE_DIE);
+				this->ResetHeal();
 			}
 		}
 	}

@@ -115,19 +115,21 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->DecreaseHeal(10);
 				
 			} // if Goomba
-			
+			else 
+			if (dynamic_cast<CItemHeal*>(e->obj))
+			{
+				CItemHeal* itemHeal = dynamic_cast<CItemHeal*>(e->obj);
+				itemHeal->SetState(ITEMHEAL_STATE_DIE);
+				this->ResetHeal();
+			}
+			else
 			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 
-			if (dynamic_cast<CItemHeal*>(e->obj))
-			{
-				CItemHeal* itemHeal = dynamic_cast<CItemHeal*>(e->obj);
-				itemHeal->isFinish = 1;
-				this->ResetHeal();
-			}
+			
 		}
 	}
 
