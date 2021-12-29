@@ -10,6 +10,7 @@
 #include "Interrupt.h"
 #include "PlayScence.h"
 #include "Brick.h"
+#include "ItemHeal.h"
 
 #include "SophiaMiddle.h"
 #include "SophiaRightWheel.h"
@@ -119,6 +120,13 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
+
+			if (dynamic_cast<CItemHeal*>(e->obj))
+			{
+				CItemHeal* itemHeal = dynamic_cast<CItemHeal*>(e->obj);
+				itemHeal->isFinish = 1;
+				this->ResetHeal();
 			}
 		}
 	}
