@@ -164,7 +164,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_INTERRUPT:
 	{
-		obj = new CInterrupt(x, y);
+		obj = new CInterrupt(x, y, player);
 		obj->type = OBJECT_TYPE_INTERRUPT;
 		listEnemies.push_back((CInterrupt*) obj);
 		break;
@@ -353,8 +353,24 @@ void CPlayScene::Update(DWORD dt)
 	for (int i = 0; i < objects.size(); i++) 
 		coObjects.push_back(objects[i]);
 
-	for (int i = 0; i < listEnemies.size(); i++) 
+	for (int i = 0; i < listEnemies.size(); i++) {
 		coObjects.push_back(listEnemies[i]);
+
+		// Interrupt FireBullet
+		if (listEnemies[i]->GetType() == OBJECT_TYPE_INTERRUPT) {
+			if (listEnemies[i]->GetState() == INTERRUPT_STATE_ACTIVE) {
+
+				CInterrupt* obj = dynamic_cast<CInterrupt*>(listEnemies[i]);
+
+				if (obj->isFinish) break;
+				if (GetTickCount64() - obj->GetLastShoot() >= 1000) {
+
+					createObjects.push_back(obj->NewBullet());
+					obj->SetLastShoot();
+				}
+			}
+		}
+	}
 	
 	for (int i = 0; i < createObjects.size(); i++)
 		coObjects.push_back(createObjects[i]);

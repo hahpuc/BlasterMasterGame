@@ -139,6 +139,7 @@
     <ClCompile Include="GX680S.cpp" />
     <ClCompile Include="HUB.cpp" />
     <ClCompile Include="Interrupt.cpp" />
+    <ClCompile Include="InterruptBullet.cpp" />
     <ClCompile Include="ItemHeal.cpp" />
     <ClCompile Include="Jason.cpp" />
     <ClCompile Include="LaserGuard.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="GX680S.h" />
     <ClInclude Include="HUB.h" />
     <ClInclude Include="Interrupt.h" />
+    <ClInclude Include="InterruptBullet.h" />
     <ClInclude Include="ItemHeal.h" />
     <ClInclude Include="Jason.h" />
     <ClInclude Include="KeyEventHandler.h" />

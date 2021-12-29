@@ -11,6 +11,7 @@
 #include "PlayScence.h"
 #include "Brick.h"
 #include "ItemHeal.h"
+#include "InterruptBullet.h"
 
 #include "SophiaMiddle.h"
 #include "SophiaRightWheel.h"
@@ -122,6 +123,13 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				itemHeal->SetState(ITEMHEAL_STATE_DIE);
 				this->ResetHeal();
 			}
+			/*else
+			if (dynamic_cast<CBulletInterrupt*>(e->obj))
+			{
+				CBulletInterrupt* bulletIterrupt = dynamic_cast<CBulletInterrupt*>(e->obj);
+				bulletIterrupt->SetState(BULLET_INTERRUPT_STATE_FINISH);
+				this->DecreaseHeal(10);
+			}*/
 			else
 			if (dynamic_cast<CPortal*>(e->obj))
 			{

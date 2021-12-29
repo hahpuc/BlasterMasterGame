@@ -90,6 +90,10 @@
 # Finish
 320000	203	155	221	173	20
 
+#---------------->  Bullet Interrupt <------------------>#
+330000	182	1496	191	1505	41
+
+
 #---------------->  Interrupt <------------------>#
 200001	400	127	421	144	40
 
@@ -197,6 +201,10 @@
 
 30009	320000	100
 
+# Bullet Interrupt
+31000	330000	100
+
+
 # -----------------> Interrupt ---------------------------#
 600	200001	100
 
@@ -237,8 +245,11 @@
 # Player
 1	400	401	402	403	404	405	406	407	408	409	410	411	412	413	414
 
-# Bullet: r1 t1 r4 t4 l1 l4
+# Bullet Sophia: r1 t1 r4 t4 l1 l4
 24	30003	30004	30005	30006	30007	30008	30009
+
+# Bullet Interrupt
+25	31000
 
 # Interrupt
 31	600
@@ -263,7 +274,9 @@
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Player , 1 = Interrupt, 2 = Bullet, 3 = BallBot, 4 = Brick, 5 = Stuka, 6 = eyelet, 7 = BallCarry, 90 = ITEMS_HEAL
+# type: 0 = Player , 1 = Interrupt, 2 = Bullet, 3 = BallBot, 4 = Brick, 5 = Stuka, 6 = eyelet, 7 = BallCarry
+# type: 90 = ITEMS_HEAL, 80 = Bullet_Interrupt
+
 # Player 
 0	1600	349	1
 

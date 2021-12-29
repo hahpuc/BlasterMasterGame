@@ -170,6 +170,9 @@
     <ClCompile Include="ItemHeal.cpp">
       <Filter>Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="InterruptBullet.cpp">
+      <Filter>Objects\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.ico">
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="ItemHeal.h">
       <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="InterruptBullet.h">
+      <Filter>Objects\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
