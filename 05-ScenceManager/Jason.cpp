@@ -84,14 +84,6 @@ void CJason::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CLaserGuard*>(e->obj))
-			{
-				CLaserGuard* laser = dynamic_cast<CLaserGuard*>(e->obj);
-				this->DecreaseHeal(10);
-				//this->GetHeal();
-			}
-			else
 			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
@@ -144,7 +136,10 @@ void CJason::Render()
 	if (this->GetState() == JASON_STATE_WALKING_TOPUP)
 		ani = JASON_ANI_WALKING_TOP_UP;
 
-	animation_set->at(ani)->Render(x, y);
+	int alpha = 255;
+	if (untouchable) alpha = 128;
+
+	animation_set->at(ani)->Render(x, y, alpha);
 
 	RenderBoundingBox();
 }

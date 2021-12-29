@@ -121,6 +121,10 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			if (dynamic_cast<CJason*>(e->obj))
 			{
 				CJason* jason = dynamic_cast<CJason*>(e->obj);
+				if (jason->GetIsUntouchable())
+					continue;
+
+				jason->StartUntouchable();
 				jason->DecreaseHeal(10);
 			}
 		}

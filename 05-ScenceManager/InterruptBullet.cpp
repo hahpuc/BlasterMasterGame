@@ -78,12 +78,24 @@ void CBulletInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->SetState(BULLET_INTERRUPT_STATE_FINISH);
 			}
 			else
-			if (dynamic_cast<CPlayer*>(e->obj))				// object is Brick
+
+			if (dynamic_cast<CPlayer*>(e->obj))
 			{
 				CPlayer* player = dynamic_cast<CPlayer*>(e->obj);
+				if (player->GetIsUntouchable())
+					continue;
+
+				player->StartUntouchable();
 				this->SetState(BULLET_INTERRUPT_STATE_FINISH);
+
 				player->DecreaseHeal(10);
 			}
+			//if (dynamic_cast<CPlayer*>(e->obj))				// object is Brick
+			//{
+			//	CPlayer* player = dynamic_cast<CPlayer*>(e->obj);
+			//	this->SetState(BULLET_INTERRUPT_STATE_FINISH);
+			//	player->DecreaseHeal(10);
+			//}
 			else
 			if (dynamic_cast<CBullet*>(e->obj))				// object is Brick
 			{

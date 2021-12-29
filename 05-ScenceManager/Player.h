@@ -44,7 +44,7 @@
 #define PLAYER_SMALL_BBOX_WIDTH				13
 #define PLAYER_SMALL_BBOX_HEIGHT			15
 
-#define PLAYER_UNTOUCHABLE_TIME				5000
+#define PLAYER_UNTOUCHABLE_TIME				1000
 
 #define FALLING_VELOCITY_UPPER_LIMITATION	0.02f
 
@@ -90,6 +90,9 @@ public:
 	void Reset();
 
 	LPANIMATION_SET GetAnimationSet() { return this->animation_set; }
+
+	int GetIsUntouchable() { return this->untouchable; }
+
 
 	// Bullet
 	CGameObject* NewBullet();

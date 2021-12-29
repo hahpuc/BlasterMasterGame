@@ -27,7 +27,7 @@
 #define JASON_BBOX_WIDTH					24
 #define JASON_BBOX_HEIGHT					32
 
-#define JASON_UNTOUCHABLE_TIME				5000
+#define JASON_UNTOUCHABLE_TIME				1000
 
 #define FALLING_VELOCITY_UPPER_LIMITATION	0.02f
 
@@ -57,6 +57,8 @@ public:
 	void Reset();
 
 	LPANIMATION_SET GetAnimationSet() { return this->animation_set; }
+
+	int GetIsUntouchable() { return this->untouchable; }
 
 	// Bullet
 	CGameObject* NewBullet();

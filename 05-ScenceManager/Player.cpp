@@ -112,10 +112,14 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<CInterrupt*>(e->obj)) 
 			{
 				CInterrupt* interrupt = dynamic_cast<CInterrupt*>(e->obj);
-				//this->GetHeal();
+
+				if (this->GetIsUntouchable())
+					continue;
+				
+				this->StartUntouchable();
 				this->DecreaseHeal(10);
 				
-			} // if Goomba
+			} 
 			else 
 			if (dynamic_cast<CItemHeal*>(e->obj))
 			{
@@ -123,13 +127,6 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				itemHeal->SetState(ITEMHEAL_STATE_DIE);
 				this->ResetHeal();
 			}
-			/*else
-			if (dynamic_cast<CBulletInterrupt*>(e->obj))
-			{
-				CBulletInterrupt* bulletIterrupt = dynamic_cast<CBulletInterrupt*>(e->obj);
-				bulletIterrupt->SetState(BULLET_INTERRUPT_STATE_FINISH);
-				this->DecreaseHeal(10);
-			}*/
 			else
 			if (dynamic_cast<CPortal*>(e->obj))
 			{

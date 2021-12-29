@@ -42,5 +42,8 @@ void CSophiaLeftWheel::Render() {
 	partX += PLAYER_BIG_BBOX_WIDTH / 2;
 	partY += PLAYER_BIG_BBOX_HEIGHT / 2;
 
-	this->animation_set->at(ani)->Render(partX + transX, partY);
+	int alpha = 255;
+	if (parent->GetIsUntouchable()) alpha = 128;
+
+	this->animation_set->at(ani)->Render(partX + transX, partY, alpha);
 }
