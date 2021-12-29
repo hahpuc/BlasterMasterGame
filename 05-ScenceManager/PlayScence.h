@@ -27,6 +27,8 @@
 #define OBJECT_TYPE_STUKA		5
 #define OBJECT_TYPE_EYELET		6
 #define OBJECT_TYPE_BALLCARRY	7
+#define OBJECT_TYPE_ITEMS_HEAL	90
+
 
 #define OBJECT_TYPE_PORTAL		50
 
@@ -41,6 +43,7 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> listEnemies;
 	vector<LPGAMEOBJECT> createObjects;
+	vector<LPGAMEOBJECT> items;
 
 	Map* map;
 
@@ -64,6 +67,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	virtual void AddItemAt(float x, float y);
 
 	CPlayer* GetPlayer() { return player; }
 

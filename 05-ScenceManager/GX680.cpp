@@ -15,6 +15,7 @@ CGX680::CGX680(float x, float y, CJason* player) {
 
 	vx = GX680_SPEED;
 	isDying = 0;
+	isAddedItem = 0;
 	SetState(GX680_STATE_STANDING);
 }
 
@@ -50,8 +51,11 @@ void CGX680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	game->GetCamPos(camx, camy);
 
 
-	if (isFinish && isDying)	// if dying and die animation finish then return
+	if (isFinish && isDying && !isAddedItem) {
+		this->AddItemWhenDie();
+		isAddedItem = 1;
 		return;
+	}
 
 	this->player->GetPosition(pX, pY);
 
@@ -112,6 +116,12 @@ void CGX680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			}
 		}
 	}
+}
+
+void CGX680::AddItemWhenDie() {
+	LPSCENE currentScene = CGame::GetInstance()->GetCurrentScene();
+	currentScene->isAddedItem = false;
+	currentScene->AddItemAt(this->x, this->y);
 }
 
 void CGX680::SetState(int state) {

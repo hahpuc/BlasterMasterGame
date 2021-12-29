@@ -10,6 +10,7 @@
 #include "GX680S.h"
 #include "LaserGuard.h"
 #include "wallMap.h"
+#include "ItemHeal.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ CDungeonPlayScene::CDungeonPlayScene(int id, LPCWSTR filePath) :
 	camera = NULL;
 	map = NULL;
 	quadtree = NULL;
+
+	isAddedItem = true;
 }
 
 /*
@@ -308,6 +311,14 @@ void CDungeonPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
+void CDungeonPlayScene::AddItemAt(float x, float y) {
+	
+	DebugOut(L"Add item at DUGEON %f, %f \n", x, y);
+
+	this->itemX = x;
+	this->itemY = y;	
+}
+
 void CDungeonPlayScene::Update(DWORD dt)
 {
 	// Delete CreateObjects
@@ -323,6 +334,16 @@ void CDungeonPlayScene::Update(DWORD dt)
 		player->CancelFireBullet();
 	}
 
+	if (!isAddedItem) {
+		CGameObject* obj = NULL;
+		obj = new CItemHeal(itemX, itemY);
+		obj->type = OBJECT_TYPE_ITEMS_HEAL;
+
+		items.push_back((CItemHeal*)obj);
+
+		isAddedItem = true;
+	}
+
 
 	// Push objects that can collide
 	vector<LPGAMEOBJECT> coObjects;
@@ -330,14 +351,14 @@ void CDungeonPlayScene::Update(DWORD dt)
 	if (quadtree != NULL)
 		quadtree->GetListObjectInCamera(coObjects, camera);
 
-	for (int i = 0; i < objects.size(); i++)
+	/*for (int i = 0; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);
 
 	for (int i = 0; i < listEnemies.size(); i++)
 		coObjects.push_back(listEnemies[i]);
 
 	for (int i = 0; i < createObjects.size(); i++)
-		coObjects.push_back(createObjects[i]);
+		coObjects.push_back(createObjects[i]);*/
 
 
 	// skip the rest if scene was already unloaded (Jason::Update might trigger PlayScene::Unload)
@@ -378,7 +399,6 @@ void CDungeonPlayScene::Render()
 	}
 
 	player->Render();
-	hub->Render();
 
 	for (int i = 0; i < wallMap.size(); ++i)
 		wallMap[i]->Render();
@@ -391,6 +411,11 @@ void CDungeonPlayScene::Render()
 
 	for (int i = 0; i < listEnemies.size(); ++i)
 		listEnemies[i]->Render();
+
+	for (int i = 0; i < items.size(); ++i)
+		items[i]->Render();
+
+	hub->Render();
 }
 
 /*
@@ -410,6 +435,9 @@ void CDungeonPlayScene::Unload()
 
 	for (int i = 0; i < wallMap.size(); ++i)
 		delete wallMap[i];
+
+	for (int i = 0; i < items.size(); ++i)
+		delete items[i];
 
 	objects.clear();
 	player = NULL;

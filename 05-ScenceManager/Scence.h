@@ -10,6 +10,9 @@ protected:
 	int id;
 	LPCWSTR sceneFilePath;
 
+	float itemX, itemY;
+	
+
 public:
 	CScene(int id, LPCWSTR filePath);
 
@@ -18,6 +21,9 @@ public:
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
+	virtual void AddItemAt(float x, float y) = 0;
+
+	bool isAddedItem;
 };
 typedef CScene* LPSCENE;
 

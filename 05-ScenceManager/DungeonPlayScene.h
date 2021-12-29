@@ -27,6 +27,7 @@
 #define OBJECT_TYPE_GX680S		5
 #define OBJECT_TYPE_LASER_GUARD	6
 #define OBJECT_TYPE_WALL_OF_MAP	7
+#define OBJECT_TYPE_ITEMS_HEAL	90
 
 #define OBJECT_TYPE_PORTAL		50
 
@@ -42,13 +43,13 @@ protected:
 	vector<LPGAMEOBJECT> listEnemies;
 	vector<LPGAMEOBJECT> createObjects;
 	vector<LPGAMEOBJECT> wallMap;
+	vector<LPGAMEOBJECT> items;
 
 	Map* map;
 
 	Camera* camera;
 	HUB* hub;
 	Quadtree* quadtree;
-
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -65,6 +66,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	virtual void AddItemAt(float x, float y);
 
 	CJason* GetPlayer() { return player; }
 

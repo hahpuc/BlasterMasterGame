@@ -141,6 +141,10 @@
 800008	220	60	230	115	80
 800009	240	60	250	115	80
 
+#---------------->  ITEMS <------------------>#
+# HEAL
+900000	104	106	120	122	20
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 #----------------> Sophia <------------------>#
@@ -222,6 +226,10 @@
 1108	800008	100
 1109	800009	100
 
+#---------------->  ITEMS <------------------>#
+# HEAL
+1200	900000	100
+
 #
 # id	ani1	ani2	ani3
 #
@@ -250,9 +258,12 @@
 # HUB
 40	1109	1108	1107	1106	1105	1104	1103	1102	1101	1100
 
+# ITEMS: HEAL
+90	1200
+
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Player , 1 = Interrupt, 2 = Bullet, 3 = BallBot, 4 = Brick, 5 = Stuka, 6 = eyelet, 7 = BallCarry
+# type: 0 = Player , 1 = Interrupt, 2 = Bullet, 3 = BallBot, 4 = Brick, 5 = Stuka, 6 = eyelet, 7 = BallCarry, 90 = ITEMS_HEAL
 # Player 
 0	1600	349	1
 

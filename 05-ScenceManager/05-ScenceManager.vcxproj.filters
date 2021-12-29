@@ -60,6 +60,9 @@
     <Filter Include="Framework\Quadtree">
       <UniqueIdentifier>{c66ff961-fbef-440e-8c6a-1e4274d6ec97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Items">
+      <UniqueIdentifier>{b7666edc-194e-49df-a580-79889244399b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="wallMap.cpp">
       <Filter>Objects\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHeal.cpp">
+      <Filter>Objects\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="wallMap.h">
       <Filter>Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHeal.h">
+      <Filter>Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

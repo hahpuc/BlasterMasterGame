@@ -69,6 +69,8 @@ public:
 	int type = -1;
 	int heal = 100;
 	bool isInserted = false;
+	int isAddedItem;
+
 
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

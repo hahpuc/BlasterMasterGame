@@ -11,6 +11,7 @@
 #include "Stuka.h"
 #include "Eyelet.h"
 #include "BallCarry.h"
+#include "ItemHeal.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	camera = NULL;
 	map = NULL;
 	quadtree = NULL;
+
+	isAddedItem = true;
 }
 
 /*
@@ -309,6 +312,13 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
+void CPlayScene::AddItemAt(float x, float y) {
+	DebugOut(L"Add item at MAP 1 %f, %f \n", x, y);
+
+	this->itemX = x;
+	this->itemY = y;
+}
+
 void CPlayScene::Update(DWORD dt)
 {
 	// Delete CreateObjects
@@ -318,10 +328,19 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	// Draw Fire Bullet
-
 	if (player->BeingFireBullet()) {
 		createObjects.push_back(player->NewBullet());
 		player->CancelFireBullet();
+	}
+
+	if (!isAddedItem) {
+		CGameObject* obj = NULL;
+		obj = new CItemHeal(itemX, itemY);
+		obj->type = OBJECT_TYPE_ITEMS_HEAL;
+
+		items.push_back((CItemHeal*)obj);
+
+		isAddedItem = true;
 	}
 
 	
@@ -390,6 +409,9 @@ void CPlayScene::Render()
 
 	for (int i = 0; i < listEnemies.size(); ++i)
 		listEnemies[i]->Render();
+
+	for (int i = 0; i < items.size(); ++i)
+		items[i]->Render();
 }
 
 /*
@@ -402,6 +424,9 @@ void CPlayScene::Unload()
 
 	for (int i = 0; i < listEnemies.size(); ++i)
 		delete listEnemies[i];
+
+	for (int i = 0; i < items.size(); ++i)
+		delete items[i];
 
 	objects.clear();
 	player = NULL;

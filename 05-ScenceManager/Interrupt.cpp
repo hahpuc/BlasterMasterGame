@@ -6,6 +6,8 @@ CInterrupt::CInterrupt()
 {
 	isDying = 0;
 	SetState(INTERRUPT_STATE_STANDING);
+	isAddedItem = 0;
+
 }
 
 CInterrupt::CInterrupt(float x, float y) {
@@ -33,6 +35,12 @@ void CInterrupt::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + INTERRUPT_BBOX_HEIGHT;
 }
 
+void CInterrupt::AddItemWhenDie() {
+	LPSCENE currentScene = CGame::GetInstance()->GetCurrentScene();
+	currentScene->isAddedItem = false;
+	currentScene->AddItemAt(this->x, this->y);
+}
+
 void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CGame* game = CGame::GetInstance();
 	float camx;
@@ -42,8 +50,11 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	game->GetCamPos(camx, camy);
 
 
-	if (isFinish && isDying)	// if dying and die animation finish then return
+	if (isFinish && isDying && !isAddedItem) {
+		this->AddItemWhenDie();
+		isAddedItem = 1;
 		return;
+	}
 
 	CGameObject::Update(dt);
 }

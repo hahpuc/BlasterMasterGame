@@ -177,12 +177,12 @@
 7	900	901	902	903
 
 # ITEMS: HEAL
-8	1200
+90	1200
 
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Player , 1 = Brick, 3 = Bullet, 4 = GX680, 5 = GX680S, 6 = LASER_GUARD, 7 = WALL_OF_MAP, 8 = ITEMS_HEAL
+# type: 0 = Player , 1 = Brick, 3 = Bullet, 4 = GX680, 5 = GX680S, 6 = LASER_GUARD, 7 = WALL_OF_MAP, 90 = ITEMS_HEAL
 # Player 
 0	99	99	2
 
