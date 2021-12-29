@@ -77,6 +77,10 @@
 60002	24	688	96	719	71
 60003	160	688	232	719	71
 
+#---------------->  ITEMS <------------------>#
+# HEAL
+900000	104	106	120	122	10
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 #---------------->  JASON <------------------>#
@@ -143,6 +147,10 @@
 902	60002	100
 903	60003	100
 
+#---------------->  ITEMS <------------------>#
+# HEAL
+1200	900000	100
+
 #
 # id	ani1	ani2	ani3
 #
@@ -168,10 +176,13 @@
 # WALL OF MAP
 7	900	901	902	903
 
+# ITEMS: HEAL
+8	1200
+
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Player , 1 = Brick, 3 = Bullet, 4 = GX680, 5 = GX680S, 6 = LASER_GUARD
+# type: 0 = Player , 1 = Brick, 3 = Bullet, 4 = GX680, 5 = GX680S, 6 = LASER_GUARD, 7 = WALL_OF_MAP, 8 = ITEMS_HEAL
 # Player 
 0	99	99	2
 

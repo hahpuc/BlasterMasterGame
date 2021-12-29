@@ -47,16 +47,21 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (count >= 180) count = 0;
 
+	int angle = 30;
+
 	if (state == RAINBOW_BULLET_STATE_FIRE)
 	{
 		switch (nxORny)
 		{
 		case false:
-			vy = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 30);
+
+			angle = rand() % 40 + 30;
+			vy = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * angle);
 			count = count++;
 			break;
 		case true:
-			vx = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * 30);
+			angle = rand() % 40 + 30;
+			vx = RAINBOW_BULLET_SPEED_WAVE * cos(PI + count * PI / 180 * angle);
 			count = count++;
 			break;
 		}
