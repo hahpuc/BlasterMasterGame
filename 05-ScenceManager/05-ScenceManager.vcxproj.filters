@@ -63,6 +63,9 @@
     <Filter Include="Objects\Items">
       <UniqueIdentifier>{b7666edc-194e-49df-a580-79889244399b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Enemies\Bomb">
+      <UniqueIdentifier>{f787eebd-aba3-47c0-8f13-406f9d67838d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="InterruptBullet.cpp">
       <Filter>Objects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Objects\Enemies\Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="InterruptBullet.h">
       <Filter>Objects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Objects\Enemies\Bomb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

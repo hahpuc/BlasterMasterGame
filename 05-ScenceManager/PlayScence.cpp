@@ -196,7 +196,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_BALLCARRY:
 	{
-		obj = new CBallCarry(x, y);
+		obj = new CBallCarry(x, y, player);
 		obj->type = OBJECT_TYPE_BALLCARRY;
 		listEnemies.push_back((CBallCarry*)obj);
 		break;
@@ -343,7 +343,6 @@ void CPlayScene::Update(DWORD dt)
 		isAddedItem = true;
 	}
 
-	
 	// Push objects that can collide
 	vector<LPGAMEOBJECT> coObjects;
 
@@ -362,14 +361,35 @@ void CPlayScene::Update(DWORD dt)
 
 				CInterrupt* obj = dynamic_cast<CInterrupt*>(listEnemies[i]);
 
-				if (obj->isFinish) break;
+				if (obj->isFinish) continue;
 				if (GetTickCount64() - obj->GetLastShoot() >= 1000) {
 
 					createObjects.push_back(obj->NewBullet());
 					obj->SetLastShoot();
 				}
+
 			}
 		}
+		//else 
+		// Ballcarry Fire bomb
+		//if (listEnemies[i]->GetType() == OBJECT_TYPE_BALLCARRY) {
+		//	if (listEnemies[i]->GetState() == BALLCARRY_STATE_ACTIVE) {
+
+		//		CBallCarry* obj = dynamic_cast<CBallCarry*>(listEnemies[i]);
+
+		//		if (obj->isFinish) continue;
+
+
+		//		if (GetTickCount64() - obj->GetLastBomb() >= 1000) {
+
+		//			createObjects.push_back(obj->NewBomb(obj->x - 20, obj->y, -player->nx));
+		//			obj->SetLastBomb();
+		//		}
+
+		//		listEnemies[i] = obj;
+		//	}
+		//}
+
 	}
 	
 	for (int i = 0; i < createObjects.size(); i++)
