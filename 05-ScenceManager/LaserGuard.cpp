@@ -14,7 +14,7 @@ CLaserGuard::CLaserGuard(float x, float y) {
 
 	vx = LaserGuard_SPEED;
 	isDying = 0;
-	SetState(LaserGuard_STATE_STANDING);
+	SetState(LaserGuard_STATE_WALKING);
 }
 
 void CLaserGuard::Render()
