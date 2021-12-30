@@ -116,10 +116,10 @@ void CJason::Render()
 				ani = JASON_ANI_IDLE_LEFT;
 		}
 		else
-		if (ny > 0)
+		if (ny < 0)
 			ani = JASON_ANI_IDLE_TOP_DOWN;
 		else
-		if (ny < 0)
+		if (ny > 0)
 			ani = JASON_ANI_IDLE_TOP_UP;
 		
 	}
@@ -164,15 +164,15 @@ void CJason::SetState(int state)
 		break;
 	case JASON_STATE_WALKING_TOPDOWN:
 		// TODO: need to check if PLAYER is *current* on a platform before allowing to jump again
-		vy = JASON_WALKING_SPEED;
-		nx = 0;
-		ny = 1;
-		vx = 0;
-		break;
-	case JASON_STATE_WALKING_TOPUP:
 		vy = -JASON_WALKING_SPEED;
 		nx = 0;
 		ny = -1;
+		vx = 0;
+		break;
+	case JASON_STATE_WALKING_TOPUP:
+		vy = JASON_WALKING_SPEED;
+		nx = 0;
+		ny = 1;
 		vx = 0;
 		break;
 
