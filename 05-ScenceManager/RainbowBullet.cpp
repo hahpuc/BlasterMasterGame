@@ -5,6 +5,7 @@
 #include "GX680.h"
 #include "GX680S.h"
 #include "LaserGuard.h"
+#include "ItemHeal.h"
 
 
 CRainbowBullet::CRainbowBullet(int nx, int ny, CJason* parent) {
@@ -139,6 +140,13 @@ void CRainbowBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				this->SetState(RAINBOW_BULLET_STATE_FINISH);
 			}
+
+			if (dynamic_cast<CItemHeal*>(e->obj))				// object is Brick
+			{
+				CItemHeal* item = dynamic_cast<CItemHeal*>(e->obj);
+				this->SetState(RAINBOW_BULLET_STATE_FINISH);
+			}
+
 		}
 	}
 }
